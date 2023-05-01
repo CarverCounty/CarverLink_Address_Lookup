@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.26/esri/copyright.txt for details.
+//>>built
+define(["exports","../../../../../core/maybe","../../../../../geometry/Circle","../../../../../support/elevationInfoUtils","../isSupportedGraphicUtils"],function(c,f,g,d,b){function e(a){return"graphics"!==a.layer?.type?{result:b.SupportedGraphicResult.GRAPHICS_LAYER_MISSING,geometry:null}:f.isNone(a.geometry)?{result:b.SupportedGraphicResult.GEOMETRY_MISSING,geometry:null}:"on-the-ground"!==d.getGraphicEffectiveElevationMode(a)&&d.hasGraphicFeatureExpressionInfo(a)?{result:b.SupportedGraphicResult.ELEVATION_MODE_UNSUPPORTED,
+geometry:null}:"point"!==a.geometry.type&&"polyline"!==a.geometry.type&&("polygon"!==a.geometry.type||a.geometry instanceof g)?{result:b.SupportedGraphicResult.GEOMETRY_TYPE_UNSUPPORTED,geometry:null}:{result:b.SupportedGraphicResult.SUPPORTED,geometry:a.geometry}}c.geometryOfSupportedGraphic=function(a){return e(a).geometry};c.isSupportedGraphic=function(a){return e(a).result};Object.defineProperty(c,Symbol.toStringTag,{value:"Module"})});

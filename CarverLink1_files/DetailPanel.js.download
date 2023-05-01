@@ -1,0 +1,255 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "esri/widgets/Widget", "esri/core/Handles", "esri/widgets/support/widget", "TemplatesCommonLib/functionality/token", "../utilites/utils", "esri/core/reactiveUtils", "ArcGISHTMLSanitizer", "TemplatesCommonLib/functionality/securityUtils", "../utilites/a11yUtils"], function (require, exports, decorators_1, Widget_1, Handles_1, widget_1, token_1, utils_1, reactiveUtils_1, ArcGISHTMLSanitizer_1, securityUtils_1, a11yUtils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    Widget_1 = __importDefault(Widget_1);
+    Handles_1 = __importDefault(Handles_1);
+    ArcGISHTMLSanitizer_1 = __importDefault(ArcGISHTMLSanitizer_1);
+    var CSS = {
+        calciteStyles: {
+            right: "right",
+            left: "left",
+            fontSize2: "font-size--2",
+            paddingTrailer: "padding-right-1",
+            panel: "panel",
+            panelNoPadding: "panel-no-padding",
+            btn: "btn",
+            btnFill: "btn-fill",
+            btnTransparent: "btn-transparent",
+            phoneHide: "phone-hide"
+        },
+        svgIcon: "svg-icon",
+        detailsHeader: "details-header",
+        detailsTitle: "details-title",
+        detailsContent: "details-content",
+        hide: "hide",
+        filter: "filter",
+        details: "detail"
+    };
+    var DetailPanel = /** @class */ (function (_super) {
+        __extends(DetailPanel, _super);
+        function DetailPanel(props) {
+            var _this = _super.call(this, props) || this;
+            //--------------------------------------------------------------------------
+            //
+            //  Properties
+            //
+            //--------------------------------------------------------------------------
+            _this.config = null;
+            _this.view = null;
+            _this.portal = null;
+            _this.content = null;
+            _this.messages = null;
+            _this.instantMessages = null;
+            _this._handles = new Handles_1.default();
+            _this._resultsPanel = document.getElementById("resultsPanel");
+            _this._sanitizer = (0, securityUtils_1.createSanitizerInstance)(ArcGISHTMLSanitizer_1.default);
+            _this.mapPanel = null;
+            return _this;
+        }
+        Object.defineProperty(DetailPanel.prototype, "state", {
+            //----------------------------------
+            //
+            //  state - readOnly
+            //
+            //----------------------------------
+            get: function () {
+                var ready = this.get("view.ready");
+                return ready ? "ready" : "loading";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DetailPanel.prototype.initialize = function () {
+            var _this = this;
+            (0, reactiveUtils_1.on)(function () { return _this.portal["credential"]; }, "token-change", function () {
+                _this._getContent();
+            });
+        };
+        DetailPanel.prototype.destroy = function () {
+            this._handles.removeAll();
+            this._handles = null;
+        };
+        DetailPanel.prototype.render = function () {
+            var infoAsModal = this.config.infoAsModal;
+            this.content = this._getContent();
+            return ((0, widget_1.tsx)("div", { class: "info-panel", bind: this }, infoAsModal ? this._renderModal() : this._renderPanel()));
+        };
+        DetailPanel.prototype._renderLocateButton = function () {
+            var _this = this;
+            var _a = this.config, infoIncludeLocation = _a.infoIncludeLocation, infoAsModal = _a.infoAsModal;
+            return infoIncludeLocation ? ((0, widget_1.tsx)("calcite-button", { class: "locate-btn", "icon-end": "gps-on", appearance: "outline", color: "inverse", alignment: "start", width: "auto", onclick: function () {
+                    var _a;
+                    _this.emit("location");
+                    if (infoAsModal) {
+                        var container = _this === null || _this === void 0 ? void 0 : _this.container;
+                        (_a = container === null || container === void 0 ? void 0 : container.children[0]) === null || _a === void 0 ? void 0 : _a.removeAttribute("open");
+                    }
+                    else {
+                        _this.hidePanel();
+                    }
+                } }, this.messages.tools.location)) : null;
+        };
+        DetailPanel.prototype._renderSocialShare = function () {
+            var _a = this.config, share = _a.share, infoAsModal = _a.infoAsModal;
+            var isTouch = (0, utils_1._isTouchDevice)();
+            if (share) {
+                document.body.classList.add("social-share");
+            }
+            else {
+                document.body.classList.remove("social-share");
+            }
+            return share ? ((0, widget_1.tsx)("div", { class: "detail-footer", key: Date.now().toString() },
+                (0, widget_1.tsx)("instant-apps-social-share", { bind: this, view: this.view, "share-url": window.location.href, "display-tip-text": "false", scale: "m", "inline-success-popover-placement": infoAsModal ? "top-start" : "auto", "share-icons-layout": "horizontal", mode: "inline", "share-text": "false" }))) : null;
+        };
+        DetailPanel.prototype._renderModal = function () {
+            return ((0, widget_1.tsx)("calcite-modal", { "aria-labelledby": "modal-title", afterCreate: function (container) {
+                    container.addEventListener("calciteModalClose", function () {
+                        var ip = document.getElementsByClassName("info-panel")[0];
+                        if (ip)
+                            ip.classList.add("close");
+                    });
+                }, docked: true, open: true },
+                (0, widget_1.tsx)("h3", { slot: "header", id: "modal-title" }, this._getTitle()),
+                (0, widget_1.tsx)("div", { slot: "content", tabindex: "0", class: this.classes(CSS.detailsContent) },
+                    (0, widget_1.tsx)("div", { innerHTML: this._sanitizer.sanitize(this.content) }),
+                    this._renderLocateButton(),
+                    this._renderSocialShare())));
+        };
+        DetailPanel.prototype._renderPanel = function () {
+            var _a = this.config, panelSize = _a.panelSize, title = _a.title;
+            var hasTitle = title === null || title === "" ? "has-title-false" : "has-title-true";
+            var isTouch = (0, utils_1._isTouchDevice)() ? "is-touch-true" : "is-touch-false";
+            var classes = this.classes(hasTitle, isTouch, "panel", "size-panel", "phone-column-6", "tablet-column-12", "column-10", "detail-panel");
+            return ((0, widget_1.tsx)("calcite-panel", { class: this.classes(classes), heading: this._getTitle(), afterCreate: (0, utils_1.updatePanelSize)(panelSize) },
+                (0, widget_1.tsx)("calcite-action", { icon: "x", bind: this, title: this.instantMessages.close, intlClose: this.instantMessages.close, "aria-label": this.instantMessages.close, onclick: this.hidePanel, color: "neutral", slot: "header-actions-end" }),
+                (0, widget_1.tsx)("div", { tabindex: "0", class: this.classes(CSS.detailsContent) },
+                    (0, widget_1.tsx)("div", { class: "info-content", innerHTML: this._sanitizer.sanitize(this.content) }),
+                    this._renderLocateButton()),
+                (0, widget_1.tsx)("div", { class: "info-footer" }, this._renderSocialShare())));
+        };
+        DetailPanel.prototype.hidePanel = function (focus) {
+            var _a, _b, _c, _d;
+            if ((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.infoAsModal)
+                return;
+            var container = this.container;
+            this._resultsPanel.classList.remove("hide");
+            container.classList.add("hide");
+            if ((_b = this === null || this === void 0 ? void 0 : this.mapPanel) === null || _b === void 0 ? void 0 : _b.isMobileView) {
+                (_d = (_c = this.mapPanel) === null || _c === void 0 ? void 0 : _c.container) === null || _d === void 0 ? void 0 : _d.classList.remove("hide");
+            }
+            var header = document.getElementById("header");
+            if (header && focus) {
+                (0, a11yUtils_1.focusFirstFocusableEl)(header);
+            }
+        };
+        DetailPanel.prototype.showPanel = function () {
+            var _a;
+            if ((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.infoAsModal)
+                return;
+            var container = this.container;
+            container.classList.remove("hide");
+            (0, utils_1.resizeResultsHeight)(container, true);
+            this._resultsPanel.classList.add("hide");
+        };
+        DetailPanel.prototype._attachToNode = function (node) {
+            var content = this;
+            node.appendChild(content);
+        };
+        DetailPanel.prototype._getTitle = function () {
+            var title = this.config.introductionTitle || null;
+            return title;
+        };
+        DetailPanel.prototype._getContent = function () {
+            var token = this.portal.get("credential.token");
+            var updatedContent = token && token !== "" && token !== undefined
+                ? (0, token_1.applyImgTokens)(this.config.introductionContent, token)
+                : this.config.introductionContent;
+            if (updatedContent ===
+                "Search for an address to learn more about the location and its surrounding area.</br>If you don't know the address, use one of these search methods: <ul><li>Click the search box and type in an address or choose <b>Use current location </b></li><li>Click within the map </li></ul></br> Results will include information about features of interest.") {
+                // if content is default update
+                updatedContent = this.messages.onboarding.content; //this.config.appBundle.onboarding.content;
+            }
+            if (!updatedContent) {
+                updatedContent = this.messages.onboarding.content;
+            }
+            return updatedContent;
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "view", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "portal", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "content", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("lookup/app/t9n/common")
+        ], DetailPanel.prototype, "messages", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("instant/../t9n/common")
+        ], DetailPanel.prototype, "instantMessages", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "modal", void 0);
+        __decorate([
+            (0, decorators_1.property)({
+                dependsOn: ["view.ready"],
+                readOnly: true
+            })
+        ], DetailPanel.prototype, "state", null);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DetailPanel.prototype, "mapPanel", void 0);
+        DetailPanel = __decorate([
+            (0, decorators_1.subclass)("app.DetailPanel")
+        ], DetailPanel);
+        return DetailPanel;
+    }(Widget_1.default));
+    exports.default = DetailPanel;
+});

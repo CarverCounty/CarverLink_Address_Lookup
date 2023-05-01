@@ -1,0 +1,50 @@
+define(["require", "exports", "esri/intl", "../baseClasses/support/domHelper"], function (require, exports, intl_1, domHelper_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.defineLocale = void 0;
+    function defineLocale(props) {
+        var config = props.config, portal = props.portal;
+        var locale = config.locale;
+        if (!locale) {
+            locale = _calculateLocale(portal);
+        }
+        intl_1.setLocale(locale);
+        domHelper_1.setPageLocale(locale);
+        domHelper_1.setPageDirection(intl_1.prefersRTL(locale) ? "rtl" : "ltr");
+        return locale;
+    }
+    exports.defineLocale = defineLocale;
+    function _calculateLocale(portal) {
+        var _a;
+        var cookie = _getCookie("arcgisLocale") || _getCookie("esri_locale");
+        // Use cookie if one exists 
+        if (cookie) {
+            return cookie;
+        }
+        else {
+            // if org use org culture
+            var isOrg = portal === null || portal === void 0 ? void 0 : portal.isOrganization;
+            if (isOrg) {
+                if (portal === null || portal === void 0 ? void 0 : portal.culture)
+                    return portal.culture;
+            }
+            else {
+                // not org use user locale if defined 
+                if ((_a = portal === null || portal === void 0 ? void 0 : portal.user) === null || _a === void 0 ? void 0 : _a.culture) {
+                    return portal.user.culture;
+                }
+            }
+            // Fallback get the base locale 
+            return intl_1.getLocale();
+        }
+    }
+    function _getCookie(name) {
+        var cookie = document.cookie;
+        var cookieNameRE = new RegExp("(?:^|; )" + _escapeRegExp(name) + "=([^;]*)");
+        var matchedCookies = cookie.match(cookieNameRE);
+        return matchedCookies ? decodeURIComponent(matchedCookies[1]) : undefined;
+    }
+    function _escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+    }
+});

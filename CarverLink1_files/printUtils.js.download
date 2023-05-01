@@ -1,0 +1,224 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "ArcGISHTMLSanitizer", "esri/widgets/ScaleBar", "TemplatesCommonLib/functionality/securityUtils"], function (require, exports, ArcGISHTMLSanitizer_1, ScaleBar_1, securityUtils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.cleanupPrintPage = exports.takeScreenshotAndPrint = exports.generateTitle = exports.renderPopupContent = exports.expandPopup = void 0;
+    ArcGISHTMLSanitizer_1 = __importDefault(ArcGISHTMLSanitizer_1);
+    ScaleBar_1 = __importDefault(ScaleBar_1);
+    function expandPopup() {
+        var _a;
+        var elements = document.getElementsByClassName("popup-block");
+        for (var i = 0; i < elements.length; i++) {
+            (_a = elements[i]) === null || _a === void 0 ? void 0 : _a.setAttribute("open", "true");
+        }
+    }
+    exports.expandPopup = expandPopup;
+    function renderPopupContent(container) {
+        // copy popup content to print div
+        var resultContainer = document.getElementById("feature-container");
+        var features = resultContainer === null || resultContainer === void 0 ? void 0 : resultContainer.getElementsByClassName("feature-group");
+        container.innerHTML = null;
+        if ((features === null || features === void 0 ? void 0 : features.length) > 0) {
+            var resultCount = document.createElement("h3");
+            resultCount.classList.add("print-results");
+            // this is just html from the app
+            resultCount.innerHTML = document.getElementById("countDiv").innerHTML;
+            container.append(resultCount);
+        }
+        var preText = document.getElementById("preText");
+        if (preText) {
+            container.append(preText.textContent);
+        }
+        for (var i = 0; i < (features === null || features === void 0 ? void 0 : features.length); i++) {
+            var popupDiv = document.createElement("div");
+            popupDiv.classList.add("popup-content", "light");
+            container.append(popupDiv);
+            var feature = features[i].cloneNode(true);
+            var children = features[i].children;
+            var title = null;
+            for (var index = 0; index < (children === null || children === void 0 ? void 0 : children.length); index++) {
+                var element = children[index];
+                if (element.getAttribute("data-title")) {
+                    title = element.getAttribute("data-title");
+                }
+            }
+            if (title) {
+                console.log("T", title);
+                var h = document.createElement("h2");
+                h.innerHTML = title;
+                popupDiv.append(h);
+            }
+            while (feature === null || feature === void 0 ? void 0 : feature.firstChild) {
+                popupDiv.append(feature.firstChild);
+            }
+        }
+        var postText = document.getElementById("postText");
+        if (postText) {
+            container.append(postText.textContent);
+        }
+    }
+    exports.renderPopupContent = renderPopupContent;
+    function generateTitle(titleText) {
+        var _a, _b;
+        var printTitleArea = document.getElementById("printTitle");
+        if (((_a = printTitleArea === null || printTitleArea === void 0 ? void 0 : printTitleArea.childNodes) === null || _a === void 0 ? void 0 : _a.length) > 0)
+            return;
+        var title = document.createElement("h1");
+        var sanitizer = (0, securityUtils_1.createSanitizerInstance)(ArcGISHTMLSanitizer_1.default);
+        title.innerHTML = (sanitizer === null || sanitizer === void 0 ? void 0 : sanitizer.sanitize(titleText)) || titleText;
+        var imageArea = document.getElementsByClassName("embed-app__header__logo");
+        if ((imageArea === null || imageArea === void 0 ? void 0 : imageArea.length) > 0) {
+            var logo = (_b = imageArea[0]) === null || _b === void 0 ? void 0 : _b.cloneNode();
+            printTitleArea.append(logo);
+        }
+        if (title)
+            printTitleArea.appendChild(title);
+    }
+    exports.generateTitle = generateTitle;
+    function takeScreenshotAndPrint(props) {
+        return __awaiter(this, void 0, void 0, function () {
+            var config, view, mapContainer, results, options;
+            return __generator(this, function (_a) {
+                cleanupPrintPage();
+                config = props.config, view = props.view;
+                if (props === null || props === void 0 ? void 0 : props.title)
+                    generateTitle(props.title);
+                mapContainer = document.getElementById("printMapContainer");
+                results = (props === null || props === void 0 ? void 0 : props.results)
+                    ? Promise.resolve(renderPopupContent(document.getElementById("printPopupInfo")))
+                    : null;
+                if (!(props === null || props === void 0 ? void 0 : props.map)) {
+                    document.body.classList.add("print-no-map");
+                    mapContainer === null || mapContainer === void 0 ? void 0 : mapContainer.classList.remove("map");
+                    return [2 /*return*/, results];
+                }
+                else {
+                    document.body.classList.remove("print-no-map");
+                    mapContainer === null || mapContainer === void 0 ? void 0 : mapContainer.classList.add("map");
+                    options = {
+                        width: view === null || view === void 0 ? void 0 : view.width,
+                        height: view === null || view === void 0 ? void 0 : view.height
+                    };
+                    return [2 /*return*/, view === null || view === void 0 ? void 0 : view.takeScreenshot(options).then(function (e) {
+                            var _a, _b, _c, _d, _e;
+                            var img = document.createElement("img");
+                            img.height = (_a = e === null || e === void 0 ? void 0 : e.data) === null || _a === void 0 ? void 0 : _a.height;
+                            img.width = (_b = e === null || e === void 0 ? void 0 : e.data) === null || _b === void 0 ? void 0 : _b.width;
+                            img.src = e.dataUrl;
+                            var mapDiv = document.createElement("div");
+                            mapDiv.classList.add("map-image-container");
+                            mapDiv.append(img);
+                            mapContainer.append(mapDiv);
+                            var scaleContainer = document.getElementById("printScalebar");
+                            scaleContainer.innerHTML = null;
+                            var scalebar = new ScaleBar_1.default({
+                                view: view,
+                                unit: ((_c = props === null || props === void 0 ? void 0 : props.portal) === null || _c === void 0 ? void 0 : _c.units) === "metric" ? (_d = props === null || props === void 0 ? void 0 : props.portal) === null || _d === void 0 ? void 0 : _d.units : "non-metric",
+                                container: document.createElement("div")
+                            });
+                            scaleContainer.append(scalebar === null || scalebar === void 0 ? void 0 : scalebar.container);
+                            if ((props === null || props === void 0 ? void 0 : props.legend) && (config === null || config === void 0 ? void 0 : config.legend)) {
+                                var legendContainer = document.getElementById("printLegend");
+                                if (props === null || props === void 0 ? void 0 : props.legend) {
+                                    var expand = props === null || props === void 0 ? void 0 : props.view.ui.find("legendExpand");
+                                    var close_1 = false;
+                                    if (!(expand === null || expand === void 0 ? void 0 : expand.expanded)) {
+                                        close_1 = true;
+                                        expand === null || expand === void 0 ? void 0 : expand.expand();
+                                    }
+                                    var container = document.createElement("div");
+                                    container.classList.add("legend-container");
+                                    var legend = (_e = document.getElementById("legendExpand_controls_content")) === null || _e === void 0 ? void 0 : _e.cloneNode(true);
+                                    if (legend === null || legend === void 0 ? void 0 : legend.firstChild) {
+                                        legendContainer.append(legend.firstChild);
+                                    }
+                                    if (close_1) {
+                                        expand === null || expand === void 0 ? void 0 : expand.collapse();
+                                    }
+                                }
+                            }
+                        })];
+                }
+                return [2 /*return*/];
+            });
+        });
+    }
+    exports.takeScreenshotAndPrint = takeScreenshotAndPrint;
+    function cleanupPrintPage() {
+        var elements = document.getElementsByClassName("print-only");
+        for (var i = 0; i < (elements === null || elements === void 0 ? void 0 : elements.length); i++) {
+            var element = elements[0];
+            element.innerHTML = null;
+        }
+        var printTitleArea = document.getElementById("printTitle");
+        if (printTitleArea === null || printTitleArea === void 0 ? void 0 : printTitleArea.innerHTML)
+            printTitleArea.innerHTML = null;
+        var legendContainer = document.getElementById("printLegend");
+        if (legendContainer === null || legendContainer === void 0 ? void 0 : legendContainer.innerHTML)
+            legendContainer.innerHTML = null;
+        var mapContainer = document.getElementById("printMapContainer");
+        if (mapContainer === null || mapContainer === void 0 ? void 0 : mapContainer.innerHTML)
+            mapContainer.innerHTML = null;
+        var popupContainer = document.getElementById("printPopupInfo");
+        if (popupContainer === null || popupContainer === void 0 ? void 0 : popupContainer.innerHTML)
+            popupContainer.innerHTML = null;
+        var scaleContainer = document.getElementById("printScalebar");
+        if (scaleContainer === null || scaleContainer === void 0 ? void 0 : scaleContainer.innerHTML)
+            scaleContainer.innerHTML = null;
+    }
+    exports.cleanupPrintPage = cleanupPrintPage;
+});

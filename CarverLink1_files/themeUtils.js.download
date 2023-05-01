@@ -1,0 +1,345 @@
+/*
+  Copyright 2019 Esri
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.​
+*/
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getBaseColors = exports.hasTheme = exports.checkCustomTheme = exports.createAndAppendStyles = exports.updateThemeConfig = exports.createSharedTheme = exports.handleFontStyles = exports.createStyles = exports.handleOldConfig = exports.handleSharedTheme = void 0;
+    //--------------------------------------------------------------------------
+    //
+    //  Public Methods
+    //
+    //--------------------------------------------------------------------------
+    function handleSharedTheme(sharedTheme, config) {
+        var applyCustomTheme = config.applyCustomTheme, customTheme = config.customTheme, enableHeaderBackground = config.enableHeaderBackground, enableHeaderColor = config.enableHeaderColor;
+        var applySharedTheme = customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme;
+        var applyPresetTheme = customTheme === null || customTheme === void 0 ? void 0 : customTheme.applyPresetTheme;
+        if (!applySharedTheme &&
+            !applyPresetTheme &&
+            (!enableHeaderBackground || !enableHeaderColor)) {
+            cleanUp();
+        }
+        if (applySharedTheme) {
+            cleanUp();
+            createStyles(config, sharedTheme);
+        }
+        if (applyPresetTheme) {
+            cleanUp();
+            if (!applyCustomTheme && !(customTheme === null || customTheme === void 0 ? void 0 : customTheme.applyPresetTheme))
+                return;
+            if (customTheme === undefined || customTheme === null)
+                return;
+            if (!(customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes))
+                return;
+            createStyles(config, customTheme);
+        }
+    }
+    exports.handleSharedTheme = handleSharedTheme;
+    function handleOldConfig(config, portal) {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var customTheme = config.customTheme, enableHeaderBackground = config.enableHeaderBackground, applySharedTheme = config.applySharedTheme, headerBackground = config.headerBackground, enableHeaderColor = config.enableHeaderColor, headerColor = config.headerColor;
+        var themeExists = customTheme === null || customTheme === "undefined" ? false : true;
+        if (!themeExists) {
+            var sharedTheme = createSharedTheme(config, portal);
+            if (applySharedTheme && sharedTheme) {
+                config.customTheme = {
+                    applySharedTheme: applySharedTheme,
+                    applyPresetTheme: false,
+                    themes: {
+                        primary: {
+                            type: "primary",
+                            background: enableHeaderBackground && headerBackground
+                                ? headerBackground
+                                : ((_b = (_a = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.themes) === null || _a === void 0 ? void 0 : _a.primary) === null || _b === void 0 ? void 0 : _b.background)
+                                    ? sharedTheme.themes.primary.background
+                                    : "#4a4a4a",
+                            text: enableHeaderColor && headerColor
+                                ? headerColor
+                                : ((_d = (_c = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.themes) === null || _c === void 0 ? void 0 : _c.primary) === null || _d === void 0 ? void 0 : _d.text)
+                                    ? sharedTheme.themes.primary.text
+                                    : "#fff",
+                        },
+                    },
+                };
+            }
+            else if (!applySharedTheme && !themeExists) {
+                if (enableHeaderBackground || enableHeaderColor) {
+                    config.customTheme = {
+                        logo: null,
+                        applySharedTheme: true,
+                        applyPresetTheme: false,
+                        themes: {
+                            primary: {
+                                type: "primary",
+                                background: enableHeaderBackground && headerBackground
+                                    ? headerBackground
+                                    : ((_f = (_e = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.themes) === null || _e === void 0 ? void 0 : _e.primary) === null || _f === void 0 ? void 0 : _f.background)
+                                        ? sharedTheme.themes.primary.background
+                                        : "#4a4a4a",
+                                text: enableHeaderColor && headerColor
+                                    ? headerColor
+                                    : ((_h = (_g = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.themes) === null || _g === void 0 ? void 0 : _g.primary) === null || _h === void 0 ? void 0 : _h.text)
+                                        ? sharedTheme.themes.primary.text
+                                        : "#fff",
+                            },
+                        },
+                    };
+                }
+            }
+        }
+    }
+    exports.handleOldConfig = handleOldConfig;
+    function createStyles(config, customTheme) {
+        var _a, _b, _c, _d;
+        var themeStyles = "";
+        if ((_a = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _a === void 0 ? void 0 : _a.primary) {
+            var primary = customTheme.themes.primary;
+            var primaryStyles = createPrimaryStyles(config, primary);
+            if (primaryStyles)
+                themeStyles += primaryStyles;
+        }
+        if ((_b = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _b === void 0 ? void 0 : _b.secondary) {
+            var secondary = (_c = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _c === void 0 ? void 0 : _c.secondary;
+            var secondaryStyles = createSecondaryStyles(config, secondary);
+            if (secondaryStyles && ((secondary === null || secondary === void 0 ? void 0 : secondary.text) || (secondary === null || secondary === void 0 ? void 0 : secondary.background)))
+                themeStyles += secondaryStyles;
+        }
+        if ((_d = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _d === void 0 ? void 0 : _d.accent) {
+            var accent = customTheme.themes.accent;
+            var accentStyles = createAccentStyles(config, accent);
+            if (accentStyles && ((accent === null || accent === void 0 ? void 0 : accent.text) || (accent === null || accent === void 0 ? void 0 : accent.background)))
+                themeStyles += accentStyles;
+        }
+        if (themeStyles)
+            createAndAppendStyles(themeStyles);
+    }
+    exports.createStyles = createStyles;
+    function handleFontStyles(config) {
+        var fontStyles = createFontStyle(config);
+        if (fontStyles !== null)
+            createAndAppendStyles(fontStyles);
+    }
+    exports.handleFontStyles = handleFontStyles;
+    function createSharedTheme(config, portal) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+        var applySharedTheme = config.applySharedTheme, customTheme = config.customTheme, enableHeaderBackground = config.enableHeaderBackground, enableHeaderColor = config.enableHeaderColor, headerColor = config.headerColor, headerBackground = config.headerBackground;
+        if (!(customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme) &&
+            customTheme !== null &&
+            customTheme !== undefined)
+            return;
+        var sharedTheme = null;
+        var portalProperties = (portal === null || portal === void 0 ? void 0 : portal.portalProperties) !== null ? true : false;
+        var headerProps = enableHeaderBackground || enableHeaderColor ? true : false;
+        if (portalProperties ||
+            headerProps ||
+            applySharedTheme ||
+            (customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme)) {
+            var theme = (_a = portal === null || portal === void 0 ? void 0 : portal.portalProperties) === null || _a === void 0 ? void 0 : _a.sharedTheme;
+            var primaryBackground = ((_c = (_b = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _b === void 0 ? void 0 : _b.primary) === null || _c === void 0 ? void 0 : _c.background)
+                ? customTheme.themes.primary.background
+                : ((_d = theme === null || theme === void 0 ? void 0 : theme.header) === null || _d === void 0 ? void 0 : _d.background) && ((_e = theme === null || theme === void 0 ? void 0 : theme.header) === null || _e === void 0 ? void 0 : _e.background) !== "no-color"
+                    ? theme.header.background
+                    : null;
+            // overwrite by header props
+            if (enableHeaderBackground && headerBackground !== null) {
+                primaryBackground = headerBackground;
+            }
+            var primaryText = ((_g = (_f = customTheme === null || customTheme === void 0 ? void 0 : customTheme.themes) === null || _f === void 0 ? void 0 : _f.primary) === null || _g === void 0 ? void 0 : _g.text)
+                ? customTheme.themes.primary.text
+                : ((_h = theme === null || theme === void 0 ? void 0 : theme.header) === null || _h === void 0 ? void 0 : _h.text) && ((_j = theme === null || theme === void 0 ? void 0 : theme.header) === null || _j === void 0 ? void 0 : _j.text) !== "no-color"
+                    ? theme.header.text
+                    : null;
+            if (enableHeaderColor && headerColor !== null) {
+                primaryText = headerColor;
+            }
+            sharedTheme = {
+                logo: (_k = theme === null || theme === void 0 ? void 0 : theme.logo) === null || _k === void 0 ? void 0 : _k.small,
+                logoLink: (_l = theme === null || theme === void 0 ? void 0 : theme.logo) === null || _l === void 0 ? void 0 : _l.link,
+                themes: {
+                    primary: {
+                        type: "primary",
+                        background: primaryBackground,
+                        text: primaryText,
+                    },
+                    secondary: {
+                        type: "secondary",
+                        background: ((_m = theme === null || theme === void 0 ? void 0 : theme.body) === null || _m === void 0 ? void 0 : _m.background) && ((_o = theme === null || theme === void 0 ? void 0 : theme.body) === null || _o === void 0 ? void 0 : _o.background) !== "no-color"
+                            ? theme.body.background
+                            : null,
+                        text: ((_p = theme === null || theme === void 0 ? void 0 : theme.body) === null || _p === void 0 ? void 0 : _p.text) && ((_q = theme === null || theme === void 0 ? void 0 : theme.body) === null || _q === void 0 ? void 0 : _q.text) !== "no-color"
+                            ? theme.body.text
+                            : null,
+                    },
+                    accent: {
+                        type: "accent",
+                        background: ((_r = theme === null || theme === void 0 ? void 0 : theme.button) === null || _r === void 0 ? void 0 : _r.background) &&
+                            ((_s = theme === null || theme === void 0 ? void 0 : theme.button) === null || _s === void 0 ? void 0 : _s.background) !== "no-color"
+                            ? theme.button.background
+                            : null,
+                        text: ((_t = theme === null || theme === void 0 ? void 0 : theme.button) === null || _t === void 0 ? void 0 : _t.text) && ((_u = theme === null || theme === void 0 ? void 0 : theme.button) === null || _u === void 0 ? void 0 : _u.text) !== "no-color"
+                            ? theme.button.text
+                            : null,
+                    },
+                },
+            };
+        }
+        return sharedTheme;
+    }
+    exports.createSharedTheme = createSharedTheme;
+    function updateThemeConfig(config) {
+        var _a, _b, _c, _d;
+        if ((config === null || config === void 0 ? void 0 : config.customTheme) !== null && (config === null || config === void 0 ? void 0 : config.customTheme) !== undefined) {
+            if (((_a = config === null || config === void 0 ? void 0 : config.customTheme) === null || _a === void 0 ? void 0 : _a.applySharedTheme) !== null &&
+                ((_b = config === null || config === void 0 ? void 0 : config.customTheme) === null || _b === void 0 ? void 0 : _b.applySharedTheme) !== undefined) {
+                config.applySharedTheme = config === null || config === void 0 ? void 0 : config.customTheme.applySharedTheme;
+            }
+            if (((_c = config === null || config === void 0 ? void 0 : config.customTheme) === null || _c === void 0 ? void 0 : _c.theme) !== null &&
+                ((_d = config === null || config === void 0 ? void 0 : config.customTheme) === null || _d === void 0 ? void 0 : _d.theme) !== undefined) {
+                config.theme = config.customTheme.theme;
+            }
+        }
+    }
+    exports.updateThemeConfig = updateThemeConfig;
+    function lightenOrDarkenColor(hex, percent) {
+        if (!hex)
+            return;
+        var usePound = false;
+        if (hex[0] === "#") {
+            hex = hex.slice(1);
+            usePound = true;
+        }
+        var num = parseInt(hex, 16);
+        var r = (num >> 16) + percent;
+        if (r > 255) {
+            r = 255;
+        }
+        else if (r < 0) {
+            r = 0;
+        }
+        var b = ((num >> 8) & 0x00ff) + percent;
+        if (b > 255) {
+            b = 255;
+        }
+        else if (b < 0) {
+            b = 0;
+        }
+        var g = (num & 0x0000ff) + percent;
+        if (g > 255) {
+            g = 255;
+        }
+        else if (g < 0) {
+            g = 0;
+        }
+        return ((usePound ? "#" : "") +
+            String("000000" + (g | (b << 8) | (r << 16)).toString(16)).slice(-6));
+    }
+    function cleanUp() {
+        var existingSheet = document.getElementById("customSheet");
+        if (existingSheet) {
+            existingSheet.disabled = true;
+            if (existingSheet === null || existingSheet === void 0 ? void 0 : existingSheet.parentNode) {
+                existingSheet.parentNode.removeChild(existingSheet);
+            }
+        }
+    }
+    function createAndAppendStyles(styles) {
+        if (styles === null)
+            return;
+        var style = document.getElementById("customSheet");
+        if (!style) {
+            style = document.createElement("style");
+            style.id = "customSheet";
+            document.head.appendChild(style);
+        }
+        var styleTextNode = document.createTextNode(styles);
+        style.appendChild(styleTextNode);
+    }
+    exports.createAndAppendStyles = createAndAppendStyles;
+    function isValidColor(color) {
+        return color && color !== "no-color" ? true : false;
+    }
+    function createFontStyle(config) {
+        var customTheme = config.customTheme;
+        var font = (customTheme === null || customTheme === void 0 ? void 0 : customTheme.font) || null;
+        return font
+            ? ".top-nav-title{\n    font-family:".concat(font, ";\n  }")
+            : null;
+    }
+    function createPrimaryStyles(config, colorValue) {
+        var theme = config.theme;
+        var baseBackground = theme === "light" ? "#fff" : "#2b2b2b";
+        var baseColor = theme === "light" ? "#6e6e6e" : "#f3f3f3";
+        var textColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.text) ? colorValue.text : baseColor;
+        var backgroundColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.background)
+            ? colorValue.background
+            : baseBackground;
+        var hover = null;
+        if (colorValue === null || colorValue === void 0 ? void 0 : colorValue.background) {
+            if (isValidColor(colorValue === null || colorValue === void 0 ? void 0 : colorValue.background)) {
+                hover = lightenOrDarkenColor(colorValue === null || colorValue === void 0 ? void 0 : colorValue.background, -25);
+            }
+        }
+        var styles = "";
+        styles += "#detailPanel svg{color:".concat(backgroundColor, ";}\n  .panel .app-header{\n      background:").concat(backgroundColor, ";\n      color:").concat(textColor, ";\n  }\n  .app-header a{color:").concat(textColor, ";}\n  #header calcite-icon{fill:").concat(textColor, "; color:").concat(textColor, ";}\n  #infoButton{--calcite-ui-foreground-1:").concat(textColor, ";}\n  ");
+        if (hover) {
+            styles += " calcite-switch{\n      --calcite-ui-brand-hover:".concat(hover, ";\n      --calcite-ui-brand:").concat(backgroundColor, ";\n       }");
+        }
+        return styles;
+    }
+    function checkCustomTheme(applyCustomTheme, customTheme) {
+        return ((applyCustomTheme && (customTheme === null || customTheme === void 0 ? void 0 : customTheme.applyPresetTheme) === undefined) ||
+            (customTheme === null || customTheme === void 0 ? void 0 : customTheme.applyPresetTheme));
+    }
+    exports.checkCustomTheme = checkCustomTheme;
+    function createAccentStyles(config, colorValue) {
+        var theme = config.theme;
+        var baseBackground = theme === "light" ? "#fff" : "#2b2b2b";
+        var baseColor = theme === "light" ? "#6e6e6e" : "#f3f3f3";
+        var textColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.text) ? colorValue.text : baseColor;
+        var backgroundColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.background)
+            ? colorValue.background
+            : baseBackground;
+        var styles = "";
+        styles += "\n  calcite-button.clear-btn{\n      --calcite-ui-brand:".concat(backgroundColor, ";\n      --calcite-ui-brand-hover:").concat(backgroundColor, ";\n      --calcite-ui-text-inverse:").concat(textColor, ";\n      --calcite-ui-brand-press:").concat(textColor, ";\n  }\n  calcite-button[appearance=\"outline\"]{\n    --calcite-ui-foreground-1:transparent;\n  }\n");
+        return styles;
+    }
+    function createSecondaryStyles(config, colorValue) {
+        var theme = config.theme;
+        var baseBackground = theme === "light" ? "#fff" : "#2b2b2b";
+        var baseColor = theme === "light" ? "#6e6e6e" : "#f3f3f3";
+        var textColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.text) ? colorValue.text : baseColor;
+        var backgroundColor = (colorValue === null || colorValue === void 0 ? void 0 : colorValue.background)
+            ? colorValue.background
+            : baseBackground;
+        var hover = null;
+        if (colorValue === null || colorValue === void 0 ? void 0 : colorValue.background) {
+            if (isValidColor(colorValue === null || colorValue === void 0 ? void 0 : colorValue.background)) {
+                hover = lightenOrDarkenColor(colorValue === null || colorValue === void 0 ? void 0 : colorValue.background, -25);
+            }
+        }
+        var styles = "";
+        styles += "\n  #filterButton, #sketchButton {\n      --calcite-ui-text-3:".concat(textColor, ";\n      --calcite-ui-brand-press:").concat(textColor, ";\n      --calcite-ui-foreground-1:").concat(backgroundColor, ";\n      border-left-color:").concat(hover, ";\n  }\n  .search-container-panel,\n  .search-container.esri-search{\n      background-color:").concat(backgroundColor, " !important;\n      border-bottom: var(--calcite-ui-border-1);\n  }\n  .toggle-panel{\n    background-color:").concat(backgroundColor, " !important;\n    color:").concat(textColor, " !important;\n  }\n  #filterButton:hover, #sketchButton:hover{\n      --calcite-ui-text-1:").concat(textColor, ";\n  }\n  .pdf-share,.toggle-panel calcite-icon {\n   --calcite-ui-icon-color:").concat(textColor, ";\n  }\n  .esri-icon-close:before,  .esri-icon-search:before, .esri-clear-search, .esri-search__submit-button,.esri-search__sources-button [class^=esri-icon-],  #detailPanel.svg-icon{\n      color:").concat(textColor, " !important;\n  }\n\n  .esri-search__form .esri-input[type=\"text\"],#filterButton,#distanceOptions, .dark .esri-search__form .esri-input[type=\"text\"],.dark #distanceOptions{\n      background-color:").concat(backgroundColor, ";\n      color:").concat(textColor, ";\n  }\n  .esri-search__form .esri-input[type=\"text\"]::placeholder, .esri-slider__max, .esri-slider__min,.esri-slider__label{\n      color:").concat(textColor, ";\n  }\n  .esri-search .esri-widget--button ,.search-container.esri-widget{\n      background-color:").concat(backgroundColor, ";\n  }\n  .light .panel-refine-results, .dark .panel-refine-results{\n      border-top-color:").concat(hover, ";\n  }\n  .dark .panel.panel-refine-results, .dark .esri-slider.esri-widget{\n      background-color:").concat(backgroundColor, ";\n      color:").concat(textColor, ";\n  }\n  .esri-slider--horizontal .esri-slider__content{\n      background-color:").concat(textColor, ";\n  }");
+        return styles;
+    }
+    function hasTheme(portal) {
+        var _a;
+        var sharedTheme = (_a = portal === null || portal === void 0 ? void 0 : portal.portalProperties) === null || _a === void 0 ? void 0 : _a.sharedTheme;
+        return !sharedTheme ? false : true;
+    }
+    exports.hasTheme = hasTheme;
+    function getBaseColors(theme) {
+        var background = "#323232";
+        var text = "#fff";
+        return { background: background, text: text };
+    }
+    exports.getBaseColors = getBaseColors;
+});

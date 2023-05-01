@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://carverlink.com/broadband-efforts/ -->
+<html lang="en-US" class="chrome chrome107" style="overflow-x: hidden;"><script data-browser="Chrome">(function g(){function C(a){if(typeof a=="number"){var b="["+a+"]";document.title.includes(b)||(document.title=document.title.concat(b),z.info("Set window title = "+document.title))}}function D(){return window.self==window.top}function E(a){var b=document.getElementsByTagName("iframe"),c=document.getElementsByTagName("frame");for(var d=0;d<b.length;d++)if(b[d].contentWindow==a){var e=F(b[d]);if(e&&typeof e.top=="number"&&typeof e.left=="number")return e}for(var d=0;d<c.length;d++)if(c[d].contentWindow==a){var e=F(c[d]);if(e&&typeof e.top=="number"&&typeof e.left=="number")return e}return z.error("getFrameBoundingClientRect(): Error in retrieving info."),{error:!0}}function F(a,b){var c=a.getBoundingClientRect(),d=1;return typeof window.devicePixelRatio=="number"&&(d=window.devicePixelRatio),b&&b.left&&b.top?{left:c.left*d+b.left,top:c.top*d+b.top,bottom:c.bottom*d+b.top,right:c.right*d+b.left,width:c.width*d,height:c.height*d}:{left:c.left*d,top:c.top*d,bottom:c.bottom*d,right:c.right*d,width:c.width*d,height:c.height*d}}function G(a){return typeof a=="string"&&a.length>0&&a.substring(0,5)!="blob:"}function H(a){if(typeof a=="string"||typeof a=="number")return a+"px"}function I(a,b){var c;if(typeof b!="string")return c;while(a){c=Object.getOwnPropertyDescriptor(a,b);if(c!==undefined)break;a=Object.getPrototypeOf(a)}return c}function J(a){return a instanceof ArrayBuffer?a instanceof Uint8Array?a:new Uint8Array(a):null}function K(a,b){console.assert(a,b)}function N(a){var b=a.target,c=b._context;c instanceof M&&c.onVideoEvent(a)}function O(a){var b,c;a===undefined?b=document.getElementsByTagName("video"):b=a.getElementsByTagName("video");for(var d=0;d<b.length;d++){var e=b[d];q.indexOf(e)==-1&&(z.info("scanVideoElements: Found new video element."),q.push(e),c=new M(e),e._context=c,o.push(c))}}function P(a){var b;if(a instanceof MediaSource){for(var c=0;c<o.length;c++)if(!!o[c]._rawVideo&&p[o[c]._rawVideo.src]===a){b=o[c];break}return!b||(b._mediaSource=a),b}return z.error("getVideoContextFromMediaSource: Media source param is NULL."),b}function Q(){s=new B,s.init(),s.subscribe(e.GET_AND_SET_FRAME_INFO,function(a,b){b&&C(b.tabId),a.respond({title:document.title,url:document.URL})}),s.subscribe(e.GET_GLOBAL_OFFSET,function(a){if(D()){var b=E(a.source);b&&b.error!==!0?a.respond({top:b.top,left:b.left}):a.respond({error:!0})}else s.query(window.parent,e.GET_GLOBAL_OFFSET,null,function(b){if(b.error){a.respond({error:!0});return}var c=E(a.source);K(c),c&&c.error!==!0?a.respond({top:b.top+c.top,left:b.left+c.left}):a.respond({error:!0})})}),s.subscribe(d.WS_ONOPEN,function(a,b){b&&typeof b.id=="number"&&u.hasOwnProperty(b.id)&&u[b.id].onopen&&u[b.id].onopen()}),s.subscribe(d.WS_ONCLOSE,function(a,b){b&&typeof b.id=="number"&&u.hasOwnProperty(b.id)&&u[b.id].onclose&&u[b.id].onclose()}),s.subscribe(d.WS_ONERROR,function(a,b){b&&typeof b.id=="number"&&u.hasOwnProperty(b.id)&&u[b.id].onerror&&u[b.id].onerror()}),s.subscribe(d.WS_ONMESSAGE,function(a,b){b&&typeof b.id=="number"&&b.e!==undefined&&u.hasOwnProperty(b.id)&&u[b.id].onmessage&&u[b.id].onmessage(b.e)})}function R(){var a=new MutationObserver(function(a){a.forEach(function(a){if(a.type==="childList"){for(var b=0;b<a.addedNodes.length;b++){var c=a.addedNodes[b];if(c.nodeType!=Node.ELEMENT_NODE)continue;c.nodeName=="VIDEO"?O():c.children&&c.children.length&&O(c)}for(var b=0;b<a.removedNodes.length;b++){var d=a.removedNodes[b];if(d.nodeType!=Node.ELEMENT_NODE)continue;if(d.nodeName=="VIDEO")z.info("observeDOMVideoNodeChanges(): Video node removed."),z.info(d);else if(d.children&&d.children.length){var e=d.getElementsByTagName("video");for(var f=0;f<e.length;f++)z.info("observeDOMVideoNodeChanges(): Video node removed."),z.info(d)}}}})});a.observe(document,{childList:!0,subtree:!0})}function S(a){r==null?(x||(x=!0,s.query(window,d.GET_ENV_INFO,null,function(a){r=a,w.forEach(function(a){a()})})),a&&w.push(a)):a&&a()}function T(){if(!!URL.createObjectURL){var a=URL.createObjectURL;URL.createObjectURL=function(b){var c;return c=a(b),z.info("createObjectURL url = "+c),p[c]=b,O(),c}}if(!!MediaSource.prototype.addSourceBuffer){var b=MediaSource.prototype.addSourceBuffer;MediaSource.prototype.addSourceBuffer=function(a){var c=b.call(this,a);if(this.videoContext===undefined){this.videoContext=P(this);if(this.videoContext===undefined)return z.error("addSourceBuffer: No videoContext found"),c}return c._context=this.videoContext,c._id=j++,c._mimeType=a,c._sentTimestampOffset=!1,this.videoContext.sendAddSourceBuffer(c),c}}!document.currentScript.dataset.browser||(v=document.currentScript.dataset.browser,v===g.CHROME&&navigator.userAgent.indexOf("Edg")>0&&(v=g.CHROMIUM_EDGE)),Q(),S(),O(),R(),z.debug("init(): "+document.URL)}const a={UNSET:0,NORMAL:1,RETRIEVE_INFO:2,PENDING:3,REDIR:4,REDIR_STOPPED:5},b={HTML5MMR_WEB_COMMAND_INVALID:0,HTML5MMR_WEB_COMMAND_DEFAULT:1,HTML5MMR_WEB_COMMAND_CREATEINSTANCE:2,HTML5MMR_WEB_COMMAND_CREATEINSTANCE_RESULT:3,HTML5MMR_WEB_COMMAND_DESTROYINSTANCE:4,HTML5MMR_WEB_COMMAND_VIDEO_CONTROL:5,HTML5MMR_WEB_COMMAND_UPDATE_OVERLAY:6,HTML5MMR_WEB_COMMAND_ADDSOURCE_BUFFER:7,HTML5MMR_WEB_COMMAND_STARTURL:8,HTML5MMR_WEB_COMMAND_STOPURL:9,HTML5MMR_WEB_COMMAND_SOURCEBUFFER_ABORT:10,HTMLMMR_WEB_COMMAND_FATAL_ERROR:12,HTMLMMR_WEB_COMMAND_UPDATE_TITLE:13,HTML5MMR_WEB_COMMAND_ADD_TEXT_TRACK:14,HTML5MMR_WEB_COMMAND_ADD_CUES:15,HTML5MMR_WEB_COMMAND_TEXT_TRACK_CHANGE:16,HTML5MMR_WEB_COMMAND_SET_TIMESTAMPOFFSET:40},c=[b.HTML5MMR_WEB_COMMAND_UPDATE_OVERLAY,b.HTMLMMR_WEB_COMMAND_UPDATE_TITLE,b.HTML5MMR_WEB_COMMAND_ADD_TEXT_TRACK,b.HTML5MMR_WEB_COMMAND_ADD_CUES,b.HTML5MMR_WEB_COMMAND_TEXT_TRACK_CHANGE],d={INVALID:0,LOG_MESSAGE:1,GET_ENV_INFO:2,SET_BROWSER_ACTION:3,WS_NEW:4,WS_ONOPEN:5,WS_ONCLOSE:6,WS_ONMESSAGE:7,WS_ONERROR:8,WS_SEND:9,WS_CLOSE:10},e={INVALID:100,GET_AND_SET_FRAME_INFO:101,GET_GLOBAL_OFFSET:102,SET_TITLE:103},f={ERROR:0,WARN:1,INFO:2,DEBUG:3},g={CHROME:"Chrome",CHROMIUM_EDGE:"Chromium_Edge",EDGE:"Edge"},h=15,i=16;var j=0,k=0,l=0,m=1,n=0,o=[],p={},q=[],r=null,s=null,t=!1,u={},v=null,w=[],x=!1,y={position:"absolute",display:"block",visibility:"visible",opacity:"1"},z={_level:f.INFO,updateLogLevel:function(a){typeof a=="string"&&typeof f[a]=="number"&&(z._level=f[a])},error:function(a){z.log("ERROR",a)},warn:function(a){z.log("WARN",a)},info:function(a){z.log("INFO",a)},debug:function(a){z.log("DEBUG",a)},log:function(a,b){try{!!console&&f[a]<=z._level&&(typeof b=="object"?(console.log(b),s.post(window,d.LOG_MESSAGE,{level:a,message:JSON.stringify(b)},null)):(console.log(a+": "+b),s.post(window,d.LOG_MESSAGE,{level:a,message:b},null)))}catch(c){}}},A=function(a){var b=null,c=this,d=!1,e=a._rawVideo;this.createControl=null,this.removeCustomControl=null,this.togglePlayPauseIcon=null,this.originalVideoStyle=null;var f=o.indexOf(a),g=function(){c.videoContainer=document.createElement("div"),c.videoContainer.id="vmw-video-container"+f,c.videoContainer.className="vmw-video-container-style"},h=function(){c.controlsDiv=document.createElement("div"),c.controlsDiv.id="vmw-controls"+f,c.controlsDiv.className="vmw-controls-style"},i=function(){c.playPauseButton=document.createElement("button"),c.playPauseButton.id="vmw-playpause"+f,c.playPauseButton.className="vmw-video-paused vmw-button-style"},j=function(){c.slider=document.createElement("div"),c.slider.className="vmw-slider",c.progressBar=document.createElement("PROGRESS"),c.progressBar.id="vmw-progressbar"+f,c.progressBar.className="vmw-video-progress",c.progressBar.max="100",c.progressBar.value=0,c.seekBar=document.createElement("INPUT"),c.seekBar.type="range",c.seekBar.id="vmw-seekbar"+f,c.seekBar.className="vmw-video-seek",c.seekBar.value="0"},k=function(){c.muteUnmuteButton=document.createElement("button"),c.muteUnmuteButton.id="vmw-muteunmute"+f,c.muteUnmuteButton.className="vmw-video-volume vmw-button-style"},l=function(){c.volumeBar=document.createElement("INPUT"),c.volumeBar.type="range",c.volumeBar.id="vmw-volumebar"+f,c.volumeBar.className="vmw-video-volumeBar",c.volumeBar.value="1",c.volumeBar.min="0",c.volumeBar.max="1",c.volumeBar.step="0.1"},m=function(){c.fullscreenButton=document.createElement("button"),c.fullscreenButton.id="vmw-fullscreen"+f,c.fullscreenButton.className="vmw-video-fullscreen vmw-button-style"},n=function(){b.parentNode.insertBefore(c.videoContainer,b),c.videoContainer.appendChild(b),c.videoContainer.appendChild(e),c.slider.appendChild(c.progressBar),c.slider.appendChild(c.seekBar),c.controlsDiv.appendChild(c.playPauseButton),c.controlsDiv.appendChild(c.slider),c.controlsDiv.appendChild(c.muteUnmuteButton),c.controlsDiv.appendChild(c.volumeBar),c.controlsDiv.appendChild(c.fullscreenButton),b.appendChild(c.controlsDiv)};this.createControl=function(d){b=d,b.classList.add("vmw-overlayElement-style"),g(),h(),i(),j(),k(),l(),m(),n(),p(),y();if(e.autoplay){var f=e.play();f!==undefined&&f.then(function(){a.sendControl("play"),c.playPauseButton.classList.add("vmw-video-playing"),c.playPauseButton.classList.remove("vmw-video-paused")}).catch(function(a){z.warn("Error while playing: "+a)})}e.muted?(c.muteUnmuteButton.classList.add("vmw-video-mute"),c.muteUnmuteButton.classList.remove("vmw-video-volume"),c.volumeBar.value=0):(c.muteUnmuteButton.classList.add("vmw-video-volume"),c.muteUnmuteButton.classList.remove("vmw-video-mute"))};var p=function(){if(t===!1){var a=document.head||document.getElementsByTagName("head")[0],b='             .vmw-video-container-style {                    position: static;                    width: 100%;                    height: 100%;                 }                                 .vmw-controls-style {                 position: absolute;                 bottom: 0;                 left: 0;                 right: 0;                 min-height: 30px;                 opacity: 0;                 padding: 10px 5px;                 background-color: black;                 background-color: rgba(0, 0, 0, 0.75);                 z-index: 2147483647;                 white-space: nowrap;                 display:flex;                 justify-content:center;                 align-items:center;                 }                                 .vmw-overlayElement-style:hover .vmw-controls-style {                    opacity: .9;                 }                                 .vmw-button-style {                 vertical-align: middle;                 background-color: transparent;                 color: white;                 margin:0 1%;                 font-size: 1.2em;                 border:0;                 cursor: pointer;                 outline:none;                 }                                 .vmw-video-paused:before {                    content: "\\25BA";                 }                                 .vmw-video-playing:before {                    content:"\\2759\\2759";                 }                                 .vmw-video-seek, .vmw-video-volumeBar {                    border-radius: 2px;                    vertical-align: middle;                    -webkit-appearance: none;                    background-color: rgba(255, 255, 255, 0.7);                    height: 1px;                    border: none;                    cursor: pointer;                    outline:none;                 }                 .vmw-video-volumeBar {                  max-width:8%;               }                               .vmw-video-seek::-webkit-slider-thumb {                    -webkit-appearance: none;                    border-radius: 50%;                    height: 8px;                    width: 8px;                    background-color: white;                    border: 0;                 }                                 .vmw-video-volumeBar::-webkit-slider-thumb {                    -webkit-appearance: none;                    border-radius: 50%;                    height: 8px;                    width: 8px;                    background-color: white;                    border: 0;                 }                                 .vmw-slider {                    position: relative;                    width: 60%;                    z-index: 0;                    margin: 0 10px;                 }                                 .vmw-video-seek {                    z-index: 3;                    position: relative;                    width: 100%;                    background-color: transparent;                 }                                 .vmw-video-progress {                    position: absolute;                    left: 0;                    top: 50%;                    width: 100%;                    pointer-events: none;                    height: 3px;                    z-index: 2;                    appearance: none;                    -webkit-appearance: none;                    border: none;                    background: rgba(255, 255, 255, 0.1);                    color: #c0392b;                 }                                 .vmw-video-progress::-webkit-progress-bar {                    background: rgba(255, 255, 255, 0.1);                 }                                 .vmw-video-progress::-webkit-progress-value {                    background: #c0392b;                 }                                 .vmw-video-mute:before {                    content: "\\1F50A";                    opacity: 0.3;                 }                                 .vmw-video-volume:before {                    content: "\\1F50A";                 }                                 .vmw-video-volumebar {                    width: 8%;                    margin: 0 1%;                 }                                 .video-full-screen {                    left : 0px;                    top : 0px;                    position: relative;                    width: 100%;                    height: 100%;                 }                                 .vmw-video-fullscreen:before {                    content: "\\2927";                 }                 .vmw-video-fullscreen-exit:before {                    content: "\\2929";                 } ';styleNode=document.createElement("style"),styleNode.type="text/css",styleNode.appendChild(document.createTextNode(b)),a.appendChild(styleNode),t=!0}},q=function(){if(e.paused){var a=e.play();a!==undefined&&a.then(function(){c.playPauseButton.classList.add("vmw-video-playing"),c.playPauseButton.classList.remove("vmw-video-paused")}).catch(function(a){z.warn("Error while playing: "+a)})}else e.pause(),c.playPauseButton.classList.add("vmw-video-paused"),c.playPauseButton.classList.remove("vmw-video-playing")};this.togglePlayPauseIcon=function(){e.paused?(c.playPauseButton.classList.add("vmw-video-paused"),c.playPauseButton.classList.remove("vmw-video-playing")):(c.playPauseButton.classList.add("vmw-video-playing"),c.playPauseButton.classList.remove("vmw-video-paused"))};var r=function(){d?document.cancelFullScreen?(document.cancelFullScreen(),s()):document.webkitCancelFullScreen&&(document.webkitCancelFullScreen(),s()):e.requestFullscreen&&e.parentNode.requestFullscreen?(e.parentNode.requestFullscreen(),A()):e.webkitRequestFullscreen&&e.parentNode.webkitRequestFullscreen&&(e.parentNode.webkitRequestFullscreen(),A())},s=function(){document.webkitCurrentFullScreenElement||(e.classList.remove("video-full-screen"),e.parentNode.style="",e.style=c.originalVideoStyle,d=!1,c.fullscreenButton.classList.add("vmw-video-fullscreen"),c.fullscreenButton.classList.remove("vmw-video-fullscreen-exit"))},u=function(){var a=0;typeof e.currentTime=="number"&&typeof e.duration=="number"&&!isNaN(e.duration)&&(a=Math.floor(e.currentTime/e.duration*100)),c.progressBar.value=a,c.seekBar.value=a};this.toggleMuteUnmuteIcon=function(a){c.volumeBar.value=a,a==0?(c.muteUnmuteButton.classList.add("vmw-video-mute"),c.muteUnmuteButton.classList.remove("vmw-video-volume")):(c.muteUnmuteButton.classList.add("vmw-video-volume"),c.muteUnmuteButton.classList.remove("vmw-video-mute"))};var v=function(){if(e.volume===0)return;e.muted?(e.muted=!1,c.muteUnmuteButton.classList.add("vmw-video-volume"),c.muteUnmuteButton.classList.remove("vmw-video-mute")):(e.muted=!0,c.muteUnmuteButton.classList.add("vmw-video-mute"),c.muteUnmuteButton.classList.remove("vmw-video-volume"))},w=function(){e.volume=parseFloat(c.volumeBar.value);if(isNaN(e.volume)){z.warn("Failed to set volume.");return}e.volume>0&&e.muted===!0&&(e.muted=!1)},x=function(){e.pause(),e.currentTime=0,c.playPauseButton.classList.add("vmw-video-paused"),c.playPauseButton.classList.remove("vmw-video-playing")},y=function(){c.playPauseButton.addEventListener("click",q,!1),c.volumeBar.addEventListener("change",w,!1),c.muteUnmuteButton.addEventListener("click",v,!1),c.fullscreenButton.addEventListener("click",r,!1),c.seekBar.addEventListener("input",function(){if(typeof e.currentTime=="number"&&typeof e.duration=="number"&&!isNaN(e.duration)){var a=e.duration*(c.seekBar.value/100);e.currentTime=a}},!1),c.seekBar.addEventListener("mousedown",function(){e.pause()},!1),c.seekBar.addEventListener("mouseup",function(){var a=e.play();a!==undefined&&a.then(function(){c.playPauseButton.classList.remove("vmw-video-paused"),c.playPauseButton.classList.add("vmw-video-playing")}).catch(function(a){z.warn("Error while playing: "+a)})},!1),["","webkit"].forEach(function(a){e.parentNode&&e.parentNode.addEventListener(a+"fullscreenchange",s,!1)}),e.addEventListener("click",q,!1),e.addEventListener("timeupdate",u,!1),e.addEventListener("ended",x,!1)},A=function(){e.parentNode.style.height="100%",e.parentNode.style.width="100%",c.originalVideoStyle=e.getAttribute("style"),e.style="visibility: hidden",e.classList.add("video-full-screen"),d=!0,c.fullscreenButton.classList.remove("vmw-video-fullscreen"),c.fullscreenButton.classList.add("vmw-video-fullscreen-exit")};this.removeCustomControl=function(){["","webkit"].forEach(function(a){e.parentNode&&e.parentNode.removeEventListener(a+"fullscreenchange",s,!1)});while(c.videoContainer.firstChild)c.videoContainer.parentNode.insertBefore(c.videoContainer.firstChild,c.videoContainer);c.videoContainer.parentNode.removeChild(c.videoContainer),e.removeEventListener("click",q,!1),e.removeEventListener("timeupdate",u,!1),e.removeEventListener("ended",x,!1)}},B=function(){var a=this,b={},c=0,d=1e3,e=null;this.post=null,this.query=null,this.subscribe=null,this.unsubscribe=null,this.init=function(){window.addEventListener("message",e,!1)},this.subscribe=function(a,d){if(typeof d!="function")return!1;var e=(c++).toString();return b[a]===undefined&&(b[a]={subscriptions:{}}),b[a].subscriptions[e]=d,!0},this.unsubscribe=function(a,c){if(b[a]&&!!c){var d=b[a].subscriptions,e=null;for(var f in d)d.hasOwnProperty(f)&&d[f]===c&&(e=f);e!==null&&delete d[e]}},this.post=function(a,b,c,d){var e=JSON.stringify({type:b,payload:c,responseKey:d,group:"html5mmr-postmessage"});a&&a.postMessage?a.postMessage(e,"*"):z.error("PostMessageHelper.post: Invalid target or Post Message support")},this.query=function(b,c,e,f){var g=null,h=d++,i=function(b,c){a.unsubscribe(h,i),f&&typeof f=="function"&&f(c)};this.subscribe(h,i),this.post(b,c,e,h)},e=function(c){try{var d=JSON.parse(c.data);if(d.type&&d.group==="html5mmr-postmessage"){c.responseKey=d.responseKey,c.respond=function(b){return a.post(c.source,c.responseKey,b)};if(b[d.type]){var e=b[d.type].subscriptions;setTimeout(function(){for(var a in e)e.hasOwnProperty(a)&&e[a](c,d.payload)},0)}}}catch(f){}}},L=function(a){var b=this;this._websocket=null,this._id=n++,this._csWebsocketRetry=!0,this._csWebsocketEnabled=!1,this.onopen=null,this.onclose=null,this.onerror=null,this.onmessage=null,this.send=null,this.close=null,u[this._id]=this,this._websocket=new WebSocket(a),this._websocket.binaryType="arraybuffer",this._websocket.onopen=function(){b._csWebsocketRetry=!1,b.onopen&&b.onopen()},this._websocket.onclose=function(){b.onclose&&b.onclose()},this._websocket.onerror=function(){b._csWebsocketRetry?(z.info("WebSocketHelper::onerror(): Retry websocket using content script."),s.post(window,d.WS_NEW,{websocketId:b._id,url:a},null),b._csWebsocketRetry=!1,b._csWebsocketEnabled=!0):b.onerror&&b.onerror()},this._websocket.onmessage=function(a){b.onmessage&&b.onmessage(a)},this.send=function(a){if(this._csWebsocketEnabled)if(a instanceof Uint8Array)a[h]=this._id,window.postMessage(a,"*");else{var b={data:a,websocketId:this._id};s.post(window,d.WS_SEND,b,null)}else this._websocket instanceof WebSocket&&this._websocket.readyState===WebSocket.OPEN?this._websocket.send(a):z.error("WebSocketHelper::send(): Failed to send data, websocket not open: "+this._id)},this.close=function(){this._csWebsocketEnabled?s.post(window,d.WS_CLOSE,{websocketId:this._id},null):this._websocket instanceof WebSocket&&this._websocket.close()}},M=function(b){var c=this,d=["loadstart","progress","suspend","pause","abort","error","emptied","stalled","loadedmetadata","loadeddata","canplay","canplaythrough","playing","waiting","seeking","seeked","ended","durationchange","timeupdate","play","pause","seeked","ratechange","resize","volumechange"],e=["loadstart","emptied","play","pause","seeked","ratechange","encrypted"];z.info("Created new VideoContext object for video with id: "+b.id),z.info(b),this._rawVideo=b,this._mediaSource=null,this._sourceBuffers={},this._state=a.NORMAL,this._cloaked=!1,this._src=null,this._webSocket=null,this._colorKey=null,this._overlayElement=null,this._clientRect=F(b),this._pendingCommands=[],this._messageQueue=[],this._title="",this._volume=0,this._muted=!1,this._poll=null,this._rawProperties={},this._overwriteProps=!1,this._overlayElementStyle=null,this._customControl=null,this._videoContextId=l++,this._videoAttrObserver=new MutationObserver(function(a){a.forEach(function(a){c.handleVideoAttrMutation(a)})}),this._overlayAttrObserver=new MutationObserver(function(a){a.forEach(function(a){c.handleOverlayAttrMutation(a)})}),e.forEach(function(a){b.addEventListener(a,N)}),this.listenForTextTracks(),this._rawVideo.paused===!1&&(z.info("Found the video already playing. Sending play command to client"),this.sendControl("play")),G(this.getRawVideoSource())&&this.onloadMovie()};return M.prototype.handleVideoAttrMutation=function(a){z.info("For video, handle mutation for attribute: "+a.attributeName);switch(a.attributeName){case"controls":this._rawVideo.controls===!1&&this._customControl instanceof A?(z.info("Detected mutation of controls. Removing custom controls"),this._customControl.removeCustomControl(),this._customControl=null,this._overlayElement.innerHTML=""):this._rawVideo.controls===!0&&this._customControl===null&&(z.info("Detected mutation of controls. Injecting custom controls"),this._customControl=new A(this),this._customControl.createControl(this._overlayElement));break;case"style":var b=this._rawVideo.getAttribute("style");if(b===null||typeof b=="string"&&!b.includes("visibility: hidden"))this._rawVideo.style.visibility="hidden";break;case"class":this._overlayElement.className=this._rawVideo.className;break;default:z.warn("No handling needed")}},M.prototype.setOverlayStyle=function(){var a=this;this._overlayElement.style.backgroundColor=this._colorKey,this._overlayElement&&Object.keys(y).forEach(function(b){a._overlayElement.style[b]!==y[b]&&(a._overlayElement.style[b]=y[b])})},M.prototype.handleOverlayAttrMutation=function(a){z.info("For overlay, handle mutation for attribute: "+a.attributeName);var b=this;switch(a.attributeName){case"style":this.setOverlayStyle();break;case"class":this._overlayElement.className.includes(this._rawVideo.className)||(this._overlayElement.className=this._rawVideo.className),this._customControl instanceof A&&this._overlayElement.classList.contains("vmw-overlayElement-style")===!1&&(this._overlayElement.className+=" vmw-overlayElement-style");break;default:z.warn("No handling needed")}},M.prototype.getRawVideoSource=function(a){return this._rawVideo.currentSrc.length>0?this._rawVideo.currentSrc:this._rawVideo.src.length>0?this._rawVideo.src:null},M.prototype.onVideoEvent=function(a){z.info("Video event = "+a.type+" source = "+this.getRawVideoSource()+" _src = "+JSON.stringify(this._src)+" videoContextId: "+this._videoContextId);switch(a.type){case"loadstart":this.onloadMovie();break;case"emptied":this.onemptiedMovie();break;case"play":case"pause":this._customControl instanceof A&&this._customControl.togglePlayPauseIcon(),this.sendControl(a.type);break;case"seeked":this.sendControl(a.type,{currentTime:this._rawVideo.currentTime});break;case"ratechange":this.sendControl(a.type,{playbackRate:this._rawVideo.playbackRate});break;case"encrypted":this.stopRedir();break;default:}},M.prototype.onloadMovie=function(){var b=this,c=this.getRawVideoSource();this._src={name:c,id:k++};switch(this._state){case a.NORMAL:this.initWebContext();break;case a.REDIR:case a.REDIR_STOPPED:this.startRedir();break;case a.RETRIEVE_INFO:case a.PENDING:break;default:z.info("onLoadMovie: Case not handled.")}},M.prototype.onemptiedMovie=function(){z.info("onemptiedMovie(): state = "+this._state+", source = "+JSON.stringify(this._src)),this._state===a.REDIR&&this.sendStopUrl(),this.clearSourceBuffers(),this._messageQueue=this._messageQueue.filter(function(a){try{return a=JSON.parse(a),c.indexOf(a.commandId)!=-1}catch(b){return!1}}),this._src=null},M.prototype.stopRedir=function(){this.clearSourceBuffers(),this._messageQueue.splice(0,this._messageQueue.length),this.stopWebContext(),this.uncloak(),this.undoOverwriteProps(),this._state=a.NORMAL,this._src=null,this.setBrowserAction(!1)},M.prototype.setBrowserAction=function(b){var c=0,e=null;if(!b)for(c=0;c<o.length;c++){e=o[c];if(e&&(e._state===a.REDIR||e._state===a.REDIR_STOPPED)){z.info("setBrowserAction(): Cannot set to action to false."),b=!0;break}}s&&(z.info("setBrowserAction(): Set browser action = "+b),s.post(window,d.SET_BROWSER_ACTION,{redir:b},null))},M.prototype.initWebContext=function(){var b=this;this._state=a.RETRIEVE_INFO,z.info("Redirection state set to RETRIEVE_INFO"),S(function(){typeof r.port=="string"&&r.port.length>0&&typeof r.clientScript=="string"&&r.clientScript.length>0?b._state===a.RETRIEVE_INFO&&b.startWebContext():(z.error("Failed to retrieve port number or the client script."),b.stopRedir())})},M.prototype.startWebContext=function(){var c=this;if(this._state!==a.RETRIEVE_INFO||!r.port)return c.stopRedir();this._state=a.PENDING,this._webSocket=new L("wss://view-localhost:"+r.port),z.info("VideoContext set to PENDING state."),this._webSocket.onclose=function(){z.info("websocket closed, resume guest playing"),c.stopRedir()},this._webSocket.onerror=function(){z.error("websocket error, resume guest playing"),c.stopRedir()},this._webSocket.onopen=function(){z.info("websocket opened, issue createInstance."),D()?(C(r.tabId),c.sendCreateInstance(document.title,document.URL)):s.query(window.top,e.GET_AND_SET_FRAME_INFO,{tabId:r.tabId},function(a){z.info("sendCreateInstance(): top title = "+a.title+" url = "+a.url),c.sendCreateInstance(a.title,a.url)})},this._webSocket.onmessage=function(a){if(typeof a.data=="string"){var d=JSON.parse(a.data);switch(d.commandId){case b.HTML5MMR_WEB_COMMAND_CREATEINSTANCE_RESULT:d.allow=="false"?(z.info("onmessage: msg.allow = false, resume stream!"),c.stopRedir()):d.colorKey?(z.info("onmessage: msg.allow = true, start the redirection!"),c._colorKey=d.colorKey,c.startRedir()):(z.info("onmessage: msg.colorkey = undefined, resume stream!"),c.stopRedir());break;case b.HTMLMMR_WEB_COMMAND_FATAL_ERROR:z.info("onmessage: fatal error on client html: "+d.message),c.stopRedir();break;default:z.error("Unknown command recieved: "+d.command)}}else a.data instanceof ArrayBuffer?z.error("onmessage: ArrayBuffer message received which is not handled."):z.error("onmessage: Message not handled.")}},M.prototype.stopWebContext=function(){if(this._webSocket==null)return;this._webSocket.onopen=null,this._webSocket.onclose=null,this._webSocket.onmessage=null,this._webSocket.onerror=null,this._webSocket.close(),this._webSocket=null},M.prototype.startRedir=function(){this._state=a.REDIR,z.info("VideoContext set to REDIR state, colorkey = "+this._colorKey),this.setBrowserAction(!0),this.sendStartUrl(),this.flush(),this.doOverwriteProps(),this.cloak()},M.prototype.doOverwriteProps=function(){try{if(this._overwriteProps===!0)return;var a=this;this._volume=this._rawVideo.volume,this._rawVideo.volume=0,this.sendControl("volumechange",{volume:this._volume}),this._rawProperties.volume=I(this._rawVideo,"volume"),Object.defineProperty(this._rawVideo,"volume",{get:function(){return a._volume},set:function(b){if(typeof b!="number"){b=parseFloat(b);if(isNaN(b)){z.warn("Failed to set volume.");return}}if(a._volume!=b){a._volume=b,a._customControl instanceof A&&a._customControl.toggleMuteUnmuteIcon(b),a.sendControl("volumechange",{volume:b});if(a._rawVideo){var c=document.createEvent("Event");c.initEvent("volumechange",!1,!0),a._rawVideo.dispatchEvent(c)}}},configurable:!0}),this._muted=this._rawVideo.muted,this.sendControl("muted",{state:this._muted}),this._rawProperties.muted=I(this._rawVideo,"muted"),Object.defineProperty(this._rawVideo,"muted",{get:function(){return a._muted},set:function(b){typeof b!="boolean"&&(b=!!b);if(a._muted!=b){a._muted=b,a._customControl instanceof A&&(a._muted===!0?a._customControl.toggleMuteUnmuteIcon(0):a._customControl.toggleMuteUnmuteIcon(a._volume)),a.sendControl("muted",{state:b});if(a._rawVideo){var c=document.createEvent("Event");c.initEvent("volumechange",!1,!0),a._rawVideo.dispatchEvent(c)}}},configurable:!0}),this._overwriteProps=!0}catch(b){z.error("doOverwriteProps(): Exception = "+b.message),this.stopRedir()}},M.prototype.undoOverwriteProps=function(){this._rawProperties.volume!==undefined&&(Object.defineProperty(this._rawVideo,"volume",this._rawProperties.volume),this._rawVideo.volume=this._volume),this._rawProperties.muted!==undefined&&(Object.defineProperty(this._rawVideo,"muted",this._rawProperties.muted),this._rawVideo.muted=this._muted),this._overwriteProps=!1},M.prototype.flush=function(){var b=this;if(this._state!=a.REDIR)return;this._messageQueue.forEach(function(a){b._webSocket.send(a)}),this._messageQueue.splice(0,this._messageQueue.length)},M.prototype.clearSourceBuffers=function(){var a=this;Object.keys(this._sourceBuffers).forEach(function(b){a._sourceBuffers[b]instanceof SourceBuffer&&(a._sourceBuffers[b]._context instanceof M&&(z.info("Clear _context property."),a._sourceBuffers[b]._context=null),a._sourceBuffers[b]._appendBuffer&&(a._sourceBuffers[b].appendBuffer=a._sourceBuffers[b]._appendBuffer),a._sourceBuffers[b]._abort&&(a._sourceBuffers[b].abort=a._sourceBuffers[b]._abort)),delete a._sourceBuffers[b]})},M.prototype.cloak=function(){var a=this;if(this._cloaked===!0)return;if(this._colorKey==null){z.error("cloak failed without colorKey");return}if(this._overlayElement==null){this._overlayElement=document.createElement("div");if(this._overlayElement==null){K(!1);return}this._overlayElement.className=this._rawVideo.className,this.setOverlayStyle(),v==="Edge"&&(this._colorKey=this._overlayElement.style.backgroundColor),this._overlayAttrObserver.observe(this._overlayElement,{attributes:!0,attributeFilter:["style","class"]});var b=["mouseout","mouseover","mouseenter","mouseleave"];b.forEach(function(b){a._overlayElement.addEventListener(b,function(b){b.preventDefault(),b.stopImmediatePropagation();var c=new MouseEvent(b.type,b);a._rawVideo.dispatchEvent(c)})})}this._rawVideo.style.visibility="hidden",this._videoAttrObserver.observe(this._rawVideo,{attributes:!0,attributeFilter:["style","class","controls"]}),this._rawVideo.parentNode&&this._rawVideo.parentNode.insertBefore(this._overlayElement,this._rawVideo),this._rawVideo.controls===!0&&(z.info("Injecting custom controls"),this._customControl=new A(this),this._customControl.createControl(this._overlayElement)),this._poll=setInterval(function(){D()?a.updateOverlay():s.query(window.parent,e.GET_GLOBAL_OFFSET,null,function(b){b.error===!0?(z.error("_poll(): GET_GLOBAL_OFFSET error. Stopping Redirection."),a.stopRedir()):a.updateOverlay(b)}),a.checkTitleChange()},500),this._cloaked=!0},M.prototype.uncloak=function(){if(!this._cloaked)return;this._overlayElement!==null&&(this._videoAttrObserver.disconnect(),this._overlayAttrObserver.disconnect(),this._rawVideo.style.visibility="",this._overlayElement
+.style.display="none",this._overlayElement.remove(),this._overlayElement=null,this._customControl instanceof A&&(this._customControl.removeCustomControl(),this._customControl=null)),clearInterval(this._poll),this._cloaked=!1},M.prototype.sendStartUrl=function(){if(this._src==null){z.error("startUrl: _src is null.");return}var a={command:"startUrl",commandId:b.HTML5MMR_WEB_COMMAND_STARTURL,id:this._src.name,videoSourceId:this._src.id,forceBinary:!0};this.sendText(a,!0)},M.prototype.sendStopUrl=function(){if(this._src==null){z.warn("stopUrl: _src is null.");return}var c={command:"stopUrl",commandId:b.HTML5MMR_WEB_COMMAND_STOPURL,id:this._src.name,videoSourceId:this._src.id,forceBinary:!0,seqNum:m++};this.sendText(c,!0),this._state=a.REDIR_STOPPED},M.prototype.sendCreateInstance=function(a,c){if(v!==g.EDGE&&v!==g.CHROME&&v!==g.CHROMIUM_EDGE)return z.error("No browser information available."),this.stopRedir();var d={command:"createInstance",commandId:b.HTML5MMR_WEB_COMMAND_CREATEINSTANCE,title:a,extensionVersion:"1.0",url:c,frameUrl:document.URL,browser:v,clientScript:r.clientScript};this._title=a,this._clientRect=F(this._rawVideo);for(var e in this._clientRect)d[e]=this._clientRect[e];this.sendText(d,!0)},M.prototype.sendAddSourceBuffer=function(a){a._appendBuffer=a.appendBuffer,a.appendBuffer=function(a){z.debug("Append buffer size = "+a.byteLength);try{this._appendBuffer(a)}catch(c){throw z.warn("appendBuffer(): Error thrown: "+c.code),c}if(!!this._context){if(this.timestampOffset!=0&&!this._sentTimestampOffset){var d={command:"addTimestampOffset",commandId:b.HTML5MMR_WEB_COMMAND_SET_TIMESTAMPOFFSET,timestampOffset:this.timestampOffset,id:this._id,forceBinary:!0};this._context.sendText(d),this._sentTimestampOffset=!0}this._context.sendBuffer(a,this._id)}},a._abort=a.abort,a.abort=function(){return!this._context||this._context.sendAbortSourceBuffer(this._id),this._abort()};var c={command:"addSourceBuffer",commandId:b.HTML5MMR_WEB_COMMAND_ADDSOURCE_BUFFER,mimeType:a._mimeType,id:a._id,forceBinary:!0};this.sendText(c),this._sourceBuffers[a._id]=a;var d=this},M.prototype.sendControl=function(a,c){var d={command:"control",commandId:b.HTML5MMR_WEB_COMMAND_VIDEO_CONTROL,control:a,param:c,seqNum:m++,forceBinary:!0};this.sendText(d)},M.prototype.checkTitleChange=function(){var a=this;D()?document.title!=this._title&&(C(r.tabId),this.sendUpdateTitle(document.title)):s.query(window.top,e.GET_AND_SET_FRAME_INFO,{tabId:r.tabId},function(b){b.title!=a._title&&a.sendUpdateTitle(b.title)})},M.prototype.sendUpdateTitle=function(a){this._title=a;var c={command:"updateTitle",commandId:b.HTMLMMR_WEB_COMMAND_UPDATE_TITLE,title:this._title};this.sendText(c)},M.prototype.updateOverlay=function(a){if(!this._overlayElement||!this._rawVideo){z.error("updateOverlay(): Invalid element references."),this.stopRedir();return}this._overlayElement.parentNode!=this._rawVideo.parentNode&&this._rawVideo.parentNode&&this._rawVideo.parentNode.insertBefore(this._overlayElement,this._rawVideo);var c=H(this._rawVideo.clientWidth);this._overlayElement.style.width!=c&&(this._overlayElement.style.width=c);var d=H(this._rawVideo.clientHeight);this._overlayElement.style.height!=d&&(this._overlayElement.style.height=d);var e=H(this._rawVideo.offsetLeft);this._overlayElement.style.left!=e&&(this._overlayElement.style.left=e);var f=H(this._rawVideo.offsetTop);this._overlayElement.style.top!=f&&(this._overlayElement.style.top=f);var g=F(this._rawVideo,a);g.right-g.left==0&&g.bottom-g.top==0&&(g=F(this._overlayElement,a));if(g.left==this._clientRect.left&&g.right==this._clientRect.right&&g.top==this._clientRect.top&&g.bottom==this._clientRect.bottom)return;this._clientRect=g;var h={command:"updateOverlay",commandId:b.HTML5MMR_WEB_COMMAND_UPDATE_OVERLAY};for(var i in g)h[i]=g[i];this.sendText(h)},M.prototype.sendBuffer=function(a,b){if(this._src===null||typeof this._src.id!="number"||typeof b!="number")return z.error("sendBuffer(): Invalid parameter to function."),this.stopRedir(),!1;var c=new Uint8Array(i);c[0]=this._src.id,c[1]=b,c[2]=0;var d=new Uint8Array(a.byteLength+i);return a instanceof ArrayBuffer&&(a=J(a)),d.set(c,0),d.set(a,i),K(d instanceof Uint8Array),this.send(d),!0},M.prototype.sendAbortSourceBuffer=function(a){var b=new Uint8Array(i);b[0]=this._src.id,b[1]=a,b[2]=1,this.send(b)},M.prototype.sendText=function(a,b){if(a==null)return;a.videoContextId=this._videoContextId,z.info(a),this.send(JSON.stringify(a),b)},M.prototype.send=function(b,c){K(b);if(c===!0){this._webSocket.send(b);return}this._state!=a.REDIR?this._messageQueue.push(b):this._webSocket.send(b)},M.prototype.listenForTextTracks=function(){var a=0,b=this;return!this._rawVideo||!this._rawVideo.textTracks?(z.error("listenForTextTracks(): Invalid raw video properties."),!1):(this._rawVideo.textTracks.onaddtrack=function(a){b.addTextTrack(a.track)},this._rawVideo.textTracks.onchange=function(a){b.textTrackChange(a)},!0)},M.prototype.addCues=function(a,c){var d=[],e=0;if(!(c instanceof TextTrackCueList))return z.info("addCues(): Invalid cues parameter"),!1;if(!(a instanceof TextTrack))return z.info("addCues(): Invalid track parameter "),!1;for(e=0;e<c.length;e++){var f={startTime:c[e].startTime,endTime:c[e].endTime,text:c[e].text};d.push(f)}var g={command:"addCues",commandId:b.HTML5MMR_WEB_COMMAND_ADD_CUES,cues:d,label:a.label,forceBinary:!0};this.sendText(g)},M.prototype.addTextTrack=function(a){var c=this,d=[],e=null,f=0;if(!!this._rawVideo&&a instanceof TextTrack){var g={command:"addTextTrack",commandId:b.HTML5MMR_WEB_COMMAND_ADD_TEXT_TRACK,kind:a.kind,label:a.label,language:a.language,mode:a.mode,id:a.id,forceBinary:!0};this.sendText(g),d=this._rawVideo.getElementsByTagName("track");for(f=0;f<d.length;f++)d[f].track==a&&(z.info("addTextTrack(): Found track element for label: "+a.label),e=d[f]);return e&&e.addEventListener("load",function h(){z.info("addTextTrack(): Track element loaded = "+this.label),c.addCues(this.track,this.track.cues),this.removeEventListener("load",h)}),!0}return z.error("addTextTrack(): Invalid TextTrack object."),!1},M.prototype.textTrackChange=function(a){var c=0;for(c=0;c<this._rawVideo.textTracks.length;c++){var d={command:"textTrackChange",commandId:b.HTML5MMR_WEB_COMMAND_TEXT_TRACK_CHANGE,label:this._rawVideo.textTracks[c].label,mode:this._rawVideo.textTracks[c].mode,forceBinary:!0};this.sendText(d)}},T(),!0})();</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",(e=>{this.persisted=e.persisted})),window.addEventListener("DOMContentLoaded",(()=>{this._preconnect3rdParties()})),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){document.hidden?e._triggerListener():(this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventHandler,{passive:!0}))),window.addEventListener("touchstart",e.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",e.touchStartHandler),document.addEventListener("visibilitychange",e.userEventHandler))}_removeUserInteractionListener(){this.triggerEvents.forEach((e=>window.removeEventListener(e,this.userEventHandler,{passive:!0}))),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(e){"HTML"!==e.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),e.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"onclick","rocket-onclick"))}_onTouchMove(e){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),e.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"rocket-onclick","onclick")}_onTouchEnd(e){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(e){e.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"rocket-onclick","onclick"),this.interceptedClicks.push(e),e.preventDefault(),e.stopPropagation(),e.stopImmediatePropagation()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach((e=>{e.target.dispatchEvent(new MouseEvent("click",{view:e.view,bubbles:!0,cancelable:!0}))}))}_renameDOMAttribute(e,t,n){e.hasAttribute&&e.hasAttribute(t)&&(event.target.setAttribute(n,event.target.getAttribute(t)),event.target.removeAttribute(t))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let e=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((t=>{if(t.hasAttribute("src")){const n=new URL(t.src).origin;n!==location.origin&&e.push({src:n,crossOrigin:t.crossOrigin||"module"===t.getAttribute("data-rocket-type")})}})),e=[...new Map(e.map((e=>[JSON.stringify(e),e]))).values()],this._batchInjectResourceHints(e,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(e){}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._replayClicks()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._littleBreath(),new Promise((t=>{const n=document.createElement("script");[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type"),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t());try{e.parentNode.replaceChild(n,e)}catch(e){t()}}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(e,t){var n=document.createDocumentFragment();e.forEach((e=>{if(e.src){const i=document.createElement("link");i.href=e.src,i.rel=t,"preconnect"!==t&&(i.as="script"),e.getAttribute&&"module"===e.getAttribute("data-rocket-type")&&(i.crossOrigin=!0),e.crossOrigin&&(i.crossOrigin=e.crossOrigin),n.appendChild(i)}})),document.head.appendChild(n)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),await this._littleBreath();const e=new Event("rocket-pageshow");e.persisted=this.persisted,window.dispatchEvent(e),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const s=document.createDocumentFragment();i.setStart(s,0),s.appendChild(i.createContextualFragment(t)),r.insertBefore(s,o)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise((e=>setTimeout(e))):new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts;e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script>
+var gform;gform||(document.addEventListener("gform_main_scripts_loaded",function(){gform.scriptsLoaded=!0}),window.addEventListener("DOMContentLoaded",function(){gform.domLoaded=!0}),gform={domLoaded:!1,scriptsLoaded:!1,initializeOnLoaded:function(o){gform.domLoaded&&gform.scriptsLoaded?o():!gform.domLoaded&&gform.scriptsLoaded?window.addEventListener("DOMContentLoaded",o):document.addEventListener("gform_main_scripts_loaded",o)},hooks:{action:{},filter:{}},addAction:function(o,n,r,t){gform.addHook("action",o,n,r,t)},addFilter:function(o,n,r,t){gform.addHook("filter",o,n,r,t)},doAction:function(o){gform.doHook("action",o,arguments)},applyFilters:function(o){return gform.doHook("filter",o,arguments)},removeAction:function(o,n){gform.removeHook("action",o,n)},removeFilter:function(o,n,r){gform.removeHook("filter",o,n,r)},addHook:function(o,n,r,t,i){null==gform.hooks[o][n]&&(gform.hooks[o][n]=[]);var e=gform.hooks[o][n];null==i&&(i=n+"_"+e.length),gform.hooks[o][n].push({tag:i,callable:r,priority:t=null==t?10:t})},doHook:function(n,o,r){var t;if(r=Array.prototype.slice.call(r,1),null!=gform.hooks[n][o]&&((o=gform.hooks[n][o]).sort(function(o,n){return o.priority-n.priority}),o.forEach(function(o){"function"!=typeof(t=o.callable)&&(t=window[t]),"action"==n?t.apply(null,r):r[0]=t.apply(null,r)})),"filter"==n)return r[0]},removeHook:function(o,n,t,i){var r;null!=gform.hooks[o][n]&&(r=(r=gform.hooks[o][n]).filter(function(o,n,r){return!!(null!=i&&i!=o.tag||null!=t&&t!=o.priority)}),gform.hooks[o][n]=r)}});
+</script>
+
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+	<!-- This site is optimized with the Yoast SEO plugin v20.6 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Broadband Efforts - Carver County - CarverLink</title><link rel="preload" as="style" href="./CarverLink1_files/css"><link rel="stylesheet" href="./CarverLink1_files/css" media="all" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Be%20Vietnam%20Pro%3A300%2C400%2C700%2C400%7CMontserrat%3A600&#038;display=swap" /></noscript>
+	<meta name="description" content="CarverLink went live in 2013. Initially, 122 miles of usable fiber, and now over 600. Click here for more details.">
+	<link rel="canonical" href="https://carverlink.com/broadband-efforts/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Broadband Efforts - Carver County - CarverLink">
+	<meta property="og:description" content="CarverLink went live in 2013. Initially, 122 miles of usable fiber, and now over 600. Click here for more details.">
+	<meta property="og:url" content="https://carverlink.com/broadband-efforts/">
+	<meta property="og:site_name" content="Carver County - CarverLink">
+	<meta property="article:modified_time" content="2023-04-30T01:07:29+00:00">
+	<meta property="og:image" content="https://carverlink.com/wp-content/uploads/2023/01/2022.jpg">
+	<meta property="og:image:width" content="958">
+	<meta property="og:image:height" content="623">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Est. reading time">
+	<meta name="twitter:data1" content="1 minute">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://carverlink.com/broadband-efforts/","url":"https://carverlink.com/broadband-efforts/","name":"Broadband Efforts - Carver County - CarverLink","isPartOf":{"@id":"https://g8r.64b.myftpupload.com/#website"},"primaryImageOfPage":{"@id":"https://carverlink.com/broadband-efforts/#primaryimage"},"image":{"@id":"https://carverlink.com/broadband-efforts/#primaryimage"},"thumbnailUrl":"https://carverlink.com/wp-content/uploads/2023/01/2022.jpg","datePublished":"2023-01-24T23:55:45+00:00","dateModified":"2023-04-30T01:07:29+00:00","description":"CarverLink went live in 2013. Initially, 122 miles of usable fiber, and now over 600. Click here for more details.","breadcrumb":{"@id":"https://carverlink.com/broadband-efforts/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://carverlink.com/broadband-efforts/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://carverlink.com/broadband-efforts/#primaryimage","url":"https://carverlink.com/wp-content/uploads/2023/01/2022.jpg","contentUrl":"https://carverlink.com/wp-content/uploads/2023/01/2022.jpg","width":958,"height":623,"caption":"Carver County - CarverLink"},{"@type":"BreadcrumbList","@id":"https://carverlink.com/broadband-efforts/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://carverlink.com/"},{"@type":"ListItem","position":2,"name":"Broadband Efforts"}]},{"@type":"WebSite","@id":"https://g8r.64b.myftpupload.com/#website","url":"https://g8r.64b.myftpupload.com/","name":"Carver County - CarverLink","description":"Carver County, Minnesota&#039;s Publicly Owned Broadband Fiber Network","publisher":{"@id":"https://g8r.64b.myftpupload.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://g8r.64b.myftpupload.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://g8r.64b.myftpupload.com/#organization","name":"Carver County - CarverLink","url":"https://g8r.64b.myftpupload.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://g8r.64b.myftpupload.com/#/schema/logo/image/","url":"https://carverlink.com/wp-content/uploads/2023/01/logo.png","contentUrl":"https://carverlink.com/wp-content/uploads/2023/01/logo.png","width":189,"height":74,"caption":"Carver County - CarverLink"},"image":{"@id":"https://g8r.64b.myftpupload.com/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link href="https://fonts.gstatic.com/" crossorigin="" rel="preconnect">
+<link rel="alternate" type="application/rss+xml" title="Carver County - CarverLink » Feed" href="https://carverlink.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Carver County - CarverLink » Comments Feed" href="https://carverlink.com/comments/feed/">
+<link rel="preload" href="https://carverlink.com/wp-content/plugins/bb-plugin/fonts/fontawesome/5.15.4/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://carverlink.com/wp-content/plugins/bb-plugin/fonts/fontawesome/5.15.4/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="./CarverLink1_files/style.min.css" media="all">
+<style id="wp-block-library-theme-inline-css">
+.wp-block-audio figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio figcaption{color:hsla(0,0%,100%,.65)}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed figcaption{color:hsla(0,0%,100%,.65)}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:hsla(0,0%,100%,.65)}.wp-block-image figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-image figcaption{color:hsla(0,0%,100%,.65)}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-top:4px solid;border-bottom:4px solid;margin-bottom:1.75em;color:currentColor}.wp-block-pullquote__citation,.wp-block-pullquote cite,.wp-block-pullquote footer{color:currentColor;text-transform:uppercase;font-size:.8125em;font-style:normal}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;position:relative;font-style:normal}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:"0 0 1em 0"}.wp-block-table thead{border-bottom:3px solid}.wp-block-table tfoot{border-top:3px solid}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table figcaption{color:hsla(0,0%,100%,.65)}.wp-block-video figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video figcaption{color:hsla(0,0%,100%,.65)}.wp-block-video{margin:0 0 1em}.wp-block-template-part.has-background{padding:1.25em 2.375em;margin-top:0;margin-bottom:0}
+</style>
+<link rel="stylesheet" id="awsm-ead-public-css" href="./CarverLink1_files/embed-public.min.css" media="all">
+<link rel="stylesheet" id="classic-theme-styles-css" href="./CarverLink1_files/classic-themes.min.css" media="all">
+<style id="global-styles-inline-css">
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="accessibility-light-css" href="./CarverLink1_files/accessibility-light.css" media="all">
+<link rel="stylesheet" id="fl-builder-layout-28-css" href="./CarverLink1_files/28-layout.css" media="all">
+<link rel="stylesheet" id="font-awesome-5-css" href="./CarverLink1_files/all.min.css" media="all">
+<link rel="stylesheet" id="font-awesome-css" href="./CarverLink1_files/v4-shims.min.css" media="all">
+<link rel="stylesheet" id="fl-builder-layout-bundle-b547d3164f0a09c4216067ecdc4035e9-css" href="./CarverLink1_files/b547d3164f0a09c4216067ecdc4035e9-layout-bundle.css" media="all">
+<link rel="stylesheet" id="wp-components-css" href="./CarverLink1_files/style.min(1).css" media="all">
+<link rel="stylesheet" id="godaddy-styles-css" href="./CarverLink1_files/latest.css" media="all">
+<link rel="stylesheet" id="gd-core-css" href="./CarverLink1_files/GD-cORe-public.css" media="all">
+<link rel="stylesheet" id="jquery-magnificpopup-css" href="./CarverLink1_files/jquery.magnificpopup.min.css" media="all">
+<link rel="stylesheet" id="base-4-css" href="./CarverLink1_files/base-4.min.css" media="all">
+<link rel="stylesheet" id="fl-automator-skin-css" href="./CarverLink1_files/skin-63f9dca67d7c3.css" media="all">
+<link rel="stylesheet" id="pp-animate-css" href="./CarverLink1_files/animate.min.css" media="all">
+
+<script src="./CarverLink1_files/jquery.min.js.download" id="jquery-core-js" defer=""></script>
+<script src="./CarverLink1_files/jquery-migrate.min.js.download" id="jquery-migrate-js" defer=""></script>
+<script data-minify="1" src="./CarverLink1_files/accessibility-light.js.download" id="accessibility-light-js" defer=""></script>
+<script data-minify="1" src="./CarverLink1_files/jscolor.js.download" id="jscolor-js" defer=""></script>
+<script src="./CarverLink1_files/imagesloaded.min.js.download" id="imagesloaded-js" defer=""></script>
+<script data-minify="1" src="./CarverLink1_files/GD-cORe-public.js.download" id="gd-core-js" defer=""></script>
+<script src="./CarverLink1_files/smush-lazy-load.min.js.download" id="smush-lazy-load-js" defer=""></script>
+<link rel="https://api.w.org/" href="https://carverlink.com/wp-json/"><link rel="alternate" type="application/json" href="https://carverlink.com/wp-json/wp/v2/pages/28"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://carverlink.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://carverlink.com/wp-includes/wlwmanifest.xml">
+<link rel="shortlink" href="https://carverlink.com/?p=28">
+<link rel="alternate" type="application/json+oembed" href="https://carverlink.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcarverlink.com%2Fbroadband-efforts%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://carverlink.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcarverlink.com%2Fbroadband-efforts%2F&amp;format=xml">
+		<script>
+			var bb_powerpack = {
+				ajaxurl: 'https://carverlink.com/wp-admin/admin-ajax.php',
+				search_term: '',
+				callback: function() {}
+			};
+		</script>
+		<meta name="generator" content="Site Kit by Google 1.99.0">		<script>
+			document.documentElement.className = document.documentElement.className.replace( 'no-js', 'js' );
+		</script>
+		<link rel="icon" href="https://carverlink.com/wp-content/uploads/2023/01/fav-1.png" sizes="32x32">
+<link rel="icon" href="https://carverlink.com/wp-content/uploads/2023/01/fav-1.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://carverlink.com/wp-content/uploads/2023/01/fav-1.png">
+<meta name="msapplication-TileImage" content="https://carverlink.com/wp-content/uploads/2023/01/fav-1.png">
+		<style id="wp-custom-css">
+			/*-------------------------------
+            TYPOGRAPHY 
+--------------------------------*/
+.gform_wrapper span.red {
+    color:#c02b0a !important;
+}
+
+body p, 
+.entry-content p, 
+.entry-content ul li,  
+.entry-content ul,  
+.entry-content a, 
+.pp-sub-heading p {
+
+}
+a:focus {
+    outline: none;
+}
+label {
+    font-size: 18px !important;
+    font-weight: bold;
+}
+.gform_wrapper.gravity-theme .ginput_container_address span {
+    flex: 0 0 33.3% !important;
+}
+
+/*--------------------------------
+            HEADER 
+---------------------------------*/
+/*---
+  Media queries? Y/N
+---*/
+
+/*-------------------------------
+            NAVIGATION
+--------------------------------*/
+/*---
+  Media queries? Y/N
+---*/
+.uabb-creative-menu .menu.uabb-creative-menu-horizontal ul.sub-menu > li a span.uabb-menu-toggle {
+    float: none;
+}
+
+/*--------------------------------
+            BUTTONS
+----------------------------------*/
+/*---
+  Media queries? Y/N
+---*/
+a.button, 
+span.fl-button-text, 
+span.uabb-button-text.uabb-creative-button-text, 
+.gform_button.button, 
+a.fl-button {
+
+}
+
+/*----------------------------------
+            FOOTER
+---------------------------------*/
+/*---
+  Media queries? Y/N
+---*/
+footer ul li a {
+	display: inline-block;
+}
+
+/*------------------------------
+            BB MODULES
+---------------------------------*/
+
+/*---
+  MODULE NAME
+  Description of section
+  Media queries? Y/N
+---*/
+
+/*------------------------------
+            PAGE SPECIFIC 
+---------------------------------*/
+
+/*---
+  PAGE NAME
+  Description of section
+  Media queries? Y/N
+---*/
+
+
+/*-------------------------------
+        LARGE SCREENS ONLY
+---------------------------------*/
+.txt-color{
+	color:#1c3f95;
+}
+.gform_wrapper.gravity-theme .gfield_description
+{
+	font-size:18px !important;
+
+}
+.gform_wrapper.gravity-theme .instruction {
+    font-size: 18px !important;
+}
+@media screen and (min-width: 769px) {
+
+}
+@media screen and (min-width:1537px) and (max-width:1880px){
+
+}
+.pp-search-form .fa-search
+{
+	color:#1a1a1a !important;
+}
+.pp-search-form button
+{
+	border-radius: 0px 25px 25px 0px !important;
+}
+/*-------------------------------
+        LAPTOP SCREEN - 1280
+---------------------------------*/
+@media screen and (min-width:1025px) and (max-width:1536px){
+
+}
+@media screen and (max-width: 1280px){ 
+
+
+}
+
+/*-------------------------------
+      IPAD PRO SCREENS - 1024
+---------------------------------*/
+
+@media screen and (max-width: 1024px){ 
+
+
+}
+
+/*--------------------------------
+    TABLET SCREENS AND SMALLER
+--------------------------------*/
+
+@media screen and (max-width: 768px){ 
+.fl-builder-content[data-overlay="1"]:not(.fl-theme-builder-header-sticky) {
+  position: relative;
+}
+.fl-col-small {
+  max-width: 100%;
+}
+#last-row > .fl-row-content-wrap {
+    background-color:#1c3f95;
+	background-size:100% !important;
+}
+	#last-row.fl-row-custom-height.fl-row-align-center .fl-row-content-wrap {
+    align-items: end;
+    justify-content: end;
+}
+	#last-row.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 1098px;
+}
+	.uabb-creative-menu-mobile-toggle:focus {
+    outline: none;
+}
+	ul#menu-main-menu-1 li a {
+    display: inline-block;
+}
+	.footer-menu ul#menu-footer-menu{
+	display:inline-block;
+}
+.footer-menu .menu.fl-menu-horizontal li{
+    border: none;
+} 
+
+.fl-builder-content .footer-contact .uabb-info-list-content-wrapper .uabb-info-list-icon {
+    margin-bottom: 5px;
+}
+	div .pp-heading-content .pp-heading .heading-title span.title-text {
+    display: inline !important;
+}
+	#hero-row.fl-row-full-height.fl-row-align-center .fl-row-content-wrap,#hero-row.fl-row-custom-height.fl-row-align-center .fl-row-content-wrap {
+    align-items: start;
+    justify-content:start;
+}
+	#hero-row{
+		color:#000;
+	}
+	.fl-node-611de31e2153d.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 385px;
+		background-size:100% !important;
+}
+	#last-row.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 1110px;
+}
+}
+
+/*-------------------------------
+        MOBILE SCREENS ONLY
+---------------------------------*/
+
+@media screen and (max-width: 480px) {
+	.fl-builder-content .fl-node-611d39e73e85b .fl-rich-text, .fl-builder-content .fl-node-611d39e73e85b .fl-rich-text *:not(b, strong) {
+    font-size: 11px;
+    text-align: center;
+}
+.fl-node-611de31e2153d.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 302px;
+    background-size: 100% !important;
+}
+	.fl-node-7dpebl0zih3v.fl-module > .fl-module-content {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#last-row.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 1077px;
+}
+	#last-row.fl-row-custom-height > .fl-row-content-wrap {
+    min-height: 0px;
+}
+	#hero-col1.fl-col[data-node] .fl-col-content {
+    padding-top:157px;
+    /* padding-top: 208px; */
+}
+	.gform_wrapper.gravity-theme .ginput_container_address span {
+    flex: 0 0 100% !important;
+}
+}
+
+		</style>
+		<link href="./CarverLink1_files/jquery.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/jquery-migrate.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/accessibility-light.js.download" rel="preload" as="script"><link href="./CarverLink1_files/jscolor.js.download" rel="preload" as="script"><link href="./CarverLink1_files/imagesloaded.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/GD-cORe-public.js.download" rel="preload" as="script"><link href="./CarverLink1_files/pdfobject.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/embed-public.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/28-layout.js.download" rel="preload" as="script"><link href="./CarverLink1_files/coblocks-animation.js.download" rel="preload" as="script"><link href="./CarverLink1_files/coblocks-tinyswiper-initializer.js.download" rel="preload" as="script"><link href="./CarverLink1_files/jquery.ba-throttle-debounce.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/ff538ebd07d87533ae66002a694a8257-layout-bundle.js.download" rel="preload" as="script"><link href="./CarverLink1_files/jquery.magnificpopup.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/theme.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/tcc_l.combined.1.0.6.min.js.download" rel="preload" as="script"><link href="./CarverLink1_files/tccl-tti.min.js.download" rel="preload" as="script"><link rel="prefetch" href="https://carverlink.com/"><link rel="prefetch" href="https://carverlink.com/contact-us/"></head>
+<body class="page-template-default page page-id-28 acl-sitelinx fl-builder fl-theme-builder-header fl-theme-builder-header-header fl-theme-builder-footer fl-theme-builder-footer-footer fl-framework-base-4 fl-preset-default fl-full-width fl-scroll-to-top fl-search-active fl-builder-breakpoint-default" itemscope="itemscope" itemtype="https://schema.org/WebPage" data-fontsize="18"><button type="button" id="sitelinx-toggle-toolbar" class="normal toolbar-right" style="top: 200px;right: 1px;background-color: #0a76be!important;border-radius: 50% !important;" data-fontsize="16"><img width="34" height="34" alt="Accessibility Icon" style="background-color: #0a76be;border-radius: 50% !important;" data-src="https://carverlink.com/wp-content/plugins/accessibility-light/assets/img/wheelchair.png" class=" ls-is-cached lazyloaded" src="./CarverLink1_files/wheelchair.png"><noscript><img width="34" height="34" src="https://carverlink.com/wp-content/plugins/accessibility-light/assets/img/wheelchair.png" alt="Accessibility Icon" style="background-color: #0a76be;border-radius: 50% !important;"></noscript></button><div id="sitelinx-black-screen"></div><div id="sitelinx-toolbar" class="sitelinx-toolbar sitelinx-toolbar-skin-1 toolbar-right" aria-hidden="true">
+	    	<button id="sitelinx-close-toolbar">
+	    		<span class="sr-only">Close the accessibility toolbar</span>
+	    		<span class="sitelinx-close-icon" aria-hidden="true"></span>
+	    	</button>
+            <div class="sitelinx-toolbar-heading">
+				<h4>Accessibility</h4>
+            </div>
+	    	<ul class="sitelinx-main-nav" style="padding-left: 30px">
+		    	<li><ul class="ul-sub"><li><p id="sitelinx_disable_animation" tabindex="-1" aria-label="sitelinx-label-general"><i class="material-icons" aria-hidden="true">visibility_off</i><span>Disable flashes</span></p></li><li><p id="sitelinx_headings_mark" tabindex="-1" aria-label="sitelinx-label-general"><i class="material-icons" aria-hidden="true">title</i><span>Mark headings</span></p></li><li><p id="sitelinx_background_color" tabindex="-1" aria-label="sitelinx-label-general"><i class="material-icons" aria-hidden="true">settings</i><span>Background Color</span></p><p class="sitelinx_background_color" style="display: none;"><input class="jscolor" value="66ccff" autocomplete="off" style="background-image: none; background-color: rgb(102, 204, 255); color: rgb(0, 0, 0);"></p></li></ul></li><li class="sitelinx-li-zoom"><ul class="ul-sub"><li><p id="sitelinx_screen_down" tabindex="-1" aria-label="sitelinx-label-resolution"><i class="material-icons" aria-hidden="true">zoom_out</i><span>Zoom out</span></p></li><li><p id="sitelinx_screen_up" tabindex="-1" aria-label="sitelinx-label-resolution"><i class="material-icons" aria-hidden="true">zoom_in</i><span>Zoom in</span></p></li></ul></li><li class="sitelinx-li-fonts"><ul class="ul-sub"><li><p id="sitelinx_fontsize_down" tabindex="-1" aria-label="sitelinx-label-fonts"><i class="material-icons" aria-hidden="true">remove_circle_outline</i><span>Decrease font</span></p></li><li><p id="sitelinx_fontsize_up" tabindex="-1" aria-label="sitelinx-label-fonts"><i class="material-icons" aria-hidden="true">add_circle_outline</i><span>Increase font</span></p></li></ul><ul class="ul-sub"><li><p id="sitelinx_readable_font" tabindex="-1" aria-label="sitelinx-label-fonts"><i class="material-icons" aria-hidden="true">spellcheck</i><span>Readable font</span></p></li></ul></li><li class="sitelinx-li-contrast"><ul class="ul-sub"><li><p id="sitelinx_contrast_bright" tabindex="-1" aria-label="sitelinx-label-contrast"><i class="material-icons" aria-hidden="true">brightness_high</i><span>Bright contrast</span></p></li><li><p id="sitelinx_contrast_dark" tabindex="-1" aria-label="sitelinx-label-contrast"><i class="material-icons" aria-hidden="true">brightness_low</i><span>Dark contrast</span></p></li></ul></li><li><ul class="ul-sub ul-2-items"><li><p id="sitelinx_links_underline" tabindex="-1" aria-label="sitelinx-label-links"><i class="material-icons" aria-hidden="true">format_underlined</i><span>Underline links</span></p></li><li><p id="sitelinx_links_mark" tabindex="-1" aria-label="sitelinx-label-links"><i class="material-icons" aria-hidden="true">font_download</i><span>Mark links</span></p></li></ul></li><li class="sitelinx-li-reset"><ul class="ul-sub ul-general"><li><p id="sitelinx-reset" tabindex="-1" title="Reset all options"><span class="sr-only">Reset all options</span><i class="material-icons" aria-hidden="true">cached</i></p></li><li class="sitelinx-logolight"><a href="https://sitelinx.co.il/" rel="noreferrer noopener" target="_blank"><img alt="Accessibility Light" height="21" width="80" data-src="https://carverlink.com/wp-content/plugins/accessibility-light/assets/img/accessibility-light-logolight80.png" class="hover-off ls-is-cached lazyloaded" src="./CarverLink1_files/accessibility-light-logolight80.png"><noscript><img class="hover-off" src="https://carverlink.com/wp-content/plugins/accessibility-light/assets/img/accessibility-light-logolight80.png" alt="Accessibility Light" height="21" width="80"></noscript></a></li></ul></li>	    	</ul>
+	    </div>
+<div id="sitelinx-body-wrap"><a aria-label="Skip to content" class="fl-screen-reader-text" href="https://carverlink.com/broadband-efforts/#fl-main-content" data-fontsize="18">Skip to content</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 0.49803921568627"></fefuncr><fefuncg type="table" tableValues="0 0.49803921568627"></fefuncg><fefuncb type="table" tableValues="0 0.49803921568627"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 0.27843137254902"></fefuncg><fefuncb type="table" tableValues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 0"></fefuncr><fefuncg type="table" tableValues="0 0.64705882352941"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.78039215686275 1"></fefuncr><fefuncg type="table" tableValues="0 0.94901960784314"></fefuncg><fefuncb type="table" tableValues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.098039215686275 1"></fefuncr><fefuncg type="table" tableValues="0 0.66274509803922"></fefuncg><fefuncb type="table" tableValues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><div class="fl-page">
+	<header class="fl-builder-content fl-builder-content-937 fl-builder-global-templates-locked" data-post-id="937" data-type="header" data-sticky="0" data-sticky-on="" data-sticky-breakpoint="medium" data-shrink="0" data-overlay="0" data-overlay-bg="transparent" data-shrink-image-height="50px" role="banner" itemscope="itemscope" itemtype="http://schema.org/WPHeader"><div id="hero-row" class="fl-row fl-row-full-width fl-row-bg-color fl-node-iy9sonz0pqv7 fl-row-custom-height fl-row-align-center headmain" data-node="iy9sonz0pqv7">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content">
+		
+<div class="fl-col-group fl-node-t9fak1yeq6c4 fl-col-group-equal-height fl-col-group-align-center fl-col-group-custom-width" data-node="t9fak1yeq6c4">
+			<div id="h-col1" class="fl-col fl-node-mgbvdh2y06ru fl-col-small fl-col-has-cols" data-node="mgbvdh2y06ru">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-8aeqx9gh4k62 fl-visible-desktop-medium" data-node="8aeqx9gh4k62">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-left pp-photo-align-responsive-center" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full ls-is-cached lazyloaded" src="./CarverLink1_files/1.png" sizes="(max-width: 1199px) 100vw, 1199px" srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async" class="pp-photo-img wp-image-1412 size-full" src="https://carverlink.com/wp-content/uploads/2021/08/1.png" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" sizes="(max-width: 1199px) 100vw, 1199px"  /></noscript>
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+
+<div class="fl-col-group fl-node-7ajhkqwsyox2 fl-col-group-nested fl-col-group-custom-width" data-node="7ajhkqwsyox2">
+			<div class="fl-col fl-node-rmuz6qbn9esw fl-visible-mobile" data-node="rmuz6qbn9esw">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-si39pc4vtzmb fl-visible-mobile" data-node="si39pc4vtzmb">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-center" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async" class="pp-photo-img wp-image-1412 size-full" src="https://carverlink.com/wp-content/uploads/2021/08/1.png" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" sizes="(max-width: 1199px) 100vw, 1199px"  /></noscript>
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+</div>
+</div>
+			<div class="fl-col fl-node-3c2e8gbwihua fl-col-small" data-node="3c2e8gbwihua">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-rich-text fl-node-gy6efqnds24o" data-node="gy6efqnds24o">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<p data-fontsize="18">Carver County, Minnesota's<br>
+Publicly Owned Broadband Fiber Network</p>
+</div>
+	</div>
+</div>
+</div>
+</div>
+			<div id="h-col2" class="fl-col fl-node-6vt9dmpzo2lg fl-col-small" data-node="6vt9dmpzo2lg">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-search-form fl-node-0274kiteus5y" data-node="0274kiteus5y">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-search-form-wrap pp-search-form--style-minimal pp-search-form--button-type-icon">
+	<form class="pp-search-form" role="search" action="https://carverlink.com/" method="get">
+				<div class="pp-search-form__container">
+							<div class="pp-search-form__icon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span class="pp-screen-reader-text">Search</span>
+				</div>
+										<input placeholder="Search" class="pp-search-form__input" type="search" name="s" title="Search" value="" data-fontsize="18">
+											</div>
+			</form>
+</div>	</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+<div class="fl-row fl-row-full-width fl-row-bg-color fl-node-zma85bw3jfld" data-node="zma85bw3jfld">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content" style="position: relative;">
+		
+<div class="fl-col-group fl-node-cyij4z39arwo" data-node="cyij4z39arwo">
+			<div class="fl-col fl-node-q2s0aefgjuy4" data-node="q2s0aefgjuy4">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-uabb-advanced-menu fl-node-j0er7wa62by5 menu" data-node="j0er7wa62by5">
+	<div class="fl-module-content fl-node-content">
+			<div class="uabb-creative-menu
+	 uabb-creative-menu-accordion-collapse	uabb-menu-default">
+		<div class="uabb-creative-menu-mobile-toggle-container"><div class="uabb-creative-menu-mobile-toggle hamburger" tabindex="0"><div class="uabb-svg-container"><svg version="1.1" class="hamburger-menu" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+<rect class="uabb-hamburger-menu-top" width="50" height="10"></rect>
+<rect class="uabb-hamburger-menu-middle" y="20" width="50" height="10"></rect>
+<rect class="uabb-hamburger-menu-bottom" y="40" width="50" height="10"></rect>
+</svg>
+</div></div></div>			<div class="uabb-clear"></div>
+					<ul id="menu-main-menu" class="menu uabb-creative-menu-horizontal uabb-toggle-arrows"><li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/" data-fontsize="18"><span class="menu-item-text">Home</span></a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/connect-up-carver/" data-fontsize="18"><span class="menu-item-text">Connect Up Carver</span></a></li>
+<li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-28 current_page_item uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/broadband-efforts/" data-fontsize="18"><span class="menu-item-text">Broadband Efforts</span></a></li>
+<li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/coverage-area/" data-fontsize="18"><span class="menu-item-text">Coverage Area</span></a></li>
+<li id="menu-item-25" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/about-us/" data-fontsize="18"><span class="menu-item-text">About Us</span></a></li>
+<li id="menu-item-35" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/contact-us/" data-fontsize="18"><span class="menu-item-text">Contact Us</span></a></li>
+</ul>	</div>
+
+	<div class="uabb-creative-menu-mobile-toggle-container"><div class="uabb-creative-menu-mobile-toggle hamburger" tabindex="0"><div class="uabb-svg-container"><svg version="1.1" class="hamburger-menu" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+<rect class="uabb-hamburger-menu-top" width="50" height="10"></rect>
+<rect class="uabb-hamburger-menu-middle" y="20" width="50" height="10"></rect>
+<rect class="uabb-hamburger-menu-bottom" y="40" width="50" height="10"></rect>
+</svg>
+</div></div></div>			<div class="uabb-creative-menu
+			 uabb-creative-menu-accordion-collapse			off-canvas">
+				<div class="uabb-clear"></div>
+				<div class="uabb-off-canvas-menu uabb-menu-right"> <div class="uabb-menu-close-btn">×</div>						<ul id="menu-main-menu-1" class="menu uabb-creative-menu-horizontal uabb-toggle-arrows"><li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/" data-fontsize="18"><span class="menu-item-text">Home</span></a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/connect-up-carver/" data-fontsize="18"><span class="menu-item-text">Connect Up Carver</span></a></li>
+<li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-28 current_page_item uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/broadband-efforts/" data-fontsize="18"><span class="menu-item-text">Broadband Efforts</span></a></li>
+<li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/coverage-area/" data-fontsize="18"><span class="menu-item-text">Coverage Area</span></a></li>
+<li id="menu-item-25" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/about-us/" data-fontsize="18"><span class="menu-item-text">About Us</span></a></li>
+<li id="menu-item-35" class="menu-item menu-item-type-post_type menu-item-object-page uabb-creative-menu uabb-cm-style"><a href="https://carverlink.com/contact-us/" data-fontsize="18"><span class="menu-item-text">Contact Us</span></a></li>
+</ul>				</div>
+			</div>
+				</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+</header><div class="uabb-js-breakpoint" style="display: none;"></div>	<div id="fl-main-content" class="fl-page-content" itemprop="mainContentOfPage" role="main">
+
+		
+<div class="fl-content-full container">
+	<div class="row">
+		<div class="fl-content col-md-12">
+			<article class="fl-post post-28 page type-page status-publish has-post-thumbnail hentry" id="fl-post-28" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+
+			<div class="fl-post-content clearfix" itemprop="text">
+		<div class="fl-builder-content fl-builder-content-28 fl-builder-content-primary fl-builder-global-templates-locked" data-post-id="28"><div class="fl-row fl-row-fixed-width fl-row-bg-color fl-node-yr8zhocwmda0" data-node="yr8zhocwmda0">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content">
+		
+<div class="fl-col-group fl-node-uct6y18hp54s" data-node="uct6y18hp54s">
+			<div class="fl-col fl-node-gcedqyvs2l78" data-node="gcedqyvs2l78">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-rich-text fl-node-s8g475z63vnf" data-node="s8g475z63vnf">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<p data-fontsize="18">The map below is accurate as of October 2022. We are working diligently to update the map with new and updated information so please use it appropriately.</p>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-dpevtraqh9js" data-node="dpevtraqh9js">
+			<div class="fl-col fl-node-zvery8uc67sf" data-node="zvery8uc67sf">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-rich-text fl-node-mri9ntdxpwec" data-node="mri9ntdxpwec">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-45yz9mvpwq2h fl-col-group-custom-width" data-node="45yz9mvpwq2h">
+			<div class="fl-col fl-node-kitg0jd6zuol" data-node="kitg0jd6zuol">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-rich-text fl-node-z1dl2g7acp5y" data-node="z1dl2g7acp5y">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<p data-fontsize="18">
+	<!-- <iframe style="border: 0;" src="./CarverLink1_files/index.html" width="100%" height="600" frameborder="0" allowfullscreen="allowfullscreen" class="no-lazyload">iFrames are not supported on this page.</iframe></p> -->
+    <iframe src="https://carver.maps.arcgis.com/apps/instant/lookup/index.html?appid=8ab35702072f4f6a8c2df388d9065aec&locale=en-US" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+<div class="fl-row fl-row-fixed-width fl-row-bg-color fl-node-e8hcigzjrwfm" data-node="e8hcigzjrwfm">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content">
+		
+<div class="fl-col-group fl-node-pzbv7t14xh56 fl-col-group-custom-width" data-node="pzbv7t14xh56">
+			<div class="fl-col fl-node-u0qxz21rihkw fl-col-has-cols" data-node="u0qxz21rihkw">
+	<div class="fl-col-content fl-node-content">
+<div class="fl-col-group fl-node-a6j92xios3p7 fl-col-group-nested fl-col-group-custom-width" data-node="a6j92xios3p7">
+			<div class="fl-col fl-node-w3yq1ekivbp6 fl-col-small" data-node="w3yq1ekivbp6">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-w02beduo4zfx" data-node="w02beduo4zfx">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/200ft" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/pexels-pixabay-259588-scaled.jpg" alt="pexels-pixabay-259588" itemprop="image" height="1080" width="1621" srcset="https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-2048x1364.jpg 2048w, https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-300x200.jpg 300w, https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-1024x682.jpg 1024w, https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-768x511.jpg 768w, https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-1536x1023.jpg 1536w, https://carverlink.com/wp-content/uploads/2023/04/pexels-pixabay-259588-scaled.jpg 1621w" sizes="(max-width: 1621px) 100vw, 1621px" title="pexels-pixabay-259588" class="pp-photo-img wp-image-1563 size-full no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-cywpu53jbo2g" data-node="cywpu53jbo2g">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/200ft" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">Elimination of 200 Ft Driveway Limit</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">Carver County negotiated with Metronet to pilot their first ever rural program that eliminates Metronet's maximum 200 ft driveway limit to the house or business that would have previously labeled that address as unserviceable</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-cn0j4vg51i7l fl-col-small" data-node="cn0j4vg51i7l">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-mszw4n23deaj" data-node="mszw4n23deaj">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/across-the-road" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/Outside-Area-Routes-2-1024x703.jpg" alt="Outside Area Routes (2)" itemprop="image" height="703" width="1024" srcset="https://carverlink.com/wp-content/uploads/2023/04/Outside-Area-Routes-2-1024x703.jpg 1024w, https://carverlink.com/wp-content/uploads/2023/04/Outside-Area-Routes-2-300x206.jpg 300w, https://carverlink.com/wp-content/uploads/2023/04/Outside-Area-Routes-2-768x527.jpg 768w, https://carverlink.com/wp-content/uploads/2023/04/Outside-Area-Routes-2.jpg 1280w" sizes="(max-width: 1024px) 100vw, 1024px" title="Outside Area Routes (2)" class="pp-photo-img wp-image-1564 size-large no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-6d1yazhjc9wr" data-node="6d1yazhjc9wr">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/across-the-road" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">Connect Up Carver Fiber Line Feeder Routes and Across the Road Addresses</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">Based on the separate but associated Connect Up Carver Project, the County identified addresses on the opposing side of the road and along fiber feeder line connection routes that fall outside of the Connect Up Carver "Defined Geographic Construction Area".&nbsp;</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-3rtcpke9jbqs fl-col-small" data-node="3rtcpke9jbqs">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-4rekxhj5vtdg" data-node="4rekxhj5vtdg">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/city-fiber-agreement" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/fiber-agreements-300x225.jpg" alt="fiber agreements" itemprop="image" height="225" width="300" srcset="https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-300x225.jpg 300w, https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-1024x768.jpg 1024w, https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-768x576.jpg 768w, https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-1536x1152.jpg 1536w, https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-2048x1536.jpg 2048w, https://carverlink.com/wp-content/uploads/2023/04/fiber-agreements-scaled.jpg 1440w" sizes="(max-width: 300px) 100vw, 300px" title="fiber agreements" class="pp-photo-img wp-image-1561 size-medium no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-y1bz6sc8tn4h" data-node="y1bz6sc8tn4h">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/city-fiber-agreement" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">City Fiber Agreements</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">City Fiber Agreements are non-binding agreements that CarverLink drafted and then helped to facilitate agreement of between Metronet and individual Carver County cities, which encompass Metronet agreeing to build out fiber to all addresses within each respective citys, city limits</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-ic6xy91qseuf fl-col-group-nested fl-col-group-custom-width" data-node="ic6xy91qseuf">
+			<div class="fl-col fl-node-ptyzbfnc0j3u fl-col-small" data-node="ptyzbfnc0j3u">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-0u4cf1obs3y6" data-node="0u4cf1obs3y6">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/Connect%20Up%20Carver" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/blob-1f24bf5.png" alt="blob-1f24bf5" itemprop="image" height="481" width="1920" srcset="https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5-2048x513.png 2048w, https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5-300x75.png 300w, https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5-1024x256.png 1024w, https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5-768x192.png 768w, https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5-1536x385.png 1536w, https://carverlink.com/wp-content/uploads/2023/02/blob-1f24bf5.png 1920w" sizes="(max-width: 1920px) 100vw, 1920px" title="blob-1f24bf5" class="pp-photo-img wp-image-1236 size-full no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-rtx32k7ihdn8" data-node="rtx32k7ihdn8">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/MN-line-extension-program" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">Connect Up Carver Initiative</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">View all the information on our $10.5 million Connect Up Carver project on our dedicated <a href="https://carverlink.com/connect-up-carver/" data-fontsize="18">Connect Up Carver Page.</a></p>		</div>
+	
+	</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-image fl-node-1q9d03ejbxzi" data-node="1q9d03ejbxzi">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/MN-line-extension-program" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/MN-Line-Extension-New-B-300x235.jpg" alt="MN Line Extension New B" itemprop="image" height="235" width="300" srcset="https://carverlink.com/wp-content/uploads/2023/04/MN-Line-Extension-New-B-300x235.jpg 300w, https://carverlink.com/wp-content/uploads/2023/04/MN-Line-Extension-New-B-1024x801.jpg 1024w, https://carverlink.com/wp-content/uploads/2023/04/MN-Line-Extension-New-B-768x601.jpg 768w, https://carverlink.com/wp-content/uploads/2023/04/MN-Line-Extension-New-B-1536x1202.jpg 1536w, https://carverlink.com/wp-content/uploads/2023/04/MN-Line-Extension-New-B.jpg 1380w" sizes="(max-width: 300px) 100vw, 300px" title="MN Line Extension New B" class="pp-photo-img wp-image-1571 size-medium no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-urnibcz6s90y" data-node="urnibcz6s90y">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/MN-line-extension-program" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">MN Line Extension Program</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">The purpose of this State of Minnesota funded program is to award grants for the extension of existing broadband infrastructure to individual unserved locations that are just outside the distance service providers consider serviceable</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-8z9o6dexr7vs fl-col-small" data-node="8z9o6dexr7vs">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-xmhtve8rzkld" data-node="xmhtve8rzkld">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/gap-fills" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/fill-gap-2.png" alt="fill gap 2" itemprop="image" height="1080" width="1516" srcset="https://carverlink.com/wp-content/uploads/2023/04/fill-gap-2-1536x1094.png 1536w, https://carverlink.com/wp-content/uploads/2023/04/fill-gap-2-300x214.png 300w, https://carverlink.com/wp-content/uploads/2023/04/fill-gap-2-1024x730.png 1024w, https://carverlink.com/wp-content/uploads/2023/04/fill-gap-2-768x547.png 768w, https://carverlink.com/wp-content/uploads/2023/04/fill-gap-2.png 1516w" sizes="(max-width: 1516px) 100vw, 1516px" title="fill gap 2" class="pp-photo-img wp-image-1567 size-full no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-3z9r54lsvg7x" data-node="3z9r54lsvg7x">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/gap-fills" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">Connect Up Carver Fill the Gaps</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">Based on the separate but associated Connect Up Carver Project, the County identified roughly 9 miles of "fill the gaps" fiber construction in the overall 350 miles of build that would benefit from filling gaps along various routes.</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-o149cd2zqlt0 fl-col-small" data-node="o149cd2zqlt0">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-syg27azn5lrm" data-node="syg27azn5lrm">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-center pp-photo-align-responsive-default" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/broadband-efforts/5-lcp" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" src="./CarverLink1_files/5-LCP-New-300x228.jpg" alt="5 LCP New" itemprop="image" height="228" width="300" srcset="https://carverlink.com/wp-content/uploads/2023/04/5-LCP-New-300x228.jpg 300w, https://carverlink.com/wp-content/uploads/2023/04/5-LCP-New.jpg 497w" sizes="(max-width: 300px) 100vw, 300px" title="5 LCP New" class="pp-photo-img wp-image-1594 size-medium no-lazyload">
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+<div class="fl-module fl-module-pp-heading fl-node-bspvcwyemadt" data-node="bspvcwyemadt">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-left">
+		
+		<h4 class="heading-title" data-fontsize="20">
+
+							<a class="pp-heading-link" href="https://carverlink.com/broadband-efforts/5-lcp" target="_self" data-fontsize="20">
+			
+			<span class="title-text pp-primary-title">Connect Up Carver 5 LCP Areas</span>
+
+			
+							</a>
+			
+		</h4>
+
+		
+	</div>
+
+			<div class="pp-sub-heading">
+			<p data-fontsize="18">Based on the separate but associated CarverLink rural build Connect Up Carver Project, these 5 city limit build areas, located within Chanhassen, Victoria, Watertown and Cologne, are part of an arrangement between CarverLink and Metronet to construct fiber within them.</p>		</div>
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+<div class="fl-row fl-row-fixed-width fl-row-bg-color fl-node-9vwlzboyruqm" data-node="9vwlzboyruqm">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content">
+		
+<div class="fl-col-group fl-node-hkl0bma98yqw fl-col-group-custom-width" data-node="hkl0bma98yqw">
+			<div class="fl-col fl-node-pnhe1t5a38xg" data-node="pnhe1t5a38xg">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-heading fl-node-j1qlfxwy0r6p" data-node="j1qlfxwy0r6p">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-heading-content">
+		<div class="pp-heading  pp-center">
+		
+		<h1 class="heading-title" data-fontsize="32">
+
+			
+			<span class="title-text pp-primary-title">Get Connected</span>
+
+			
+			
+		</h1>
+
+		
+	</div>
+
+	
+	</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-62ljbiw5se4o" data-node="62ljbiw5se4o">
+			<div class="fl-col fl-node-dh92cn8rmgty" data-node="dh92cn8rmgty">
+	<div class="fl-col-content fl-node-content"></div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-53zda62klcpg fl-col-group-equal-height fl-col-group-align-top fl-col-group-custom-width" data-node="53zda62klcpg">
+			<div class="fl-col fl-node-0fkynjgsr4a8 fl-col-small" data-node="0fkynjgsr4a8">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-heading fl-node-43gzwcuthyda" data-node="43gzwcuthyda">
+	<div class="fl-module-content fl-node-content">
+		<h2 class="fl-heading" data-fontsize="28">
+		<span class="fl-heading-text">Public and Community Support Entities</span>
+	</h2>
+	</div>
+</div>
+<div class="fl-module fl-module-rich-text fl-node-gjwocstv1ilf" data-node="gjwocstv1ilf">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<p data-fontsize="18">The public and community support entities served by the CarverLink Fiber Network include the County, connection to all&nbsp;11 cities within the County, the transit authority (SW Transit), all&nbsp;public schools, the college (Crown College), the two largest medical providers within the County (Ridgeview Medical and Lakeview Clinic), the Carver County Economic Development Authority, and several townships.&nbsp; There are two types of public users on the CarverLink network:&nbsp; users that only use CarverLink as their internet service provider (ISP) and users that use CarverLink internet as well as dark fiber between their facilities, allowing them to eliminate communication lines known as T1’s or their equivalents.</p>
+<p data-fontsize="18">If you are with a public entity, either within or outside of Carver County and have questions about connections to the CarverLink Network, please contact Randy Lehs, CarverLink Fiber Manager at 952-361-1200.</p>
+</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-dhialpwv2g4n fl-col-small" data-node="dhialpwv2g4n">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-heading fl-node-yer8apnokcwb" data-node="yer8apnokcwb">
+	<div class="fl-module-content fl-node-content">
+		<h2 class="fl-heading" data-fontsize="28">
+		<span class="fl-heading-text">Private Businesses and Residents</span>
+	</h2>
+	</div>
+</div>
+<div class="fl-module fl-module-rich-text fl-node-dt1sfnq9r7ju" data-node="dt1sfnq9r7ju">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<div id="ca872233-7e6f-4b40-86a0-cc831f14f757" class="widget widget-content widget-content-content-11">
+<div id="ca872233-7e6f-4b40-86a0-cc831f14f757" class="x-el x-el-div x-el c1-1 c1-2 c1-3 c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" role="region" data-ux="Widget">
+<section class="x-el x-el-section c1-1 c1-2 c1-3 c1-h c1-i c1-b c1-c c1-q c1-r c1-d c1-e c1-f c1-g" data-ux="Section">
+<div class="x-el x-el-div c1-1 c1-2 c1-x c1-y c1-z c1-10 c1-11 c1-b c1-c c1-14 c1-d c1-15 c1-e c1-16 c1-f c1-17 c1-g" data-ux="Container">
+<div class="x-el x-el-div c1-1 c1-2 c1-18 c1-19 c1-1a c1-1b c1-1c c1-1d c1-1e c1-1f c1-43 c1-2q c1-b c1-c c1-1k c1-1l c1-1m c1-1n c1-d c1-e c1-f c1-g" data-ux="Grid">
+<div class="x-el x-el-div c1-1 c1-2 c1-19 c1-2s c1-1p c1-7m c1-11 c1-1r c1-1s c1-1t c1-1u c1-b c1-c c1-7n c1-7o c1-1v c1-1w c1-1x c1-1y c1-d c1-5e c1-5f c1-e c1-f c1-g" data-ux="GridCell">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-18 c1-4m c1-4 c1-7p c1-7q c1-43 c1-7r c1-7s c1-7t c1-b c1-c c1-7u c1-7v c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" data-ux="ContentBasic">
+<div class="x-el c1-1 c1-2 c1-22 c1-23 c1-47 c1-1c c1-1e c1-7w c1-7x c1-7y c1-7z c1-80 c1-81 c1-82 c1-83 c1-84 c1-85 c1-86 c1-87 c1-88 c1-89 c1-8a c1-8b c1-8c c1-8d c1-8e c1-8f c1-8g c1-8h c1-8i c1-8j c1-8k c1-8l c1-8m c1-8n c1-2s c1-b c1-6u c1-c c1-3i c1-d c1-e c1-f c1-g x-rt" data-ux="ContentText" data-aid="CONTENT_MEDIA_DESCRIPTION1_RENDERED" data-typography="BodyAlpha">
+<p data-fontsize="18">The private customers in the CarverLink Network, which include the businesses and residents of Carver County, are served by the initial service provider in the network,&nbsp; <a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.metronet.com/" target="_blank" rel="noopener" data-fontsize="18">Metronet</a> (formerly Jaguar Communications) and <a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.arvig.net/" target="_blank" rel="noopener" data-fontsize="18">Arvig</a>.&nbsp; CarverLink also has fiber available for other qualified service providers to utilize so they can provide services to businesses and residents as well and it is the County’s desire to allow the free market to initiate competition and shape the opportunities and services in the marketplace.&nbsp;&nbsp; At this time no other service providers outside of <a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.metronet.com/" target="_blank" rel="noopener" data-fontsize="18">Metronet</a>&nbsp;and&nbsp;<a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.arvig.net/" target="_blank" rel="noopener" data-fontsize="18">Arvig</a> have entered the marketplace using the CarverLink fiber.&nbsp; If you are interested in connecting to <a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.metronet.com/" target="_blank" rel="noopener" data-fontsize="18">Metronet's</a> fiber network or <a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="https://www.arvig.net/" target="_blank" rel="noopener" data-fontsize="18">Arvig's</a>&nbsp;fiber network please contact:</p>
+<p data-fontsize="18">&nbsp;</p>
+<p data-fontsize="18"><strong><span style="text-decoration: underline;">ARVIG</span><br>
+</strong><a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="http://www.arvig.net/" target="_blank" rel="noopener" data-fontsize="18">www.arvig.net</a><br>
+Call 952-236-5666</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div id="c8bbf371-7426-4925-99a8-77e5798b6382" class="widget widget-about widget-about-about-1">
+<div id="c8bbf371-7426-4925-99a8-77e5798b6382" class="x-el x-el-div x-el c1-1 c1-2 c1-3 c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" role="region" data-ux="Widget">
+<section class="x-el x-el-section c1-1 c1-2 c1-3 c1-h c1-i c1-b c1-c c1-q c1-r c1-d c1-e c1-f c1-g" data-ux="Section">
+<div class="x-el x-el-div c1-1 c1-2 c1-x c1-y c1-z c1-10 c1-11 c1-b c1-c c1-14 c1-d c1-15 c1-e c1-16 c1-f c1-17 c1-g" data-ux="Container">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-5g c1-2q c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-18 c1-19 c1-1a c1-1b c1-1c c1-1d c1-8v c1-1f c1-b c1-c c1-1k c1-1l c1-8w c1-1n c1-d c1-e c1-f c1-g" data-ux="ContentCards">
+<div class="x-el x-el-div c1-1 c1-2 c1-19 c1-2s c1-1p c1-7m c1-11 c1-1r c1-1s c1-v c1-1u c1-18 c1-b c1-c c1-8x c1-8y c1-1v c1-1w c1-8z c1-1y c1-d c1-90 c1-91 c1-e c1-f c1-g" data-ux="GridCell">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-s c1-18 c1-4m c1-1g c1-5g c1-1h c1-4 c1-7p c1-7r c1-7s c1-2s c1-b c1-c c1-7u c1-7v c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" data-ux="ContentCard">
+<div data-ux="ContentCardWrapperImage"></div>
+<div data-ux="ContentCardWrapperImage"><span style="text-decoration: underline;"><strong>METRONET</strong></span></div>
+<div class="x-el x-el-div c1-1 c1-2 c1-2e c1-x c1-y c1-5g c1-4 c1-92 c1-93 c1-b c1-c c1-d c1-e c1-f c1-g" data-ux="ContentCardWrapperImage">Nathan Augeson<br>
+Metronet | Residential Sales Manager<br>
+2109 Broadway Ave S, Rochester, MN 55901<br>
+Cell: 507-319-9918<br>
+<a class="x-el x-el-a c1-1z c1-20 c1-8t c1-22 c1-23 c1-5r c1-24 c1-8u c1-b c1-5s c1-2a c1-5t c1-5u" href="http://www.metronetinc.com/" target="_blank" rel="noopener" data-fontsize="18">nathan.augeson@metronetinc.com</a></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-qeo7h0lxui2r fl-col-small" data-node="qeo7h0lxui2r">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-heading fl-node-lvpad5nk2f7z" data-node="lvpad5nk2f7z">
+	<div class="fl-module-content fl-node-content">
+		<h2 class="fl-heading" data-fontsize="28">
+		<span class="fl-heading-text">Open Access / Open Interconnect (Internet Service Providers Only)</span>
+	</h2>
+	</div>
+</div>
+<div class="fl-module fl-module-rich-text fl-node-ukyoqlbevn6m" data-node="ukyoqlbevn6m">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<div id="ca872233-7e6f-4b40-86a0-cc831f14f757" class="widget widget-content widget-content-content-11">
+<div id="ca872233-7e6f-4b40-86a0-cc831f14f757" class="x-el x-el-div x-el c1-1 c1-2 c1-3 c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" role="region" data-ux="Widget">
+<section class="x-el x-el-section c1-1 c1-2 c1-3 c1-h c1-i c1-b c1-c c1-q c1-r c1-d c1-e c1-f c1-g" data-ux="Section">
+<div class="x-el x-el-div c1-1 c1-2 c1-x c1-y c1-z c1-10 c1-11 c1-b c1-c c1-14 c1-d c1-15 c1-e c1-16 c1-f c1-17 c1-g" data-ux="Container">
+<div class="x-el x-el-div c1-1 c1-2 c1-18 c1-19 c1-1a c1-1b c1-1c c1-1d c1-1e c1-1f c1-43 c1-2q c1-b c1-c c1-1k c1-1l c1-1m c1-1n c1-d c1-e c1-f c1-g" data-ux="Grid">
+<div class="x-el x-el-div c1-1 c1-2 c1-19 c1-2s c1-1p c1-7m c1-11 c1-1r c1-1s c1-1t c1-1u c1-b c1-c c1-7n c1-7o c1-1v c1-1w c1-1x c1-1y c1-d c1-5e c1-5f c1-e c1-f c1-g" data-ux="GridCell">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-18 c1-4m c1-4 c1-7p c1-7q c1-43 c1-7r c1-7s c1-7t c1-b c1-c c1-7u c1-7v c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" data-ux="ContentBasic">
+<div class="x-el c1-1 c1-2 c1-22 c1-23 c1-47 c1-1c c1-1e c1-7w c1-7x c1-7y c1-7z c1-80 c1-81 c1-82 c1-83 c1-84 c1-85 c1-86 c1-87 c1-88 c1-89 c1-8a c1-8b c1-8c c1-8d c1-8e c1-8f c1-8g c1-8h c1-8i c1-8j c1-8k c1-8l c1-8m c1-8n c1-2s c1-b c1-6u c1-c c1-3i c1-d c1-e c1-f c1-g x-rt" data-ux="ContentText" data-aid="CONTENT_MEDIA_DESCRIPTION1_RENDERED" data-typography="BodyAlpha">
+<p data-fontsize="18">The primary reason for the construction of the CarverLink Fiber Network was to provide high-speed connectivity for the County and the public entities of Carver County.</p>
+<p data-fontsize="18">Second, the CarverLink Network was constructed to put in place the middle mile communications infrastructure to allow qualified private service providers to provide services to residents and businesses that they could not previously reach. Apart from Metronet and Arvig, there are six additional wired service providers in Carver County: CenturyLink/Lumen, Comcast, Frontier, Mediacom, Charter, and Nuvera. To date, none of these providers has expressed an active interest in using CarverLink fiber infrastructure to provide services to new customers or upgraded services to their existing customers.</p>
+<p data-fontsize="18">If you are a service provider and are interested in potentially utilizing fiber within the CarverLink Fiber Network, please contact Randy Lehs, CarverLink Fiber Manager at 952-361-1200.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<div id="c8bbf371-7426-4925-99a8-77e5798b6382" class="widget widget-about widget-about-about-1">
+<div id="c8bbf371-7426-4925-99a8-77e5798b6382" class="x-el x-el-div x-el c1-1 c1-2 c1-3 c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" role="region" data-ux="Widget">
+<section class="x-el x-el-section c1-1 c1-2 c1-3 c1-h c1-i c1-b c1-c c1-q c1-r c1-d c1-e c1-f c1-g" data-ux="Section">
+<div class="x-el x-el-div c1-1 c1-2 c1-x c1-y c1-z c1-10 c1-11 c1-b c1-c c1-14 c1-d c1-15 c1-e c1-16 c1-f c1-17 c1-g" data-ux="Container">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-5g c1-2q c1-b c1-c c1-d c1-e c1-f c1-g c1-1 c1-2 c1-18 c1-19 c1-1a c1-1b c1-1c c1-1d c1-8v c1-1f c1-b c1-c c1-1k c1-1l c1-8w c1-1n c1-d c1-e c1-f c1-g" data-ux="ContentCards">
+<div class="x-el x-el-div c1-1 c1-2 c1-19 c1-2s c1-1p c1-7m c1-11 c1-1r c1-1s c1-v c1-1u c1-18 c1-b c1-c c1-8x c1-8y c1-1v c1-1w c1-8z c1-1y c1-d c1-90 c1-91 c1-e c1-f c1-g" data-ux="GridCell">
+<div class="x-el x-el-div x-el c1-1 c1-2 c1-s c1-18 c1-4m c1-1g c1-5g c1-1h c1-4 c1-7p c1-7r c1-7s c1-2s c1-b c1-c c1-7u c1-7v c1-d c1-e c1-f c1-g c1-1 c1-2 c1-b c1-c c1-d c1-e c1-f c1-g" data-ux="ContentCard"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+
+<div class="fl-col-group fl-node-tf2dvp5wxb74" data-node="tf2dvp5wxb74">
+			<div class="fl-col fl-node-ckz6flup25on" data-node="ckz6flup25on">
+	<div class="fl-col-content fl-node-content"></div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+</div><div class="uabb-js-breakpoint" style="display: none;"></div>	</div><!-- .fl-post-content -->
+	
+</article>
+
+<!-- .fl-post -->
+		</div>
+	</div>
+</div>
+
+
+	</div><!-- .fl-page-content -->
+	<footer class="fl-builder-content fl-builder-content-939 fl-builder-global-templates-locked" data-post-id="939" data-type="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter"><div class="fl-row fl-row-full-width fl-row-bg-color fl-node-611d39e73e873" data-node="611d39e73e873">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content">
+		
+<div class="fl-col-group fl-node-611d39e73e874 fl-col-group-equal-height fl-col-group-align-center fl-col-group-custom-width" data-node="611d39e73e874">
+			<div id="f-col1" class="fl-col fl-node-611d39e73e877 fl-col-small" data-node="611d39e73e877">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-image fl-node-b5u02ayj13fs" data-node="b5u02ayj13fs">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-photo-container">
+	<div class="pp-photo pp-photo-align-left pp-photo-align-responsive-center" itemscope="" itemtype="http://schema.org/ImageObject">
+		<div class="pp-photo-content">
+			<div class="pp-photo-content-inner">
+								<a href="https://carverlink.com/" target="_self" itemprop="url" data-fontsize="18">
+									<img decoding="async" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async"   alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" data-srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w"  data-src="https://carverlink.com/wp-content/uploads/2021/08/1.png" data-sizes="(max-width: 1199px) 100vw, 1199px" class="pp-photo-img wp-image-1412 size-full lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async" class="pp-photo-img wp-image-1412 size-full" src="https://carverlink.com/wp-content/uploads/2021/08/1.png" alt="Carver County - CarverLink" itemprop="image" height="466" width="1199" srcset="https://carverlink.com/wp-content/uploads/2021/08/1.png 1199w, https://carverlink.com/wp-content/uploads/2021/08/1-300x117.png 300w, https://carverlink.com/wp-content/uploads/2021/08/1-1024x398.png 1024w, https://carverlink.com/wp-content/uploads/2021/08/1-768x298.png 768w" sizes="(max-width: 1199px) 100vw, 1199px"  /></noscript>
+					<div class="pp-overlay-bg"></div>
+													</a>
+							</div>
+					</div>
+	</div>
+</div>
+	</div>
+</div>
+</div>
+</div>
+			<div id="f-col2" class="fl-col fl-node-61470c1f2ee25 fl-col-small" data-node="61470c1f2ee25">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-social-icons fl-node-1dexgia8nplh" data-node="1dexgia8nplh">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-social-icons pp-social-icons-horizontal">
+	<span class="pp-social-icon" itemscope="" itemtype="https://schema.org/Organization">
+		<link itemprop="url" href="https://carverlink.com/">
+		<a itemprop="sameAs" href="https://www.facebook.com/CarverCounty" target="_blank" title="Facebook" aria-label="Facebook" role="button" rel="noopener noreferrer external" data-fontsize="20">
+							<i class="fab fa-facebook-f"></i>
+					</a>
+	</span>
+		<span class="pp-social-icon" itemscope="" itemtype="https://schema.org/Organization">
+		<link itemprop="url" href="https://carverlink.com/">
+		<a itemprop="sameAs" href="https://www.linkedin.com/company/carver-county/?trk=prof-exp-company-name" target="_blank" title="LinkedIn" aria-label="LinkedIn" role="button" rel="noopener noreferrer external" data-fontsize="20">
+							<i class="fab fa-linkedin-in"></i>
+					</a>
+	</span>
+		<span class="pp-social-icon" itemscope="" itemtype="https://schema.org/Organization">
+		<link itemprop="url" href="https://carverlink.com/">
+		<a itemprop="sameAs" href="https://twitter.com/CarverCounty" target="_blank" title="Twitter" aria-label="Twitter" role="button" rel="noopener noreferrer external" data-fontsize="20">
+							<i class="fab fa-twitter"></i>
+					</a>
+	</span>
+		<span class="pp-social-icon" itemscope="" itemtype="https://schema.org/Organization">
+		<link itemprop="url" href="https://carverlink.com/">
+		<a itemprop="sameAs" href="https://www.youtube.com/user/CarverCountyMN" target="_blank" title="YouTube" aria-label="YouTube" role="button" rel="noopener noreferrer external" data-fontsize="20">
+							<i class="fab fa-youtube"></i>
+					</a>
+	</span>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+			<div id="f-col3" class="fl-col fl-node-61470c1f2ee2a fl-col-small" data-node="61470c1f2ee2a">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-pp-smart-button fl-node-rd4l0efxyos2" data-node="rd4l0efxyos2">
+	<div class="fl-module-content fl-node-content">
+		<div class="pp-button-wrap pp-button-width-auto">
+	<a href="https://www.speedtest.net/" target="_blank" class="pp-button" role="button" rel="noopener" aria-label="Test your speed" data-fontsize="18">
+						<span class="pp-button-text">Test your speed</span>
+					</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+<div class="fl-row fl-row-full-width fl-row-bg-color fl-node-611d411d8c3e6" data-node="611d411d8c3e6">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content" style="position: relative;">
+		
+<div class="fl-col-group fl-node-611d411da26f5" data-node="611d411da26f5">
+			<div class="fl-col fl-node-611d411da2855" data-node="611d411da2855">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-menu fl-node-611d39e73e876 fl-visible-desktop footer-menu" data-node="611d39e73e876">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-menu">
+		<div class="fl-clear"></div>
+	<nav aria-label="Menu" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"><ul id="menu-footer-menu" class="menu fl-menu-horizontal fl-toggle-none"><li id="menu-item-991" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://carverlink.com/" data-fontsize="18">Home</a></li><li id="menu-item-994" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/connect-up-carver/" data-fontsize="18">Connect Up Carver</a></li><li id="menu-item-993" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-28 current_page_item"><a href="https://carverlink.com/broadband-efforts/" data-fontsize="18">Broadband Efforts</a></li><li id="menu-item-996" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/coverage-area/" data-fontsize="18">Coverage Area</a></li><li id="menu-item-992" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/about-us/" data-fontsize="18">About Us</a></li><li id="menu-item-995" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/contact-us/" data-fontsize="18">Contact Us</a></li></ul></nav></div>
+	</div>
+</div>
+<div class="fl-module fl-module-menu fl-node-1hqs68pw2u7x fl-visible-medium footer-menu" data-node="1hqs68pw2u7x">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-menu">
+		<div class="fl-clear"></div>
+	<nav aria-label="Menu" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"><ul id="menu-footer-menu-1" class="menu fl-menu-horizontal fl-toggle-none"><li id="menu-item-991" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://carverlink.com/" data-fontsize="18">Home</a></li><li id="menu-item-994" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/connect-up-carver/" data-fontsize="18">Connect Up Carver</a></li><li id="menu-item-993" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-28 current_page_item"><a href="https://carverlink.com/broadband-efforts/" data-fontsize="18">Broadband Efforts</a></li><li id="menu-item-996" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/coverage-area/" data-fontsize="18">Coverage Area</a></li><li id="menu-item-992" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/about-us/" data-fontsize="18">About Us</a></li><li id="menu-item-995" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/contact-us/" data-fontsize="18">Contact Us</a></li></ul></nav></div>
+	</div>
+</div>
+<div class="fl-module fl-module-menu fl-node-q0k59wr3pyf7 fl-visible-mobile footer-menu" data-node="q0k59wr3pyf7">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-menu">
+		<div class="fl-clear"></div>
+	<nav aria-label="Menu" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"><ul id="menu-footer-menu-2" class="menu fl-menu-vertical fl-toggle-none"><li id="menu-item-991" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://carverlink.com/" data-fontsize="18">Home</a></li><li id="menu-item-994" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/connect-up-carver/" data-fontsize="18">Connect Up Carver</a></li><li id="menu-item-993" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-28 current_page_item"><a href="https://carverlink.com/broadband-efforts/" data-fontsize="18">Broadband Efforts</a></li><li id="menu-item-996" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/coverage-area/" data-fontsize="18">Coverage Area</a></li><li id="menu-item-992" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/about-us/" data-fontsize="18">About Us</a></li><li id="menu-item-995" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/contact-us/" data-fontsize="18">Contact Us</a></li></ul></nav></div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+<div class="fl-row fl-row-full-width fl-row-bg-color fl-node-611d39e73e86e footer-copyright" data-node="611d39e73e86e">
+	<div class="fl-row-content-wrap">
+		<div class="uabb-row-separator uabb-top-row-separator">
+</div>
+						<div class="fl-row-content fl-row-fixed-width fl-node-content" style="position: relative;">
+		
+<div class="fl-col-group fl-node-611d39e73e86f fl-col-group-equal-height fl-col-group-align-center fl-col-group-custom-width fl-col-group-responsive-reversed" data-node="611d39e73e86f">
+			<div class="fl-col fl-node-611d39e73e870 fl-col-small" data-node="611d39e73e870">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-rich-text fl-node-611d39e73e85b" data-node="611d39e73e85b">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-rich-text">
+	<p data-fontsize="14">© 2023, Carver County - CarverLink. All Rights Reserved.</p>
+</div>
+	</div>
+</div>
+</div>
+</div>
+			<div class="fl-col fl-node-611d39e73e871" data-node="611d39e73e871">
+	<div class="fl-col-content fl-node-content"><div class="fl-module fl-module-menu fl-node-j6zp2osrg97l footer-menu" data-node="j6zp2osrg97l">
+	<div class="fl-module-content fl-node-content">
+		<div class="fl-menu">
+		<div class="fl-clear"></div>
+	<nav aria-label="Menu" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"><ul id="menu-footer2" class="menu fl-menu-horizontal fl-toggle-none"><li id="menu-item-1206" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy"><a href="https://carverlink.com/privacy/" data-fontsize="16">Privacy</a></li><li id="menu-item-1685" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/history/" data-fontsize="16">History</a></li><li id="menu-item-1692" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://carverlink.com/support/" data-fontsize="16">Support</a></li></ul></nav></div>
+	</div>
+</div>
+</div>
+</div>
+	</div>
+		</div>
+	</div>
+</div>
+</footer><div class="uabb-js-breakpoint" style="display: none;"></div>	</div><a href="https://carverlink.com/broadband-efforts/#" id="fl-to-top" data-fontsize="18"><span class="sr-only">Scroll To Top</span><i class="fas fa-chevron-up" aria-hidden="true"></i></a><script src="./CarverLink1_files/pdfobject.min.js.download" id="awsm-ead-pdf-object-js" defer=""></script><script id="awsm-ead-public-js-extra">
+var eadPublic = [];
+</script><script src="./CarverLink1_files/embed-public.min.js.download" id="awsm-ead-public-js" defer=""></script><script data-minify="1" src="./CarverLink1_files/28-layout.js.download" id="fl-builder-layout-28-js" defer=""></script><script data-minify="1" src="./CarverLink1_files/coblocks-animation.js.download" id="coblocks-animation-js" defer=""></script><script id="coblocks-tinyswiper-initializer-js-extra">
+var coblocksTinyswiper = {"carouselPrevButtonAriaLabel":"Previous","carouselNextButtonAriaLabel":"Next","sliderImageAriaLabel":"Image"};
+</script><script data-minify="1" src="./CarverLink1_files/coblocks-tinyswiper-initializer.js.download" id="coblocks-tinyswiper-initializer-js" defer=""></script><script src="./CarverLink1_files/jquery.ba-throttle-debounce.min.js.download" id="jquery-throttle-js" defer=""></script><script data-minify="1" src="./CarverLink1_files/ff538ebd07d87533ae66002a694a8257-layout-bundle.js.download" id="fl-builder-layout-bundle-ff538ebd07d87533ae66002a694a8257-js" defer=""></script><script id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script><script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/carverlink.com","onHoverDelay":"100","rateThrottle":"3"};
+</script><script id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script><script src="./CarverLink1_files/jquery.magnificpopup.min.js.download" id="jquery-magnificpopup-js" defer=""></script><script id="fl-automator-js-extra">
+var themeopts = {"medium_breakpoint":"1024","mobile_breakpoint":"768"};
+</script><script src="./CarverLink1_files/theme.min.js.download" id="fl-automator-js" defer=""></script><script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'wpaas'},{'server':'15c173ce-5aa3-2db4-e441-0b4a28b0d119.secureserver.net'},{'pod':'P3NLWPPOD10'},{'storage':'p3cephmah004pod10_data08'},{'xid':'44963806'},{'wp':'6.1.1'},{'php':'8.1.17'},{'loggedin':'0'},{'cdn':'0'},{'builder':'beaver-builder'},{'theme':'bb-theme'},{'wds':'1'},{'wp_alloptions_count':'234'},{'wp_alloptions_bytes':'63903'})</script><script>window.addEventListener('click', function (elem) { var _elem$target, _elem$target$dataset, _window, _window$_trfq; return (elem === null || elem === void 0 ? void 0 : (_elem$target = elem.target) === null || _elem$target === void 0 ? void 0 : (_elem$target$dataset = _elem$target.dataset) === null || _elem$target$dataset === void 0 ? void 0 : _elem$target$dataset.eid) && ((_window = window) === null || _window === void 0 ? void 0 : (_window$_trfq = _window._trfq) === null || _window$_trfq === void 0 ? void 0 : _window$_trfq.push(["cmdLogEvent", "click", elem.target.dataset.eid]));});</script><script data-minify="1" src="./CarverLink1_files/tcc_l.combined.1.0.6.min.js.download" defer=""></script><script data-minify="1" src="./CarverLink1_files/tccl-tti.min.js.download" onload="window.tti.calculateTTI()" defer=""></script></div><!-- .fl-page -->
+		<!-- Commenting this line to fix the css error by Ashish -->
+	    <!-- <style>#sitelinx-toggle-toolbar{top:px;}</style> -->
+	     <!-- This for bottom left and right position -->
+	    	    <!-- End of bottom right and left positions -->
+
+	    
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+
+
+</body></html>

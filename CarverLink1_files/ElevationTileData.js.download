@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.26/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../core/maybe"],function(h,l,e){let m=function(){function f(a,g,c,b){this._maxValue=this._minValue=this._hasNoDataValues=null;"pixelData"in a?(this.values=a.pixelData,this.width=a.width,this.height=a.height,this.noDataValue=a.noDataValue):(this.values=a,this.width=g,this.height=c,this.noDataValue=b)}f.prototype._ensureBounds=function(){if(!e.isSome(this._minValue)){var {noDataValue:a,values:g}=this,c=Infinity,b=-Infinity,k=!0;for(const d of g)d===
+a?this._hasNoDataValues=!0:(c=d<c?d:c,b=d>b?d:b,k=!1);k?this._maxValue=this._minValue=0:(this._minValue=c,this._maxValue=-3E38<b?b:0)}};l._createClass(f,[{key:"hasNoDataValues",get:function(){e.isNone(this._hasNoDataValues)&&(this._hasNoDataValues=this.values.includes(this.noDataValue));return this._hasNoDataValues}},{key:"minValue",get:function(){this._ensureBounds();return e.unwrap(this._minValue)}},{key:"maxValue",get:function(){this._ensureBounds();return e.unwrap(this._maxValue)}}]);return f}();
+h.ElevationTileData=m;Object.defineProperty(h,Symbol.toStringTag,{value:"Module"})});

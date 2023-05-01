@@ -1,0 +1,678 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "./Accordion", "esri/core/accessorSupport/decorators", "esri/widgets/Feature", "esri/core/Handles", "esri/widgets/support/widget", "../utilites/utils", "esri/core/reactiveUtils"], function (require, exports, Accordion_1, decorators_1, Feature_1, Handles_1, widget_1, utils_1, reactiveUtils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    Accordion_1 = __importDefault(Accordion_1);
+    Feature_1 = __importDefault(Feature_1);
+    Handles_1 = __importDefault(Handles_1);
+    var CSS = {
+        base: "accordion",
+        basejs: "js-accordion",
+        single: "single",
+        singleSection: "solo-section",
+        section: "accordion-section",
+        groupSection: "group-accordion-section",
+        active: "is-active",
+        title: "accordion-title",
+        titleArea: "title-area",
+        titleText: "title-text",
+        count: "group-accordion-count",
+        content: "accordion-content",
+        groupContent: "group-accordion-content",
+        featureGroup: "feature-group",
+        button: "btn",
+        transparentButton: "btn-transparent",
+        smallButton: "btn-small",
+        accordionIcon: "accordion-icon",
+        groupAccordionIcon: "group-accordion-icon",
+        paddingTrailer: "padding-right-quarter",
+        right: "right",
+        actions: "accordion-actions",
+        templateContent: "template",
+        scrollable: "scrollable-content",
+        actionBar: "action-bar",
+        flexCount: "flex-count",
+        flexArrow: "flex-arrow",
+        togglePanel: "toggle-panel"
+    };
+    var GroupedAccordion = /** @class */ (function (_super) {
+        __extends(GroupedAccordion, _super);
+        //--------------------------------------------------------------------------
+        //
+        //  Public Methods
+        //
+        //--------------------------------------------------------------------------
+        function GroupedAccordion(props) {
+            var _this = _super.call(this, props) || this;
+            _this.zoom = true;
+            _this.actionBarItems = [];
+            _this.state = "loading";
+            //--------------------------------------------------------------------------
+            //
+            // Variables
+            //
+            //--------------------------------------------------------------------------
+            _this._handles = new Handles_1.default();
+            _this._featureCount = 0;
+            _this._toggle = false;
+            _this._clusterLayers = [];
+            return _this;
+        }
+        GroupedAccordion.prototype.render = function () {
+            var _this = this;
+            var _a, _b, _c, _d, _e, _f, _g, _h;
+            var _j = this.config, theme = _j.theme, enableFilter = _j.enableFilter, collapseIndividualResults = _j.collapseIndividualResults, resultsPanelPreText = _j.resultsPanelPreText, resultsPanelPostText = _j.resultsPanelPostText, groupResultsByLayer = _j.groupResultsByLayer;
+            var themeClass = theme === "dark" ? "calcite-mode-dark" : "calcite-mode-light";
+            var preText = resultsPanelPreText && ((_a = this === null || this === void 0 ? void 0 : this.featureResults) === null || _a === void 0 ? void 0 : _a.length) > 0 ? this.createPreText() : null;
+            var postText = resultsPanelPostText && ((_b = this === null || this === void 0 ? void 0 : this.featureResults) === null || _b === void 0 ? void 0 : _b.length) > 0 ? this.createPostText() : null;
+            if (groupResultsByLayer) {
+                (_c = this.featureResults) === null || _c === void 0 ? void 0 : _c.sort(function (a, b) {
+                    return (b === null || b === void 0 ? void 0 : b.layerIndex) - (a === null || a === void 0 ? void 0 : a.layerIndex);
+                });
+            }
+            else {
+                // All features are in one group so we'll sort here. In nearby
+                // we don't do this because nearby sorts by distance.
+                if (((_d = this === null || this === void 0 ? void 0 : this.featureResults) === null || _d === void 0 ? void 0 : _d.length) > 0 && ((_e = this === null || this === void 0 ? void 0 : this.featureResults[0]) === null || _e === void 0 ? void 0 : _e.features)) {
+                    (_g = (_f = this === null || this === void 0 ? void 0 : this.featureResults[0]) === null || _f === void 0 ? void 0 : _f.features) === null || _g === void 0 ? void 0 : _g.sort(function (a, b) {
+                        var al = a;
+                        var bl = b;
+                        return (bl === null || bl === void 0 ? void 0 : bl.layerIndex) - (al === null || al === void 0 ? void 0 : al.layerIndex);
+                    });
+                }
+            }
+            var filter = enableFilter ? "filter" : "";
+            return ((0, widget_1.tsx)("calcite-panel", { key: "feature-container", id: "feature-container", bind: this, afterCreate: function (container) {
+                    (0, utils_1.resizeResultsHeight)(container, false);
+                }, class: this.classes(CSS.scrollable, filter) },
+                preText,
+                (0, widget_1.tsx)("calcite-accordion", { "icon-position": "start", "icon-type": !collapseIndividualResults ? "chevron" : "plus-minus", class: this.classes(themeClass) }, (_h = this.featureResults) === null || _h === void 0 ? void 0 : _h.map(function (result, i) { return _this._createSections(result, i); })),
+                postText));
+        };
+        GroupedAccordion.prototype._createSections = function (result, key) {
+            var _this = this;
+            var _a;
+            var _b = this.config, groupResultsByLayer = _b.groupResultsByLayer, showResultCount = _b.showResultCount;
+            var count = (_a = result === null || result === void 0 ? void 0 : result.features) === null || _a === void 0 ? void 0 : _a.length;
+            var layerKey = (result === null || result === void 0 ? void 0 : result.layerIndex) || key;
+            var classes = count === 1 ? [CSS.section, CSS.single, CSS.groupSection] : [CSS.section, CSS.groupSection];
+            var sectionCount = this.featureResults.length || 0;
+            var headerClasses = [];
+            var active = false;
+            if (!groupResultsByLayer) {
+                classes.push(CSS.singleSection);
+                headerClasses.push(CSS.singleSection);
+            }
+            if ((this === null || this === void 0 ? void 0 : this.state) === "ready") {
+                if (sectionCount === 1 || (key === 0 && count <= 3)) {
+                    active = true;
+                }
+            }
+            // Show the section count in the title area.
+            var resultCount = showResultCount ? count === null || count === void 0 ? void 0 : count.toString() : null;
+            count > 0
+                ? document.body.classList.remove("no-results")
+                : document.body.classList.add("no-results");
+            return ((0, widget_1.tsx)("section", { bind: this, key: "".concat(layerKey), "data-title": result.title, class: this.classes(classes) },
+                (0, widget_1.tsx)("calcite-accordion-item", { expanded: active, afterCreate: this.styleLayerHeader, class: this.classes(headerClasses), bind: this, heading: result.title, description: resultCount ? resultCount : null, key: "layer".concat((result === null || result === void 0 ? void 0 : result.title) || key) }, result.features &&
+                    result.features.map(function (feature, i, theme) {
+                        return _this._createFeatureBlock(feature, i);
+                    }))));
+        };
+        GroupedAccordion.prototype._createFeatureBlock = function (feature, i) {
+            /**The collapsible attribute determines whether the calcite-block can be collapsed or expanded by the user, while the open attribute determines whether the calcite-block is initially opened or closed.*/
+            var _a = this.config, theme = _a.theme, collapseIndividualResults = _a.collapseIndividualResults;
+            var actionBarNav = this._createActionBar(feature);
+            return ((0, widget_1.tsx)("div", { class: "feature-group-container", key: "".concat(i, "-item"), tabindex: "0" },
+                (0, widget_1.tsx)("calcite-block", { class: "feature-group-block", collapsible: collapseIndividualResults, open: !collapseIndividualResults || i === 0 ? true : false },
+                    (0, widget_1.tsx)("div", { "data-feature": feature, afterCreate: this._createFeature, tabindex: "0", class: this.classes(CSS.featureGroup, theme), bind: this, key: "feature".concat(i) }),
+                    actionBarNav)));
+        };
+        GroupedAccordion.prototype._createActionBar = function (feature) {
+            var _this = this;
+            var _a;
+            var _b = this.config, shareSelected = _b.shareSelected, showDirections = _b.showDirections, showElevationProfile = _b.showElevationProfile, directionsLayers = _b.directionsLayers;
+            var actionItems = [];
+            (_a = this === null || this === void 0 ? void 0 : this.actionBarItems) === null || _a === void 0 ? void 0 : _a.forEach(function (item) {
+                var _a, _b, _c, _d;
+                if (showDirections && item.id === "directions") {
+                    if (((_a = directionsLayers === null || directionsLayers === void 0 ? void 0 : directionsLayers.layers) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                        directionsLayers.layers.forEach(function (layer) {
+                            var _a, _b;
+                            if ((layer === null || layer === void 0 ? void 0 : layer.id) === ((_a = feature === null || feature === void 0 ? void 0 : feature.layer) === null || _a === void 0 ? void 0 : _a.id)) {
+                                if (((_b = feature === null || feature === void 0 ? void 0 : feature.geometry) === null || _b === void 0 ? void 0 : _b.type) === "point")
+                                    actionItems.push(item);
+                            }
+                        });
+                    }
+                    else if (((_b = feature === null || feature === void 0 ? void 0 : feature.geometry) === null || _b === void 0 ? void 0 : _b.type) === "point" &&
+                        (((_c = directionsLayers === null || directionsLayers === void 0 ? void 0 : directionsLayers.layers) === null || _c === void 0 ? void 0 : _c.length) === 0 || !directionsLayers)) {
+                        actionItems.push(item);
+                    }
+                }
+                if (shareSelected && item.id === "copyLink") {
+                    actionItems.push(item);
+                }
+                if (showElevationProfile &&
+                    item.id === "elevationProfile" &&
+                    ((_d = feature === null || feature === void 0 ? void 0 : feature.geometry) === null || _d === void 0 ? void 0 : _d.type) === "polyline") {
+                    actionItems.push(item);
+                }
+            });
+            return actionItems.length > 0 ? ((0, widget_1.tsx)("nav", { class: this.classes(CSS.actionBar) }, actionItems.map(function (it) { return _this.createActionItem(it, feature); }))) : null;
+        };
+        GroupedAccordion.prototype._createFeature = function (node) {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var _c, select, relatedRecords, collapseIndividualResults, graphic, distNode, container, feature, block, values_1, layer_1, fl_1, id_1, promises_1, clickableResults, puContainer_1, highlightNode;
+                var _this = this;
+                return __generator(this, function (_d) {
+                    _c = this.config, select = _c.select, relatedRecords = _c.relatedRecords, collapseIndividualResults = _c.collapseIndividualResults;
+                    graphic = node["data-feature"];
+                    distNode = document.createElement("span");
+                    node.appendChild(distNode);
+                    container = document.createElement("div");
+                    node.id = "".concat(graphic.layer.id).concat(graphic.attributes[graphic.layer.objectIdField]);
+                    feature = new Feature_1.default({
+                        graphic: graphic,
+                        defaultPopupTemplateEnabled: true,
+                        map: this.view.map,
+                        spatialReference: this.view.spatialReference,
+                        container: container
+                    });
+                    block = node === null || node === void 0 ? void 0 : node.parentElement;
+                    if (block) {
+                        feature.watch("title", function () {
+                            var title = feature.title;
+                            var containsHTML = title === null || title === void 0 ? void 0 : title.match(".*\\<[^>]+>.*");
+                            var c = feature === null || feature === void 0 ? void 0 : feature.container;
+                            if (c)
+                                c.setAttribute("data-title", title);
+                            if (collapseIndividualResults) {
+                                var featureTitle = node.querySelector(".esri-feature__title");
+                                title =
+                                    containsHTML && (featureTitle === null || featureTitle === void 0 ? void 0 : featureTitle.textContent) ? featureTitle.textContent : feature.title;
+                                block.heading = title;
+                                if (c)
+                                    c.setAttribute("data-title", title);
+                                feature.set("visibleElements", { title: false });
+                            }
+                            else if (!containsHTML) {
+                                block.heading = title;
+                                if (c)
+                                    c.setAttribute("data-title", title);
+                                feature.set("visibleElements", { title: false });
+                            }
+                            else {
+                                feature.set("visibleElements", { title: true });
+                            }
+                        });
+                    }
+                    node.appendChild(container);
+                    if (relatedRecords) {
+                        // get any related records for the graphic
+                        if (!graphic && !(graphic === null || graphic === void 0 ? void 0 : graphic.layer))
+                            return [2 /*return*/];
+                        values_1 = [];
+                        layer_1 = graphic === null || graphic === void 0 ? void 0 : graphic.layer;
+                        fl_1 = layer_1;
+                        id_1 = graphic === null || graphic === void 0 ? void 0 : graphic.getObjectId();
+                        promises_1 = [];
+                        if (((_a = fl_1 === null || fl_1 === void 0 ? void 0 : fl_1.relationships) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                            fl_1.relationships.forEach(function (relationship) { return __awaiter(_this, void 0, void 0, function () {
+                                var relatedTableId, promise;
+                                var _this = this;
+                                return __generator(this, function (_a) {
+                                    relatedTableId = relationship.relatedTableId;
+                                    if (typeof relatedTableId !== "number") {
+                                        return [2 /*return*/];
+                                    }
+                                    promise = fl_1.queryRelatedFeatures({
+                                        outFields: ["*"],
+                                        relationshipId: relationship.id,
+                                        objectIds: [id_1]
+                                    });
+                                    promises_1.push(promise);
+                                    promise.then(function (relatedFeatures) {
+                                        var _a, _b;
+                                        if ((relatedFeatures === null || relatedFeatures === void 0 ? void 0 : relatedFeatures.length) < 0)
+                                            return;
+                                        Promise.resolve((_b = (_a = relatedFeatures[id_1]) === null || _a === void 0 ? void 0 : _a.features) === null || _b === void 0 ? void 0 : _b.map(function (graphic) {
+                                            var _a;
+                                            var foundLayer = (0, utils_1.getRelatedLayer)(layer_1, (_a = _this === null || _this === void 0 ? void 0 : _this.view) === null || _a === void 0 ? void 0 : _a.map);
+                                            if (!(graphic === null || graphic === void 0 ? void 0 : graphic.layer))
+                                                graphic.layer = foundLayer;
+                                            values_1.push(graphic);
+                                            return graphic;
+                                        }));
+                                    });
+                                    return [2 /*return*/];
+                                });
+                            }); });
+                            Promise.all(promises_1).then(function () {
+                                values_1.forEach(function (record) {
+                                    var container = document.createElement("div");
+                                    new Feature_1.default({
+                                        graphic: record,
+                                        defaultPopupTemplateEnabled: true,
+                                        view: _this.view,
+                                        container: container
+                                    });
+                                    container.classList.add("related-feature");
+                                    node.appendChild(container);
+                                });
+                            });
+                        }
+                    }
+                    // Set the count and then update with title if we have one
+                    if (graphic &&
+                        graphic.attributes &&
+                        graphic.attributes.lookupDistance &&
+                        this.config.includeDistance) {
+                        // sanitized in convertUnitText
+                        distNode.innerHTML = this.convertUnitText(graphic.attributes.lookupDistance, this.config.searchUnits);
+                    }
+                    clickableResults = this.config.interactiveResults === false ? false : true;
+                    if (clickableResults) {
+                        node.addEventListener("click", function (evt) {
+                            var _a, _b, _c;
+                            // clean up old expressions
+                            if (((_a = _this.config) === null || _a === void 0 ? void 0 : _a.showSelectedOnly) && ((_b = _this.config) === null || _b === void 0 ? void 0 : _b.selectionExpression)) {
+                                var layer = _this.config.selectionExpression.layer;
+                                if (layer)
+                                    layer.definitionExpression = "";
+                                _this.config.selectionExpression = null;
+                            }
+                            _this.zoom = true;
+                            _this._selectAccordionSection(node.parentElement, graphic);
+                            if (_this.config.showSelectedOnly) {
+                                // only show the selected feature and hide the others
+                                (_c = _this === null || _this === void 0 ? void 0 : _this.featureResults) === null || _c === void 0 ? void 0 : _c.forEach(function (feature) {
+                                    var _a;
+                                    (_a = feature === null || feature === void 0 ? void 0 : feature.features) === null || _a === void 0 ? void 0 : _a.forEach(function (f) {
+                                        var _a, _b, _c, _d;
+                                        (_b = (_a = _this.config) === null || _a === void 0 ? void 0 : _a.selectionVisibilityLayers) === null || _b === void 0 ? void 0 : _b.push(graphic.layer);
+                                        if (f.layer.title !== graphic.layer.title) {
+                                            f.layer.visible = false;
+                                        }
+                                        else {
+                                            // same layer now we only want to show the selected feature
+                                            f.layer.visible = true;
+                                            if (((_c = f.layer) === null || _c === void 0 ? void 0 : _c.type) === "feature") {
+                                                var fl = f.layer;
+                                                if (fl) {
+                                                    _this.config.selectionExpression = {
+                                                        layer: fl,
+                                                        previousDefinitionExpression: (_d = fl.definitionExpression) === null || _d === void 0 ? void 0 : _d.toString()
+                                                    };
+                                                    fl.definitionExpression = "".concat(fl.objectIdField, " = ").concat(graphic.attributes[fl.objectIdField]);
+                                                }
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                        node.addEventListener("mouseenter", function () {
+                            var _a, _b, _c;
+                            _this.view.popup.close();
+                            _this.zoom = true;
+                            _this._selectAccordionSection(node.parentElement, graphic);
+                            var nodeId = node === null || node === void 0 ? void 0 : node.id;
+                            if (_this === null || _this === void 0 ? void 0 : _this.hoveredItem) {
+                                var l = (_a = _this.hoveredItem) === null || _a === void 0 ? void 0 : _a.graphic.layer;
+                                var layerid = "".concat(l.id).concat((_c = (_b = _this === null || _this === void 0 ? void 0 : _this.hoveredItem) === null || _b === void 0 ? void 0 : _b.graphic) === null || _c === void 0 ? void 0 : _c.attributes[l.objectIdField]);
+                                if (nodeId !== layerid) {
+                                    _this.hoveredItem = feature;
+                                }
+                            }
+                            else {
+                                _this.hoveredItem = feature;
+                            }
+                            var location = feature.graphic.geometry;
+                            if (location && location.type !== "point") {
+                                location = location.extent.center;
+                            }
+                            var title = feature.title;
+                            if (title) {
+                                puContainer_1.classList.add("no-title");
+                                _this.view.popup.dockEnabled = false;
+                                _this.view.popup.dockOptions.buttonEnabled = false;
+                                _this.view.popup.collapseEnabled = false;
+                                _this.view.popup.visibleElements = {
+                                    closeButton: false
+                                };
+                                _this.view.popup.open({
+                                    location: location,
+                                    features: [graphic],
+                                    content: "<div style=\"text-align:center;padding-top:10px;\">".concat(title, "</div>")
+                                });
+                            }
+                        });
+                        puContainer_1 = this.view.popup.container;
+                        (_b = node === null || node === void 0 ? void 0 : node.parentElement) === null || _b === void 0 ? void 0 : _b.addEventListener("mouseleave", function () {
+                            _this.view.popup.close();
+                            puContainer_1.classList.remove("no-title");
+                        });
+                    }
+                    if (select) {
+                        highlightNode = document.getElementById(select);
+                        if ((highlightNode === null || highlightNode === void 0 ? void 0 : highlightNode.id) === node.id) {
+                            (0, reactiveUtils_1.whenOnce)(function () { var _a; return !((_a = _this === null || _this === void 0 ? void 0 : _this.view) === null || _a === void 0 ? void 0 : _a.updating); }).then(function () {
+                                _this._updateNode(node, graphic);
+                            });
+                            this._updateNode(node, graphic);
+                        }
+                    }
+                    return [2 /*return*/];
+                });
+            });
+        };
+        GroupedAccordion.prototype.styleLayerHeader = function (container) {
+            var _a = this.config, showResultCount = _a.showResultCount, theme = _a.theme;
+            container.addEventListener("calciteInternalAccordionItemRegister", function (e) {
+                var _a, _b;
+                var shadowRoot = (_a = e === null || e === void 0 ? void 0 : e.target) === null || _a === void 0 ? void 0 : _a.shadowRoot;
+                var style = document.createElement("style");
+                var styles = [];
+                styles.push("\n            .header{ \n                display:flex;\n                background:".concat(theme === "light" ? "#f8f8f8" : "#404040", " !important;\n                align-items:flex-start !important;\n            }"));
+                if (showResultCount) {
+                    styles.push(" \n                .header-text { \n                 flex-direction: unset!important;\n                } \n                .description{\n                    width:auto !important;\n                    text-align:center;padding:0.25em 0.5em;\n                    font-size:13px; \n                    color:#151515 !important;\n                    background-color:#ddd;\n                }\n                ");
+                }
+                if ((_b = container === null || container === void 0 ? void 0 : container.classList) === null || _b === void 0 ? void 0 : _b.contains("solo-section")) {
+                    styles.push(".header{display:none !important;}");
+                }
+                if ((styles === null || styles === void 0 ? void 0 : styles.length) > 0) {
+                    style.innerHTML = styles === null || styles === void 0 ? void 0 : styles.join(" ");
+                    shadowRoot === null || shadowRoot === void 0 ? void 0 : shadowRoot.prepend(style);
+                }
+            });
+        };
+        GroupedAccordion.prototype._updateNode = function (node, graphic) {
+            var _a, _b;
+            var accordion = (_a = node === null || node === void 0 ? void 0 : node.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
+            if (((_b = accordion === null || accordion === void 0 ? void 0 : accordion.tagName) === null || _b === void 0 ? void 0 : _b.toUpperCase()) === "CALCITE-ACCORDION-ITEM") {
+                // expand it
+                this._selectAccordionSection(accordion, graphic);
+                accordion.setAttribute("expanded", "true");
+                this._scrollToFeature(node === null || node === void 0 ? void 0 : node.parentElement);
+            }
+            else {
+                this._scrollToFeature(node === null || node === void 0 ? void 0 : node.parentElement);
+            }
+            node.click();
+        };
+        GroupedAccordion.prototype.clear = function () {
+            this.featureResults = null;
+            this._toggle = false;
+            this._resetClusters();
+        };
+        GroupedAccordion.prototype.showToggle = function () {
+            var _a;
+            // show toggle buttons if we have more than 1 sections?
+            return ((_a = this === null || this === void 0 ? void 0 : this.featureResults) === null || _a === void 0 ? void 0 : _a.length) > 1;
+        };
+        GroupedAccordion.prototype._removeClusters = function (graphic) {
+            var layer = graphic === null || graphic === void 0 ? void 0 : graphic.layer;
+            // Remove feature reduction (clusters)
+            if (layer === null || layer === void 0 ? void 0 : layer.get("featureReduction")) {
+                var reduction = layer.get("featureReduction");
+                this._clusterLayers.push({
+                    reduction: reduction,
+                    layer: layer
+                });
+                layer.set("featureReduction", null);
+            }
+        };
+        GroupedAccordion.prototype._resetClusters = function () {
+            var _a;
+            // Add clusters back to the layer
+            if (((_a = this === null || this === void 0 ? void 0 : this._clusterLayers) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                this._clusterLayers.forEach(function (cluster) {
+                    var layer = cluster === null || cluster === void 0 ? void 0 : cluster.layer;
+                    if (layer && (cluster === null || cluster === void 0 ? void 0 : cluster.reduction))
+                        layer.set("featureReduction", cluster.reduction);
+                });
+            }
+        };
+        GroupedAccordion.prototype.findAccordionItem = function (results) {
+            var _this = this;
+            var _a;
+            var found = false;
+            var groupResultsByLayer = this.config.groupResultsByLayer;
+            (_a = results === null || results === void 0 ? void 0 : results.results) === null || _a === void 0 ? void 0 : _a.forEach(function (result) {
+                var _a;
+                // User has clicked a feature on the map
+                // Check to see if we have a matching item in list and
+                // if so active the section and scroll
+                var r = result; // this is as any until typings are ready
+                var graphic = r.graphic;
+                if (graphic && graphic.attributes && (r === null || r === void 0 ? void 0 : r.type) === "graphic") {
+                    var layer_2 = graphic === null || graphic === void 0 ? void 0 : graphic.layer;
+                    _this._removeClusters(graphic);
+                    var idField_1 = (layer_2 === null || layer_2 === void 0 ? void 0 : layer_2.objectIdField) || null;
+                    var val_1 = graphic.attributes[idField_1];
+                    (_a = _this === null || _this === void 0 ? void 0 : _this.featureResults) === null || _a === void 0 ? void 0 : _a.forEach(function (featureResult) {
+                        var _a;
+                        if (!groupResultsByLayer || featureResult.title === layer_2.title) {
+                            // find the graphic
+                            (_a = featureResult.features) === null || _a === void 0 ? void 0 : _a.forEach(function (f) {
+                                if (f.attributes[idField_1] === val_1) {
+                                    var node = document.getElementById("".concat(layer_2.id).concat(val_1));
+                                    if (node === null || node === void 0 ? void 0 : node.parentElement) {
+                                        found = true;
+                                        _this.zoom = false;
+                                        _this._selectAccordionSection(node.parentElement, graphic);
+                                        _this._findActiveSectionForFeature(node.parentElement);
+                                        _this._scrollToFeature(node === null || node === void 0 ? void 0 : node.parentElement);
+                                    }
+                                    return found;
+                                }
+                            });
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+                }
+            });
+            return found;
+        };
+        GroupedAccordion.prototype._findActiveSectionForFeature = function (node) {
+            // Find the acordion section and expand
+            var els = [];
+            while (node) {
+                els.unshift(node);
+                if (node === null || node === void 0 ? void 0 : node.classList.contains("accordion-section")) {
+                    var firstChild = (node === null || node === void 0 ? void 0 : node.firstChild) || null;
+                    if (firstChild && !(firstChild === null || firstChild === void 0 ? void 0 : firstChild.getAttribute("expanded"))) {
+                        firstChild.setAttribute("expanded", "true");
+                    }
+                    node = null;
+                }
+                else {
+                    node = node.parentNode;
+                }
+            }
+        };
+        GroupedAccordion.prototype._selectAccordionSection = function (node, graphic) {
+            var selectedClassName = "accordion-section-selected";
+            var mainNodes = document.getElementsByClassName(selectedClassName);
+            for (var j = 0; j < mainNodes.length; j++) {
+                mainNodes[j].classList.remove(selectedClassName);
+            }
+            if (node)
+                node.classList.add(selectedClassName);
+            if (graphic) {
+                this.selectedItem = graphic;
+                this._removeClusters(graphic);
+                this.view.goTo({ target: graphic, scale: this.view.scale }).catch(function () { });
+            }
+        };
+        GroupedAccordion.prototype._scrollToFeature = function (node) {
+            if (!node)
+                return;
+            if (window.location !== window.parent.location) {
+                return;
+            }
+            // Detect ios safari
+            var scrollLayer = document.getElementById("feature-container");
+            var element = node;
+            if (this._detectIOSSafari()) {
+                var position = void 0;
+                if (!element || !scrollLayer)
+                    return;
+                var top_1 = element.offsetTop - scrollLayer.scrollTop;
+                if (element.offsetTop < scrollLayer.scrollTop) {
+                    // top of element is above top of view - scroll to top of element
+                    position = element.offsetTop;
+                }
+                else if (element.scrollHeight + top_1 < scrollLayer.offsetHeight) {
+                    // element is in view - don't need to scroll
+                    return;
+                }
+                else if (element.scrollHeight > scrollLayer.offsetHeight) {
+                    // element is bigger than view - scroll to top of element
+                    position = element.offsetTop;
+                }
+                else {
+                    // element partially cut-off - scroll remainder into view
+                    var difference = scrollLayer.offsetHeight - (element.scrollHeight + top_1);
+                    position = scrollLayer.scrollTop - difference;
+                }
+                // custom function for iOS
+                this.scrollToElement(scrollLayer, position, 200);
+            }
+            else {
+                node === null || node === void 0 ? void 0 : node.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "start"
+                });
+            }
+        };
+        GroupedAccordion.prototype.scrollToElement = function (scrollLayer, destination, duration) {
+            var _this = this;
+            if (duration <= 0) {
+                return;
+            }
+            var difference = destination - scrollLayer.scrollTop;
+            var perTick = (difference / duration) * 10;
+            setTimeout(function () {
+                scrollLayer.scrollTop = scrollLayer.scrollTop + perTick;
+                if (scrollLayer.scrollTop === destination) {
+                    return;
+                }
+                _this.scrollToElement(scrollLayer, destination, duration - 10);
+            }, 10);
+        };
+        GroupedAccordion.prototype._detectIOSSafari = function () {
+            var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+            var win = window;
+            var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !win.MSStream;
+            return isSafari && iOS ? true : false;
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "featureResults", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "selectedItem", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "hoveredItem", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "zoom", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "actionBarItems", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], GroupedAccordion.prototype, "state", void 0);
+        GroupedAccordion = __decorate([
+            (0, decorators_1.subclass)("app.GroupedAccordion")
+        ], GroupedAccordion);
+        return GroupedAccordion;
+    }(Accordion_1.default));
+    exports.default = GroupedAccordion;
+});

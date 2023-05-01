@@ -1,0 +1,406 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "TemplatesCommonLib/baseClasses/configurationSettingsBase"], function (require, exports, decorators_1, configurationSettingsBase_1) {
+    "use strict";
+    configurationSettingsBase_1 = __importDefault(configurationSettingsBase_1);
+    var ConfigurationSettings = /** @class */ (function (_super) {
+        __extends(ConfigurationSettings, _super);
+        function ConfigurationSettings() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "smartBanner", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "autoZoomFirstResult", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "telemetry", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "googleAnalytics", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "googleAnalyticsKey", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "googleAnalyticsConsentMsg", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "googleAnalyticsConsent", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "webmap", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "extentSelectorConfig", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "extentSelector", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapZoom", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapZoomPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "home", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "homePosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "legend", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "legendOpenAtStart", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "legendPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "legendConfig", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "layerListPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "layerListOpenAtStart", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "layerListConfig", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "layerList", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "collapseIndividualResults", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "scalebar", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "scalebarPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "basemapToggle", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "basemapTogglePosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "infoAsModal", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "infoIncludeLocation", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showAllResults", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "nextBasemap", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "basemapSelector", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "theme", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "applySharedTheme", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "headerColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "headerBackground", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableHeaderBackground", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableHeaderColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "displayUnmatchedResults", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "title", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "titleLink", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "header", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "infoButtonPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showIntroduction", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "introductionTitle", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "introductionContent", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "hideMap", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "share", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "customCSS", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "customTheme", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "applyCustomTheme", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "interactiveResults", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "resultsPanelPostText", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "resultsPanelPreText", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "noResultsMessage", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showResultCount", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "groupResultsByLayer", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showDirections", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "directionsLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "useDirectionsApp", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "directionsStart", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showElevationProfile", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "includeDistance", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "shareSelected", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "searchScale", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableSearchScale", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableSearchLayer", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "searchTypeSet", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "hideLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "highlightColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "highlightHaloColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableHighlightHaloColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableHighlightColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "lookupLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "zoneLookupLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "searchConfiguration", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "find", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "filter", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "findSource", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "relatedRecords", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPin", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinIcon", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinLabel", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinLabelColor", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinSize", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapPinLabelSize", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "screenshot", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "screenshotPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "bookmarks", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "bookmarksPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "mapA11yDesc", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableFilter", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "filterConfig", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "expandFilters", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "bundle", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "appBundle", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "coverPage", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "coverPageConfig", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "panelSize", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "select", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "level", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "center", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "searchLayer", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "enableSketchTools", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "exportToPDF", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "units", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "applyLayerEffects", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "presetLayerEffects", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "locateWidget", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "locateWidgetPosition", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "appid", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "exportCSV", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "showSelectedOnly", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "selectionVisibilityLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "selectionExpression", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ConfigurationSettings.prototype, "spatialRelationship", void 0);
+        ConfigurationSettings = __decorate([
+            (0, decorators_1.subclass)("app.ConfigurationSettings")
+        ], ConfigurationSettings);
+        return ConfigurationSettings;
+    }(configurationSettingsBase_1.default));
+    return ConfigurationSettings;
+});

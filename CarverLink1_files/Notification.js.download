@@ -1,0 +1,94 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "esri/widgets/Widget", "esri/widgets/support/widget", "ArcGISHTMLSanitizer", "TemplatesCommonLib/functionality/securityUtils"], function (require, exports, decorators_1, Widget_1, widget_1, ArcGISHTMLSanitizer_1, securityUtils_1) {
+    "use strict";
+    Widget_1 = __importDefault(Widget_1);
+    ArcGISHTMLSanitizer_1 = __importDefault(ArcGISHTMLSanitizer_1);
+    var Notification = /** @class */ (function (_super) {
+        __extends(Notification, _super);
+        function Notification(params) {
+            var _this = _super.call(this, params) || this;
+            _this.bundle = null;
+            _this.rootNode = null;
+            return _this;
+        }
+        Notification.prototype.postInitialize = function () {
+            this._sanitizer = (0, securityUtils_1.createSanitizerInstance)(ArcGISHTMLSanitizer_1.default);
+        };
+        Notification.prototype.render = function () {
+            var noResultsMessage = this.config.noResultsMessage;
+            var message = noResultsMessage && noResultsMessage !== "" ? noResultsMessage : this.bundle.noFeatures;
+            return ((0, widget_1.tsx)("div", null,
+                (0, widget_1.tsx)("calcite-notice", { bind: this, afterCreate: widget_1.storeNode, "data-node-ref": "rootNode", scale: "l", width: "auto", icon: "information", active: true, closable: true, kind: "brand" },
+                    (0, widget_1.tsx)("div", { slot: "message", innerHTML: this._sanitizer.sanitize(message) }))));
+        };
+        Notification.prototype.dismissNotice = function () {
+            var _a, _b;
+            if (this === null || this === void 0 ? void 0 : this.rootNode) {
+                this.rootNode.open = false;
+                (_b = (_a = document === null || document === void 0 ? void 0 : document.body) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("map-alert");
+            }
+        };
+        Notification.prototype.showNotice = function () {
+            if (this === null || this === void 0 ? void 0 : this.rootNode) {
+                this.rootNode.open = true;
+            }
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], Notification.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], Notification.prototype, "view", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("lookup/app/t9n/common")
+        ], Notification.prototype, "bundle", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], Notification.prototype, "rootNode", void 0);
+        Notification = __decorate([
+            (0, decorators_1.subclass)("Notification")
+        ], Notification);
+        return Notification;
+    }(Widget_1.default));
+    return Notification;
+});

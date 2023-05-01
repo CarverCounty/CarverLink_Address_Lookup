@@ -1,0 +1,249 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "esri/widgets/Widget", "esri/widgets/support/widget", "ArcGISHTMLSanitizer", "TemplatesCommonLib/functionality/securityUtils", "../utilites/utils", "../utilites/themeUtils", "../utilites/a11yUtils"], function (require, exports, decorators_1, Widget_1, widget_1, ArcGISHTMLSanitizer_1, securityUtils_1, utils_1, themeUtils_1, a11yUtils_1) {
+    "use strict";
+    Widget_1 = __importDefault(Widget_1);
+    ArcGISHTMLSanitizer_1 = __importDefault(ArcGISHTMLSanitizer_1);
+    var CSS = {
+        theme: "app-header",
+        logo: "embed-app__header__logo",
+        calciteStyles: {
+            buttonLink: "btn-link",
+            right: "right",
+            iconDesc: "icon-ui-description",
+            fade: "fade-in",
+            topNavLink: "top-nav-link",
+            topNav: "top-nav",
+            topNavTitle: "top-nav-title",
+            ellipsis: "text-fade"
+        }
+    };
+    var Header = /** @class */ (function (_super) {
+        __extends(Header, _super);
+        //--------------------------------------------------------------------------
+        //
+        //  Public Methods
+        //
+        //--------------------------------------------------------------------------
+        function Header(props) {
+            var _this = _super.call(this, props) || this;
+            _this.view = null;
+            _this.messages = null;
+            _this.instantMessages = null;
+            _this._previousHeight = null;
+            _this._sanitizer = (0, securityUtils_1.createSanitizerInstance)(ArcGISHTMLSanitizer_1.default);
+            return _this;
+        }
+        Header.prototype.render = function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+            var _o = this.config, header = _o.header, customTheme = _o.customTheme, theme = _o.theme, customCSS = _o.customCSS, showIntroduction = _o.showIntroduction, titleLink = _o.titleLink;
+            var appTitle = this._getTitle();
+            var _p = this.getLogoInfo(), logo = _p.logo, link = _p.link, scale = _p.scale;
+            var baseColors = (0, themeUtils_1.getBaseColors)(theme);
+            var background = baseColors === null || baseColors === void 0 ? void 0 : baseColors.background;
+            var text = baseColors === null || baseColors === void 0 ? void 0 : baseColors.text;
+            if (((_b = (_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.customTheme) === null || _b === void 0 ? void 0 : _b.applySharedTheme) ||
+                ((_d = (_c = this === null || this === void 0 ? void 0 : this.config) === null || _c === void 0 ? void 0 : _c.customTheme) === null || _d === void 0 ? void 0 : _d.applyPresetTheme)) {
+                if ((_h = (_g = (_f = (_e = this === null || this === void 0 ? void 0 : this.config) === null || _e === void 0 ? void 0 : _e.customTheme) === null || _f === void 0 ? void 0 : _f.themes) === null || _g === void 0 ? void 0 : _g.primary) === null || _h === void 0 ? void 0 : _h.text) {
+                    text = this.config.customTheme.themes.primary.text;
+                }
+                if ((_m = (_l = (_k = (_j = this === null || this === void 0 ? void 0 : this.config) === null || _j === void 0 ? void 0 : _j.customTheme) === null || _k === void 0 ? void 0 : _k.themes) === null || _l === void 0 ? void 0 : _l.primary) === null || _m === void 0 ? void 0 : _m.background) {
+                    background = this.config.customTheme.themes.primary.background;
+                }
+            }
+            this.infoButton =
+                showIntroduction && this.detailPanel ? ((0, widget_1.tsx)("div", { slot: "actions-end", class: "info-button", key: "info-button" },
+                    (0, widget_1.tsx)("calcite-button", { appearance: "transparent", bind: this, id: "infoButton", onclick: this._showDetailPanel, title: this.instantMessages.tools.splash, label: this.instantMessages.tools.splash, "aria-label": this.instantMessages.tools.splash, "aria-expanded": "true" },
+                        (0, widget_1.tsx)("calcite-icon", { icon: "information-f", scale: "m" })))) : ((0, widget_1.tsx)("div", null));
+            header ? document.body.classList.remove("no-header") : document.body.classList.add("no-header");
+            var headerContent = header ? ((0, widget_1.tsx)("instant-apps-header", { "font-family": customTheme === null || customTheme === void 0 ? void 0 : customTheme.font, "logo-image": logo, "logo-scale": scale, "logo-link": link, "logo-image-alt-text": "", "background-color": background, "custom-header-css": customCSS ? customCSS : null, "text-color": text, scale: scale, "title-text": appTitle, "title-text-link": titleLink, bind: this, afterCreate: this.handleHeightDimensions, afterUpdate: this.handleHeightDimensions, theme: theme }, this.infoButton)) : null;
+            return ((0, widget_1.tsx)("div", { key: "default-header", class: this.classes("default-header", theme), afterCreate: this.handleHeightDimensions, afterUpdate: this.handleHeightDimensions, bind: this }, headerContent));
+        };
+        Header.prototype.handleHeightDimensions = function (headerContainer) {
+            var _this = this;
+            setTimeout(function () {
+                // const viewParentContainer = document.getElementById("mapPanel");
+                var parentContainer = document.getElementById("appMain");
+                // Our child element sometimes has a larger margin than parent
+                // this leads to collapsing margins so add/remove padding when
+                // calculating height
+                var elementHeight = _this === null || _this === void 0 ? void 0 : _this._outerHeight(headerContainer);
+                var height = "calc(100% - ".concat(elementHeight, "px)");
+                if (_this._previousHeight && _this._previousHeight === height) {
+                    return;
+                }
+                _this._previousHeight = height;
+                // viewParentContainer.style.height = height;
+                if (parentContainer)
+                    parentContainer.style.height = height;
+            }, 1000);
+        };
+        Header.prototype._outerHeight = function (el) {
+            var height = el.offsetHeight;
+            //todo we need to get the proper height here its nested
+            var style = getComputedStyle(el);
+            height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+            return height;
+        };
+        Header.prototype.getLogoInfo = function () {
+            var _a, _b, _c, _d;
+            var customTheme = this.config.customTheme;
+            var sharedTheme = (_b = (_a = this === null || this === void 0 ? void 0 : this.portal) === null || _a === void 0 ? void 0 : _a.portalProperties) === null || _b === void 0 ? void 0 : _b.sharedTheme;
+            var sharedLink = (_c = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.logo) === null || _c === void 0 ? void 0 : _c.link;
+            var logoLink = (customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme) ? sharedLink : customTheme === null || customTheme === void 0 ? void 0 : customTheme.logoLink;
+            if (customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme) {
+                if (!(customTheme === null || customTheme === void 0 ? void 0 : customTheme.logo) && ((_d = sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.logo) === null || _d === void 0 ? void 0 : _d.small)) {
+                    customTheme.logo = sharedTheme.logo.small;
+                }
+            }
+            var logo = customTheme === null || customTheme === void 0 ? void 0 : customTheme.logo;
+            var token = (this === null || this === void 0 ? void 0 : this.portal.get("credential.token")) || null;
+            if (token && logo) {
+                logo = "".concat(logo, "?token=").concat(token);
+            }
+            if ((customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme) && (sharedTheme === null || sharedTheme === void 0 ? void 0 : sharedTheme.logoLink)) {
+                logoLink = sharedTheme.logoLink;
+            }
+            else if (customTheme === null || customTheme === void 0 ? void 0 : customTheme.logoLink) {
+                logoLink = customTheme.logoLink;
+            }
+            var logoObj = {
+                logo: logo !== null && logo !== undefined ? logo : null,
+                scale: (customTheme === null || customTheme === void 0 ? void 0 : customTheme.logoScale) ? customTheme.logoScale : null,
+                link: logoLink !== null && logoLink !== undefined ? logoLink : null
+            };
+            return logoObj;
+        };
+        Header.prototype.createInfoButton = function () {
+            var _this = this;
+            var infoButtonDiv = document.createElement("div");
+            infoButtonDiv.classList.add("info-button");
+            var button = document.createElement("calcite-button");
+            button.classList.add("info-button", "esri-widget--button", "esri-widget", "esri-component", "infoButton");
+            button.kind = "neutral";
+            button.id = "infoButton";
+            button.addEventListener("click", function () {
+                _this._showDetailPanel();
+            });
+            button.title = this.config.bundle.tools.splash;
+            button.label = this.config.bundle.tools.splash;
+            button.iconStart = "information";
+            return button;
+        };
+        Header.prototype._showDetailPanel = function () {
+            var _a;
+            // add class to detail panel to add close button and position at top of panel
+            var node = this.detailPanel.container;
+            var infoButton = document.getElementById("infoButton");
+            (0, utils_1.removeFocus)();
+            if (this.config.infoAsModal) {
+                var m = node === null || node === void 0 ? void 0 : node.children[0];
+                var ip = document.getElementsByClassName("info-panel")[0];
+                if (ip)
+                    ip.classList.remove("close");
+                if (m)
+                    m.toggleAttribute("open");
+            }
+            else {
+                if (node && !node.classList.contains("hide")) {
+                    this.detailPanel.hidePanel(true);
+                    infoButton === null || infoButton === void 0 ? void 0 : infoButton.focus();
+                    infoButton === null || infoButton === void 0 ? void 0 : infoButton.setAttribute("aria-expanded", "false");
+                }
+                else {
+                    this.detailPanel.showPanel();
+                    (0, a11yUtils_1.focusFirstFocusableEl)((_a = this === null || this === void 0 ? void 0 : this.detailPanel) === null || _a === void 0 ? void 0 : _a.container);
+                    infoButton === null || infoButton === void 0 ? void 0 : infoButton.setAttribute("aria-expanded", "true");
+                }
+            }
+        };
+        Header.prototype._getTitle = function () {
+            var title = this.config.title;
+            var calculatedTitle = document.title;
+            if (title) {
+                calculatedTitle = title;
+            }
+            if (title !== "") {
+                // strip html from the title before setting it to the tab title
+                var customDiv = document.createElement("div");
+                customDiv.innerHTML = this._sanitizer.sanitize(title);
+                var textContent = customDiv.textContent;
+                if ((textContent === null || textContent === void 0 ? void 0 : textContent.length) > 0)
+                    calculatedTitle = textContent;
+            }
+            document.title = calculatedTitle;
+            var mobile = (0, utils_1.isMobile)();
+            var outputTitle = calculatedTitle;
+            if (mobile && (calculatedTitle === null || calculatedTitle === void 0 ? void 0 : calculatedTitle.length) > 40) {
+                outputTitle = "".concat(calculatedTitle.split("").slice(0, 30).join(""), "...");
+            }
+            else if (!mobile && (calculatedTitle === null || calculatedTitle === void 0 ? void 0 : calculatedTitle.length) > 100) {
+                outputTitle = "".concat(calculatedTitle.split("").slice(0, 95).join(""), "...");
+            }
+            return outputTitle;
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], Header.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], Header.prototype, "detailPanel", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], Header.prototype, "view", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], Header.prototype, "portal", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("lookup/app/t9n/common")
+        ], Header.prototype, "messages", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("instant/../t9n/common")
+        ], Header.prototype, "instantMessages", void 0);
+        Header = __decorate([
+            (0, decorators_1.subclass)("app.Header")
+        ], Header);
+        return Header;
+    }(Widget_1.default));
+    return Header;
+});

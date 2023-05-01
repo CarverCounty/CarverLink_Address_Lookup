@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.26/esri/copyright.txt for details.
+//>>built
+define(["exports","../../chunks/_rollupPluginBabelHelpers","../../core/maybe"],function(c,g,e){function d(){d=g._asyncToGenerator(function*(a,b){if("2d"===a.type)return a.hitTest(b);a=yield a.hitTest(b);if(0===a.results.length)return a;const h=1.05*(e.unwrap(a.results[0].distance)??0);b=a.results.findIndex(k=>(k.distance??0)>h);-1!==b&&(a.results=a.results.slice(0,b));return a});return d.apply(this,arguments)}function f(a){return e.isSome(a)&&"graphic"===a.type}c.filterGraphicHits=function(a){return a.filter(f)};
+c.findFirstGraphicHit=function(a){return a.find(f)??null};c.hitTestSelectSimilarDistance=function(a,b){return d.apply(this,arguments)};Object.defineProperty(c,Symbol.toStringTag,{value:"Module"})});

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.26/esri/copyright.txt for details.
+//>>built
+define("../../chunks/_rollupPluginBabelHelpers ../../chunks/tslib.es6 ../../core/JSONSupport ../../core/accessorSupport/decorators/property ../../core/accessorSupport/ensureType ../../core/arrayUtils ../../core/accessorSupport/decorators/enumeration ../../core/accessorSupport/decorators/subclass ./networkEnums".split(" "),function(e,b,a,f,m,n,g,h,k){a=function(c){function d(l){return c.call(this,l)||this}e._inheritsLoose(d,c);return d}(a.JSONSupport);b.__decorate([f.property({json:{read:{source:"string"}}})],
+a.prototype,"text",void 0);b.__decorate([g.enumeration(k.directionsStringTypeJsonMap,{name:"stringType"})],a.prototype,"type",void 0);return a=b.__decorate([h.subclass("esri.rest.support.DirectionsString")],a)});

@@ -1,0 +1,230 @@
+/*
+ *   Copyright (c) 2022 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+define(["require", "exports", "esri/core/watchUtils"], function (require, exports, watchUtils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.updatePanelSize = exports.resizeResultsHeight = exports.exportCSVData = exports.removeFocus = exports.setFieldFocus = exports.handleExpandUpdated = exports.getRelatedLayer = exports.findNode = exports.isMobile = exports._isTouchDevice = exports.setPanelSize = exports.handleSearchTypeConfig = exports.handleDeprecatedConfigProps = void 0;
+    function handleDeprecatedConfigProps(config) {
+        if (config === null || config === void 0 ? void 0 : config.exportPDF) {
+            config.exportToPDF = config.exportPDF;
+        }
+        return config;
+    }
+    exports.handleDeprecatedConfigProps = handleDeprecatedConfigProps;
+    function handleSearchTypeConfig(config) {
+        var enableSearchLayer = config.enableSearchLayer;
+        var isBoolean = "boolean" === typeof enableSearchLayer;
+        if (enableSearchLayer === null) {
+            config.searchTypeSet = false;
+        }
+        else if (!isBoolean) {
+            config.searchTypeSet = true;
+            if ((enableSearchLayer === null || enableSearchLayer === void 0 ? void 0 : enableSearchLayer.branchValue) === "search-layer") {
+                // lookup layers
+                config.enableSearchLayer = true;
+            }
+            else if ((enableSearchLayer === null || enableSearchLayer === void 0 ? void 0 : enableSearchLayer.branchValue) === "search-zone") {
+                // zone lookup layers
+                config.enableSearchLayer = false;
+            }
+        }
+        else {
+            config.searchTypeSet = false;
+        }
+        return config;
+    }
+    exports.handleSearchTypeConfig = handleSearchTypeConfig;
+    function setPanelSize(panelSize) {
+        var grid;
+        if (panelSize === "s") {
+            grid = "column-6";
+        }
+        else if (panelSize === "m") {
+            grid = "column-10";
+        }
+        else {
+            grid = "column-12";
+        }
+        return grid;
+    }
+    exports.setPanelSize = setPanelSize;
+    function _isTouchDevice() {
+        return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    }
+    exports._isTouchDevice = _isTouchDevice;
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    exports.isMobile = isMobile;
+    function findNode(className) {
+        var mainNodes = document.getElementsByClassName(className);
+        var node = null;
+        for (var j = 0; j < mainNodes.length; j++) {
+            node = mainNodes[j];
+        }
+        return node ? node : null;
+    }
+    exports.findNode = findNode;
+    function getRelatedLayer(layer, map) {
+        var relatedLayer = null;
+        // CHECK IF SOURCE IS IN ALLLAYERS OR ALLTABLES COLLECTIONS
+        var layers = map.allLayers.filter(function (layer) { return layer.type === "feature"; });
+        var tables = map.allTables.filter(function (layer) { return layer.type === "feature"; });
+        // ITERATE THROUGH SELECTED LAYERS RELATIONSHIPS TO GET RELATED DATA SET
+        var relationships = layer === null || layer === void 0 ? void 0 : layer.relationships;
+        relationships === null || relationships === void 0 ? void 0 : relationships.forEach(function (relationship) {
+            var layer = layers.find(function (layer) {
+                var _a;
+                return (relationship === null || relationship === void 0 ? void 0 : relationship.relatedTableId) === (layer === null || layer === void 0 ? void 0 : layer.layerId) && ((_a = layer === null || layer === void 0 ? void 0 : layer.relationships) === null || _a === void 0 ? void 0 : _a.length) > 0;
+            });
+            var table = tables.find(function (layer) {
+                return (relationship === null || relationship === void 0 ? void 0 : relationship.relatedTableId) === (layer === null || layer === void 0 ? void 0 : layer.layerId) && (relationships === null || relationships === void 0 ? void 0 : relationships.length) > 0;
+            });
+            relatedLayer = layer !== null && layer !== void 0 ? layer : table;
+        });
+        return relatedLayer;
+    }
+    exports.getRelatedLayer = getRelatedLayer;
+    function handleExpandUpdated(expand) {
+        (0, watchUtils_1.whenTrue)(expand, "expanded", function () {
+            var mediaQuery = window.matchMedia("(max-width: 859px)");
+            if (mediaQuery.matches) {
+                document.body.classList.add("mobile-view-expand");
+            }
+        });
+        (0, watchUtils_1.whenFalse)(expand, "expanded", function () {
+            document.body.classList.remove("mobile-view-expand");
+        });
+    }
+    exports.handleExpandUpdated = handleExpandUpdated;
+    function setFieldFocus(element) {
+        if (!element)
+            return;
+        element.setAttribute("tabindex", "-1");
+        element.focus();
+    }
+    exports.setFieldFocus = setFieldFocus;
+    function removeFocus() {
+        var _a;
+        var ti = document.querySelectorAll("[tabindex='-1']");
+        for (var i = 0; i < ti.length; i++) {
+            var node = ti[i];
+            if (!((_a = node === null || node === void 0 ? void 0 : node.classList) === null || _a === void 0 ? void 0 : _a.contains("esri-search__container"))) {
+                node.removeAttribute("tabindex");
+            }
+        }
+    }
+    exports.removeFocus = removeFocus;
+    function exportCSVData(featureResults) {
+        var data = [];
+        featureResults === null || featureResults === void 0 ? void 0 : featureResults.forEach(function (featureResults) {
+            var _a;
+            var prevLayer = null;
+            (_a = featureResults === null || featureResults === void 0 ? void 0 : featureResults.features) === null || _a === void 0 ? void 0 : _a.forEach(function (feature) {
+                var _a;
+                var layer = feature === null || feature === void 0 ? void 0 : feature.layer;
+                var rowKeys = [];
+                if (prevLayer !== (layer === null || layer === void 0 ? void 0 : layer.id)) {
+                    data.push([layer === null || layer === void 0 ? void 0 : layer.title]);
+                    var _loop_1 = function (rk) {
+                        var alias = rk;
+                        (_a = layer === null || layer === void 0 ? void 0 : layer.fields) === null || _a === void 0 ? void 0 : _a.some(function (field) {
+                            if ((field === null || field === void 0 ? void 0 : field.name) === rk) {
+                                if (field === null || field === void 0 ? void 0 : field.alias) {
+                                    alias = field.alias;
+                                }
+                                return true;
+                            }
+                        });
+                        rowKeys.push(alias);
+                    };
+                    // add keys
+                    for (var rk in feature === null || feature === void 0 ? void 0 : feature.attributes) {
+                        _loop_1(rk);
+                    }
+                    data.push(rowKeys);
+                }
+                prevLayer = layer === null || layer === void 0 ? void 0 : layer.id;
+                // get attributes
+                var values = [];
+                for (var key in feature === null || feature === void 0 ? void 0 : feature.attributes) {
+                    values.push(feature.attributes[key]);
+                }
+                data.push(values);
+            });
+        });
+        var csvdata = _convertArrayToCSV(data);
+        // download csv
+        _downloadBlob(csvdata, "results.csv", "text/csv;charset=utf-8;");
+    }
+    exports.exportCSVData = exportCSVData;
+    function _downloadBlob(content, filename, contentType) {
+        // Create a blob
+        var blob = new Blob([content], { type: contentType });
+        var url = URL.createObjectURL(blob);
+        // Create a link to download it
+        var csvDownload = document.createElement("a");
+        csvDownload.href = url;
+        csvDownload.setAttribute("download", filename);
+        csvDownload.click();
+    }
+    function resizeResultsHeight(element, isInfoPanel) {
+        var refinePanel = document.getElementById("refinePanel");
+        var size = 0;
+        // toggle panel is 52px with padding
+        //add more size here for toggle panel
+        if (!isInfoPanel) {
+            size += 36;
+        }
+        if (refinePanel) {
+            size += (refinePanel === null || refinePanel === void 0 ? void 0 : refinePanel.clientHeight) + 1;
+        }
+        element.style.height = "calc(100%  - ".concat(size, "px)");
+    }
+    exports.resizeResultsHeight = resizeResultsHeight;
+    function _convertArrayToCSV(data) {
+        return data
+            .map(function (row) {
+            return row
+                .map(String) // convert every value to String
+                .map(function (v) { return v.replaceAll('"', '""'); }) // escape double colons
+                .map(function (v) { return "\"".concat(v, "\""); }) // quote it
+                .join(",");
+        } // comma-separated
+        )
+            .join("\r\n"); // rows starting on new lines
+    }
+    function updatePanelSize(panelSize) {
+        var small = "column-6";
+        var medium = "column-10";
+        var large = "column-12";
+        var nodes = document.querySelectorAll(".size-panel");
+        nodes.forEach(function (node) {
+            node.classList.remove(small, medium, large);
+            if (panelSize === "s") {
+                node.classList.add(small);
+            }
+            else if (panelSize === "m") {
+                node.classList.add(medium);
+            }
+            else {
+                node.classList.add(large);
+            }
+        });
+    }
+    exports.updatePanelSize = updatePanelSize;
+});

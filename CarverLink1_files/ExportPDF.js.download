@@ -1,0 +1,99 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "esri/widgets/Widget", "esri/widgets/support/widget", "../utilites/printUtils"], function (require, exports, decorators_1, Widget_1, widget_1, printUtils_1) {
+    "use strict";
+    Widget_1 = __importDefault(Widget_1);
+    var ExportPDF = /** @class */ (function (_super) {
+        __extends(ExportPDF, _super);
+        function ExportPDF(params) {
+            var _this = _super.call(this, params) || this;
+            _this.view = null;
+            _this.portal = null;
+            return _this;
+        }
+        ExportPDF.prototype.render = function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h;
+            var _j = this.config, legend = _j.legend, appBundle = _j.appBundle, title = _j.title, hideMap = _j.hideMap;
+            var showLegend = legend ? ((0, widget_1.tsx)("calcite-label", { key: "legend", layout: "inline" }, (_a = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _a === void 0 ? void 0 :
+                _a.legend,
+                (0, widget_1.tsx)("calcite-checkbox", { afterCreate: widget_1.storeNode, bind: this, "data-node-ref": "checkLegend" }))) : null;
+            var showMap = !hideMap ? ((0, widget_1.tsx)("calcite-label", { layout: "inline" }, (_b = appBundle === null || appBundle === void 0 ? void 0 : appBundle.map) === null || _b === void 0 ? void 0 :
+                _b.label,
+                (0, widget_1.tsx)("calcite-checkbox", { afterCreate: widget_1.storeNode, bind: this, "data-node-ref": "checkMap", checked: true }))) : null;
+            var buttonClasses = ["pdf-share"];
+            return ((0, widget_1.tsx)("div", { class: "popover-component" },
+                (0, widget_1.tsx)("calcite-popover", { "reference-element": "popover-button" },
+                    (0, widget_1.tsx)("div", { class: "export-pdf-popover" },
+                        (0, widget_1.tsx)("calcite-label", null, (_c = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _c === void 0 ? void 0 :
+                            _c.title,
+                            (0, widget_1.tsx)("calcite-input", { afterCreate: widget_1.storeNode, bind: this, "data-node-ref": "printTitle", value: title })),
+                        (0, widget_1.tsx)("calcite-label", { layout: "inline" }, (_d = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _d === void 0 ? void 0 :
+                            _d.results,
+                            (0, widget_1.tsx)("calcite-checkbox", { afterCreate: widget_1.storeNode, bind: this, "data-node-ref": "checkResults", checked: true })),
+                        showMap,
+                        showLegend,
+                        (0, widget_1.tsx)("calcite-button", { bind: this, width: "full", appearance: "outline", afterCreate: this._handleClick, label: (_e = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _e === void 0 ? void 0 : _e.export }, (_f = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _f === void 0 ? void 0 : _f.export))),
+                (0, widget_1.tsx)("calcite-button", { id: "popover-button", title: (_g = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _g === void 0 ? void 0 : _g.exportTip, class: this.classes(buttonClasses === null || buttonClasses === void 0 ? void 0 : buttonClasses.join(" ")), alignment: "end", appearance: "transparent", kind: "neutral", label: (_h = appBundle === null || appBundle === void 0 ? void 0 : appBundle.tools) === null || _h === void 0 ? void 0 : _h.export },
+                    (0, widget_1.tsx)("calcite-icon", { class: "pdf-icon", scale: "s", icon: "file-pdf" }))));
+        };
+        ExportPDF.prototype._handleClick = function (e) {
+            var _this = this;
+            e.addEventListener("click", function () {
+                var _a, _b, _c, _d, _e, _f;
+                e.setAttribute("loading", true);
+                var title = (_a = _this === null || _this === void 0 ? void 0 : _this.printTitle) === null || _a === void 0 ? void 0 : _a.value;
+                var props = {
+                    title: title,
+                    map: ((_b = _this === null || _this === void 0 ? void 0 : _this.config) === null || _b === void 0 ? void 0 : _b.hideMap) ? false : (_c = _this === null || _this === void 0 ? void 0 : _this.checkMap) === null || _c === void 0 ? void 0 : _c.checked,
+                    legend: ((_d = _this === null || _this === void 0 ? void 0 : _this.config) === null || _d === void 0 ? void 0 : _d.legend) ? (_e = _this === null || _this === void 0 ? void 0 : _this.checkLegend) === null || _e === void 0 ? void 0 : _e.checked : false,
+                    config: _this.config,
+                    results: (_f = _this === null || _this === void 0 ? void 0 : _this.checkResults) === null || _f === void 0 ? void 0 : _f.checked,
+                    view: _this.view,
+                    portal: _this.portal
+                };
+                (0, printUtils_1.takeScreenshotAndPrint)(props).then(function () {
+                    setTimeout(function () {
+                        e.removeAttribute("loading");
+                        window.print();
+                    }, 1000);
+                });
+            });
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], ExportPDF.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ExportPDF.prototype, "view", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], ExportPDF.prototype, "portal", void 0);
+        ExportPDF = __decorate([
+            (0, decorators_1.subclass)("ExportPDF")
+        ], ExportPDF);
+        return ExportPDF;
+    }(Widget_1.default));
+    return ExportPDF;
+});

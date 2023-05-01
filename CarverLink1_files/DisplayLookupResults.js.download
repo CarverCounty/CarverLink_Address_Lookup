@@ -1,0 +1,1076 @@
+/*
+ *   Copyright (c) 2021 Esri
+ *   All rights reserved.
+
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+
+ *   http://www.apache.org/licenses/LICENSE-2.0
+
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/core/accessorSupport/decorators", "esri/widgets/Widget", "esri/core/Handles", "esri/widgets/support/widget", "esri/core/promiseUtils", "../utilites/lookupLayerUtils", "./GroupedAccordion", "esri/widgets/Expand", "esri/core/watchUtils", "esri/request", "../utilites/shareUtils", "../components/Notification", "TemplatesCommonLib/structuralFunctionality/a11yUtils", "../utilites/utils", "esri/layers/support/FeatureEffect", "esri/layers/support/FeatureFilter", "esri/rest/support/Stop", "TemplatesCommonLib/functionality/effects", "../utilites/a11yUtils", "ArcGISHTMLSanitizer", "./ExportPDF", "TemplatesCommonLib/functionality/securityUtils"], function (require, exports, decorators_1, Widget_1, Handles_1, widget_1, promiseUtils_1, lookupLayerUtils_1, GroupedAccordion_1, Expand_1, watchUtils_1, request_1, ShareUtils, Notification_1, a11yUtils_1, utils_1, FeatureEffect_1, FeatureFilter_1, Stop_1, effects_1, a11yUtils_2, ArcGISHTMLSanitizer, ExportPDF, securityUtils_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    Widget_1 = __importDefault(Widget_1);
+    Handles_1 = __importDefault(Handles_1);
+    GroupedAccordion_1 = __importDefault(GroupedAccordion_1);
+    Expand_1 = __importDefault(Expand_1);
+    request_1 = __importDefault(request_1);
+    Notification_1 = __importDefault(Notification_1);
+    FeatureEffect_1 = __importDefault(FeatureEffect_1);
+    FeatureFilter_1 = __importDefault(FeatureFilter_1);
+    Stop_1 = __importDefault(Stop_1);
+    var CSS = {
+        togglePanel: "toggle-panel",
+        toggle: "toggleOpen",
+        messageText: "message-text",
+        toggleContentTools: "toggle-content-tools",
+        toggleContentBtn: "toggle-content-btn"
+    };
+    var DisplayLookupResults = /** @class */ (function (_super) {
+        __extends(DisplayLookupResults, _super);
+        //--------------------------------------------------------------------------
+        //
+        //  Public Methods
+        //
+        //--------------------------------------------------------------------------
+        function DisplayLookupResults(props) {
+            var _this = _super.call(this, props) || this;
+            _this.lookupGraphics = null;
+            _this.empty = true;
+            _this.lookupLayers = null;
+            _this.expand = [];
+            _this.directions = null;
+            _this.searchLayer = null;
+            _this.notice = null;
+            _this.state = "init";
+            _this.directionsReady = false;
+            _this.elevationReady = false;
+            _this.elevationProfile = null;
+            _this.messages = null;
+            //--------------------------------------------------------------------------
+            //
+            // Variables
+            //
+            //--------------------------------------------------------------------------
+            _this._featureResults = null;
+            _this._eventHandler = null;
+            _this._viewPoint = null;
+            _this._handles = new Handles_1.default();
+            _this._toggle = false;
+            _this._shareUtils = null;
+            _this._highlightLayerView = null;
+            _this._presetEffects = [];
+            _this._sanitizer = null;
+            return _this;
+        }
+        DisplayLookupResults.prototype.postInitialize = function () {
+            var _this = this;
+            this._sanitizer = (0, securityUtils_1.createSanitizerInstance)(ArcGISHTMLSanitizer);
+            this.own([
+                (0, watchUtils_1.init)(this, "directions.viewModel.state", function () {
+                    var _a, _b;
+                    if (((_b = (_a = _this === null || _this === void 0 ? void 0 : _this.directions) === null || _a === void 0 ? void 0 : _a.viewModel) === null || _b === void 0 ? void 0 : _b.state) !== "ready")
+                        return;
+                    _this.directionsReady = true;
+                }),
+                (0, watchUtils_1.init)(this, "elevationProfile", function () {
+                    var _a;
+                    _this._clearElevation();
+                    if ((_a = _this === null || _this === void 0 ? void 0 : _this.config) === null || _a === void 0 ? void 0 : _a.showElevationProfile) {
+                        _this.elevationReady = true;
+                    }
+                }),
+                (0, watchUtils_1.init)(this, "lookupLayers", function () {
+                    var _a;
+                    (_a = _this === null || _this === void 0 ? void 0 : _this.lookupLayers) === null || _a === void 0 ? void 0 : _a.forEach(function (layer) {
+                        _this === null || _this === void 0 ? void 0 : _this.view.whenLayerView(layer).then(function (layerView) {
+                            var _a;
+                            if (layerView === null || layerView === void 0 ? void 0 : layerView.featureEffect) {
+                                (_a = _this._presetEffects) === null || _a === void 0 ? void 0 : _a.push({
+                                    layerView: layerView,
+                                    effect: layerView.featureEffect
+                                });
+                            }
+                        });
+                    });
+                })
+            ]);
+            if (this.config.useDirectionsApp) {
+                this.directionsReady = true;
+            }
+            if (this.config.shareSelected && (this === null || this === void 0 ? void 0 : this.view)) {
+                this._shareUtils = new ShareUtils({ view: this.view });
+            }
+        };
+        DisplayLookupResults.prototype.render = function () {
+            var ready = this.state === "ready" ? true : false;
+            var loader = this.state === "loading" ? ((0, widget_1.tsx)("div", { key: "loader", class: "loader" },
+                (0, widget_1.tsx)("calcite-loader", { scale: "s", inline: "", hidden: true }),
+                (0, widget_1.tsx)("span", { style: "margin:0 10px" },
+                    this.messages.load.label,
+                    "..."))) : null;
+            // No Results
+            if (this.empty && ready) {
+                this._featureResults = [];
+                if (this === null || this === void 0 ? void 0 : this.location)
+                    this.addNotice();
+            }
+            var accordion = ((0, widget_1.tsx)("div", { key: "detailAccordion", bind: this, afterCreate: this._addDetailAccordion }));
+            var togglePanel = this._featureResults ? this.createTogglePanel() : null;
+            return ((0, widget_1.tsx)("div", { key: "loader" },
+                togglePanel,
+                loader,
+                accordion));
+        };
+        DisplayLookupResults.prototype._addDetailAccordion = function (container) {
+            var _this = this;
+            var _a;
+            var _b = this, _featureResults = _b._featureResults, view = _b.view;
+            this._eventHandler = this._handleActionItem.bind(this);
+            this.accordion = new GroupedAccordion_1.default({
+                featureResults: _featureResults,
+                config: this.config,
+                view: view,
+                container: container
+            });
+            if ((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.autoZoomFirstResult) {
+                (0, watchUtils_1.whenDefined)(this.accordion, "featureResults", function () {
+                    var _a, _b;
+                    var features;
+                    (_b = (_a = _this === null || _this === void 0 ? void 0 : _this.accordion) === null || _a === void 0 ? void 0 : _a.featureResults) === null || _b === void 0 ? void 0 : _b.some(function (result) {
+                        if (result.features && result.features.length && result.features.length > 0) {
+                            features = result.features;
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+                    if ((features === null || features === void 0 ? void 0 : features.length) > 0)
+                        _this._zoomToFeature(features[0], true);
+                });
+            }
+            (0, watchUtils_1.whenTrueOnce)(this, "config.shareSelected", function () {
+                var shareButton = _this._updateSingleShare();
+                if (!shareButton)
+                    return;
+                if (_this.config.shareSelected) {
+                    _this.accordion.actionBarItems.push(shareButton);
+                }
+            });
+            (0, watchUtils_1.whenTrueOnce)(this, "elevationReady", function () {
+                var elevationProfileButton = _this._updateProfile();
+                if (elevationProfileButton) {
+                    _this.accordion.actionBarItems.push(elevationProfileButton);
+                }
+            });
+            (0, watchUtils_1.whenTrueOnce)(this, "directionsReady", function () {
+                var directionsButton = _this._updateDirections();
+                if (directionsButton) {
+                    _this.accordion.actionBarItems.push(directionsButton);
+                }
+            });
+            this.accordion.watch("hoveredItem", function () {
+                _this._highlightFeature(_this.accordion.hoveredItem.graphic);
+            });
+            this.accordion.watch("selectedItem", function () {
+                var _a;
+                _this._clearDirections();
+                _this._clearElevation();
+                if (_this.accordion.selectedItem) {
+                    _this._highlightFeature(_this.accordion.selectedItem);
+                    //this.accordion.zoom && this._zoomToFeature(this.accordion.selectedItem, false);
+                    _this.mapPanel.selectedItemTitle =
+                        (_a = _this.accordion.selectedItem.attributes["app-accordion-title"]) !== null && _a !== void 0 ? _a : null;
+                }
+                _this.accordion.selectedItem = null;
+            });
+        };
+        DisplayLookupResults.prototype._handleActionItem = function (e, name, selected) {
+            var _a, _b, _c, _d, _e, _f, _g, _h;
+            return __awaiter(this, void 0, void 0, function () {
+                var startLocation, start, stop_1, vm, travelMode, g, origin_1, expand, nav, button, url, _j, url, url, dummy;
+                var _this = this;
+                return __generator(this, function (_k) {
+                    switch (_k.label) {
+                        case 0:
+                            if (!(name === "directions")) return [3 /*break*/, 3];
+                            if (!(this.directions && this.directions.viewModel && !this.config.useDirectionsApp)) return [3 /*break*/, 2];
+                            startLocation = ((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.directionsStart)
+                                ? this.config.directionsStart
+                                : this.location;
+                            start = this._createStop(startLocation);
+                            stop_1 = this._createStop(selected);
+                            this._clearDirections();
+                            vm = this.directions.viewModel;
+                            vm.layer.stops = [start, stop_1];
+                            travelMode = (_c = (_b = this.directions.viewModel) === null || _b === void 0 ? void 0 : _b.travelModes) === null || _c === void 0 ? void 0 : _c.find(function (mode) { return (mode === null || mode === void 0 ? void 0 : mode.name) === "Driving Time"; });
+                            if (travelMode) {
+                                this.directions.viewModel.selectedTravelMode = travelMode;
+                            }
+                            return [4 /*yield*/, this.directions.viewModel.getDirections()];
+                        case 1:
+                            (_k.sent());
+                            if (this.config.hideMap) {
+                                this._showDirectionsPrintPage();
+                            }
+                            else {
+                                setTimeout(function () {
+                                    _this._showDirectionsPrintPage();
+                                }, 500);
+                            }
+                            return [3 /*break*/, 3];
+                        case 2:
+                            if (this.config.useDirectionsApp) {
+                                if ((selected === null || selected === void 0 ? void 0 : selected.geometry.type) === "point") {
+                                    g = selected.geometry;
+                                    origin_1 = encodeURIComponent("".concat(g.latitude, ",").concat(g.longitude));
+                                    if (navigator.platform.indexOf("iPhone") != -1 ||
+                                        navigator.platform.indexOf("iPod") != -1 ||
+                                        navigator.platform.indexOf("iPad") != -1)
+                                        window.open("maps://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=".concat(origin_1));
+                                    else
+                                        window.open("https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=".concat(origin_1));
+                                }
+                                /*	// origin can be address or lat,long
+                                        const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}`;
+                                        window.open(url, "_blank");*/
+                            }
+                            _k.label = 3;
+                        case 3:
+                            if (name === "elevationProfile") {
+                                if (!this.elevationReady)
+                                    return [2 /*return*/];
+                                this._clearElevation();
+                                this.elevationProfile.input = selected;
+                                expand = new Expand_1.default({
+                                    content: this.elevationProfile,
+                                    mode: "floating",
+                                    id: "elevation-profile-expand",
+                                    expandIconClass: "esri-icon-line-chart",
+                                    group: "action-item-group",
+                                    view: this.view,
+                                    autoCollapse: false,
+                                    closeOnEsc: false
+                                });
+                                (0, utils_1.handleExpandUpdated)(expand);
+                                if ((_d = this.elevationProfile) === null || _d === void 0 ? void 0 : _d.label) {
+                                    expand.expandTooltip = "";
+                                    expand.collapseTooltip = "".concat(this.messages.toggle, " ").concat(this.elevationProfile.label);
+                                }
+                                this._toggleExpandContainers();
+                                this.expand.push(expand);
+                                expand.expand();
+                                this.view.ui.add(expand, "bottom-right");
+                            }
+                            if (!(name === "copyLink")) return [3 /*break*/, 14];
+                            nav = navigator;
+                            button = e.target;
+                            if (!((nav === null || nav === void 0 ? void 0 : nav.canShare) && (nav === null || nav === void 0 ? void 0 : nav.canShare({ url: window.location.href })) && (0, utils_1.isMobile)())) return [3 /*break*/, 5];
+                            return [4 /*yield*/, ((_e = this._shareUtils) === null || _e === void 0 ? void 0 : _e.generateUrl(selected))];
+                        case 4:
+                            url = _k.sent();
+                            nav
+                                .share({
+                                url: url,
+                                title: document.title
+                            })
+                                .catch(function (error) {
+                                console.log("Error", error);
+                            });
+                            return [3 /*break*/, 13];
+                        case 5:
+                            if (!(nav === null || nav === void 0 ? void 0 : nav.clipboard)) return [3 /*break*/, 11];
+                            _k.label = 6;
+                        case 6:
+                            _k.trys.push([6, 7, , 10]);
+                            // Safari treats user activation differently:
+                            // https://bugs.webkit.org/show_bug.cgi?id=222262.
+                            nav.clipboard.write([
+                                new ClipboardItem({
+                                    "text/plain": (_f = this._shareUtils) === null || _f === void 0 ? void 0 : _f.generateUrl(selected).then(function (result) {
+                                        return new Blob([result], { type: "text/plain" });
+                                    })
+                                })
+                            ]);
+                            return [3 /*break*/, 10];
+                        case 7:
+                            _j = _k.sent();
+                            return [4 /*yield*/, ((_g = this._shareUtils) === null || _g === void 0 ? void 0 : _g.generateUrl(selected))];
+                        case 8:
+                            url = _k.sent();
+                            return [4 /*yield*/, nav.clipboard.writeText(url)];
+                        case 9:
+                            _k.sent();
+                            return [3 /*break*/, 10];
+                        case 10: return [3 /*break*/, 13];
+                        case 11: return [4 /*yield*/, ((_h = this._shareUtils) === null || _h === void 0 ? void 0 : _h.generateUrl(selected))];
+                        case 12:
+                            url = _k.sent();
+                            dummy = document.createElement("input");
+                            document.body.appendChild(dummy);
+                            dummy.value = url;
+                            dummy.setSelectionRange(0, dummy.value.length);
+                            dummy.focus();
+                            dummy.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(dummy);
+                            _k.label = 13;
+                        case 13:
+                            this._updateButtonText(button);
+                            _k.label = 14;
+                        case 14: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        DisplayLookupResults.prototype._showDirectionsPrintPage = function () {
+            var _this = this;
+            var _a, _b, _c, _d, _e;
+            // add directions widget to panel
+            var printPage = document.getElementById("printPanel");
+            printPage === null || printPage === void 0 ? void 0 : printPage.removeAttribute("closed");
+            printPage === null || printPage === void 0 ? void 0 : printPage.classList.remove("hide");
+            printPage === null || printPage === void 0 ? void 0 : printPage.addEventListener("calcitePanelClose", function () {
+                _this._cleanupDirectionsPanels();
+            });
+            // hide other panels
+            (_a = document.getElementById("refinePanel")) === null || _a === void 0 ? void 0 : _a.classList.add("hide");
+            (_b = document.getElementById("resultsPanel")) === null || _b === void 0 ? void 0 : _b.classList.add("hide");
+            var directionContainer = document.getElementById("printDialogPanel");
+            directionContainer.innerHTML = this._sanitizer.sanitize("");
+            directionContainer === null || directionContainer === void 0 ? void 0 : directionContainer.appendChild((_c = this === null || this === void 0 ? void 0 : this.directions) === null || _c === void 0 ? void 0 : _c.container);
+            directionContainer === null || directionContainer === void 0 ? void 0 : directionContainer.setAttribute("tabindex", "0");
+            // get first focusable element on print dialog and set
+            var prevFocus = document.activeElement;
+            var directionsWidget = (_d = this === null || this === void 0 ? void 0 : this.directions) === null || _d === void 0 ? void 0 : _d.container;
+            (0, a11yUtils_2.focusNode)((_e = this === null || this === void 0 ? void 0 : this.directions) === null || _e === void 0 ? void 0 : _e.id, false);
+            directionsWidget === null || directionsWidget === void 0 ? void 0 : directionsWidget.addEventListener("blur", function () {
+                prevFocus === null || prevFocus === void 0 ? void 0 : prevFocus.focus({ focusVisible: true });
+            });
+        };
+        DisplayLookupResults.prototype._cleanupDirectionsPanels = function () {
+            var _a, _b;
+            this._clearDirections();
+            var printPage = document.getElementById("printPanel");
+            printPage.classList.add("hide");
+            var directionContainer = document.getElementById("printDialogPanel");
+            directionContainer.innerHTML = this._sanitizer.sanitize("");
+            directionContainer === null || directionContainer === void 0 ? void 0 : directionContainer.appendChild(this === null || this === void 0 ? void 0 : this.directions.container);
+            (_a = document.getElementById("refinePanel")) === null || _a === void 0 ? void 0 : _a.classList.remove("hide");
+            (_b = document.getElementById("resultsPanel")) === null || _b === void 0 ? void 0 : _b.classList.remove("hide");
+        };
+        DisplayLookupResults.prototype._updateButtonText = function (button) {
+            if (!button)
+                return;
+            var origAppearance = button.appearance;
+            var origText = button.innerText;
+            button.appearance = "solid";
+            setTimeout(function () {
+                button.innerText = origText;
+                button.appearance = origAppearance;
+            }, 3000);
+            button.innerText = "Link Copied";
+        };
+        DisplayLookupResults.prototype._toggleExpandContainers = function () {
+            var _a;
+            (_a = this.expand) === null || _a === void 0 ? void 0 : _a.forEach(function (expandItem) {
+                if (expandItem === null || expandItem === void 0 ? void 0 : expandItem.expanded)
+                    expandItem.collapse();
+            });
+        };
+        DisplayLookupResults.prototype._createStop = function (graphic) {
+            var geometry = null;
+            if (!graphic)
+                return;
+            var type = graphic.geometry.type;
+            if (type === "polygon") {
+                var polyGeom = graphic.geometry;
+                geometry = polyGeom.centroid;
+            }
+            else if (type === "polyline") {
+                var polyLineGeom = graphic.geometry;
+                geometry = polyLineGeom.extent.center;
+            }
+            else if (type === "point") {
+                geometry = graphic === null || graphic === void 0 ? void 0 : graphic.geometry;
+            }
+            var stop = new Stop_1.default();
+            stop.geometry = geometry;
+            return stop;
+        };
+        DisplayLookupResults.prototype.queryFeatures = function (location) {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var resultArray_1;
+                var _this = this;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            this.location = location;
+                            this.lookupGraphics.graphic = location;
+                            this.state = "loading";
+                            if (!!location) return [3 /*break*/, 1];
+                            this.state = "ready";
+                            this._featureResults = [];
+                            this.empty = true;
+                            Promise.resolve();
+                            return [3 /*break*/, 3];
+                        case 1: return [4 /*yield*/, this.lookupGraphics.addGraphicsAndZoom()];
+                        case 2:
+                            _c.sent();
+                            resultArray_1 = [];
+                            (_b = (0, promiseUtils_1.eachAlways)((_a = this.lookupLayers) === null || _a === void 0 ? void 0 : _a.map(function (layer) {
+                                return _this._queryFeatureLayers(layer, location)
+                                    .then(function (results) {
+                                    var _a;
+                                    var layerIndex = _this.view.map.allLayers.indexOf(layer);
+                                    if (_this.config.groupResultsByLayer) {
+                                        var features = results.features, title = results.title;
+                                        if ((features === null || features === void 0 ? void 0 : features.length) < 1) {
+                                            _this.empty = true;
+                                            return;
+                                        }
+                                        _this.empty = false;
+                                        resultArray_1.push({
+                                            title: title,
+                                            features: features,
+                                            layerIndex: layerIndex
+                                        });
+                                        _this._featureResults = resultArray_1;
+                                        return;
+                                    }
+                                    else {
+                                        if (((_a = results.features) === null || _a === void 0 ? void 0 : _a.length) < 1) {
+                                            _this.empty = true;
+                                            return;
+                                        }
+                                        _this.empty = false;
+                                        results.features.forEach(function (feature) {
+                                            if (layerIndex)
+                                                feature.layerIndex = layerIndex;
+                                            resultArray_1.push(feature);
+                                        });
+                                        _this._featureResults = [
+                                            {
+                                                title: null,
+                                                grouped: false,
+                                                features: resultArray_1
+                                            }
+                                        ];
+                                        return;
+                                    }
+                                })
+                                    .catch(function () {
+                                    _this.empty = true;
+                                    return;
+                                });
+                            }))) === null || _b === void 0 ? void 0 : _b.then(function () {
+                                var _a, _b, _c, _d;
+                                (_a = _this.accordion) === null || _a === void 0 ? void 0 : _a.set("featureResults", _this._featureResults);
+                                _this.empty = ((_b = _this._featureResults) === null || _b === void 0 ? void 0 : _b.length) === 0 || !_this._featureResults ? true : false;
+                                _this.state = "ready";
+                                _this.accordion.state = "ready";
+                                _this._updateScreenshotComponent(_this.empty);
+                                if (((_c = _this._featureResults) === null || _c === void 0 ? void 0 : _c.length) > 0) {
+                                    (_d = _this === null || _this === void 0 ? void 0 : _this.notice) === null || _d === void 0 ? void 0 : _d.dismissNotice();
+                                    (0, a11yUtils_1.postToLiveRegion)("".concat(_this._featureResults.length, " results found"));
+                                }
+                                else if (_this._featureResults.length === 0) {
+                                    // add a notice
+                                    _this.addNotice();
+                                }
+                            }).catch(function () {
+                                _this.empty = true;
+                                _this.state = "init";
+                            });
+                            _c.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        DisplayLookupResults.prototype.addNotice = function () {
+            var _this = this;
+            var _a, _b, _c;
+            var _d = this.config, noResultsMessage = _d.noResultsMessage, hideMap = _d.hideMap;
+            if (hideMap) {
+                var message = noResultsMessage && noResultsMessage !== ""
+                    ? noResultsMessage
+                    : (_a = this.config) === null || _a === void 0 ? void 0 : _a.appBundle.noFeatures;
+                var messageDiv = document.getElementById("noResults");
+                messageDiv.innerHTML = message;
+                var main = document.getElementById("panel-wrapper");
+                main === null || main === void 0 ? void 0 : main.appendChild(messageDiv);
+                //  document.body.appendChild(messageDiv);
+                return;
+            }
+            if (!this.notice) {
+                this.notice = new Notification_1.default({
+                    config: this.config,
+                    container: document.getElementById("noResults")
+                });
+                (0, watchUtils_1.when)(this.notice, "rootNode", function () {
+                    _this.notice.rootNode.addEventListener("calciteNoticeClose", function () {
+                        _this.notice.showNotice();
+                        _this.clearResults();
+                        var clearMapButton = document.getElementById("mapSearchButton");
+                        clearMapButton === null || clearMapButton === void 0 ? void 0 : clearMapButton.click();
+                    });
+                });
+            }
+            this.notice.showNotice();
+            (_c = (_b = document === null || document === void 0 ? void 0 : document.body) === null || _b === void 0 ? void 0 : _b.classList) === null || _c === void 0 ? void 0 : _c.add("map-alert");
+            (0, a11yUtils_1.postToLiveRegion)(this.config.appBundle.noFeatures);
+        };
+        DisplayLookupResults.prototype._queryFeatureLayers = function (layer, location) {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var controller, layerView, results, queryLayer, query, error_1;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            controller = new AbortController();
+                            _c.label = 1;
+                        case 1:
+                            _c.trys.push([1, 6, , 7]);
+                            return [4 /*yield*/, this.view.whenLayerView(layer)];
+                        case 2:
+                            layerView = _c.sent();
+                            // Perform query first time layer is done updating
+                            //layerView.effect = null;
+                            layerView.filter = null;
+                            results = null;
+                            queryLayer = this._getQueryLayer(layerView);
+                            query = this._createQuery(layerView, location.geometry);
+                            if (!((layer === null || layer === void 0 ? void 0 : layer.id) === ((_a = location === null || location === void 0 ? void 0 : location.layer) === null || _a === void 0 ? void 0 : _a.id))) return [3 /*break*/, 3];
+                            results = {
+                                features: [location],
+                                title: layer.get("title") ? layer.get("title") : null,
+                                id: layer.get("id") ? layer.get("id") : null
+                            };
+                            this.applyLayerEffectAndFilter(layerView, {
+                                where: "".concat(layer.objectIdField, " = ").concat(location.attributes[layer.objectIdField], " ")
+                            });
+                            return [3 /*break*/, 5];
+                        case 3: return [4 /*yield*/, queryLayer.queryFeatures(query, {
+                                signal: controller.signal
+                            })];
+                        case 4:
+                            results = _c.sent();
+                            if (((_b = results === null || results === void 0 ? void 0 : results.features) === null || _b === void 0 ? void 0 : _b.length) < 1) {
+                                query.where = "1=0";
+                            }
+                            this.applyLayerEffectAndFilter(layerView, query);
+                            _c.label = 5;
+                        case 5: return [2 /*return*/, Promise.resolve({
+                                features: results.features,
+                                title: layer.get("title") ? layer.get("title") : null,
+                                id: layer.get("id") ? layer.get("id") : null
+                            })];
+                        case 6:
+                            error_1 = _c.sent();
+                            return [2 /*return*/, Promise.reject()];
+                        case 7: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        DisplayLookupResults.prototype._createQuery = function (layer, location) {
+            var _a;
+            var _b = this.config, units = _b.units, spatialRelationship = _b.spatialRelationship, enableSearchLayer = _b.enableSearchLayer;
+            var query = (_a = layer === null || layer === void 0 ? void 0 : layer.layer) === null || _a === void 0 ? void 0 : _a.createQuery();
+            var geometryType = (location === null || location === void 0 ? void 0 : location.type) || null;
+            // Find features near point click
+            if (!this.searchLayer) {
+                query.distance = 0;
+                query.units = units;
+            }
+            query.geometry = location;
+            query.spatialRelationship = geometryType === "polygon" ? "contains" : "intersects";
+            // todo test this one out
+            if (enableSearchLayer && spatialRelationship !== null) {
+                query.spatialRelationship = spatialRelationship;
+            }
+            return query;
+        };
+        DisplayLookupResults.prototype._getFeatureCount = function (results) {
+            var count = 0;
+            results &&
+                results.forEach(function (result) {
+                    if (result.features && result.features.length) {
+                        count += result.features.length;
+                    }
+                });
+            return count;
+        };
+        DisplayLookupResults.prototype._clearElevation = function () {
+            var _this = this;
+            var _a, _b;
+            if (((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.showElevationProfile) && this.elevationProfile) {
+                if ((_b = this.elevationProfile) === null || _b === void 0 ? void 0 : _b.input) {
+                    this.elevationProfile.input = null;
+                }
+                if (this.expand) {
+                    this.expand.forEach(function (expand) {
+                        if ((expand === null || expand === void 0 ? void 0 : expand.id) === "elevation-profile-expand") {
+                            _this.view.ui.remove(expand);
+                        }
+                    });
+                }
+            }
+        };
+        DisplayLookupResults.prototype._clearDirections = function () {
+            var _this = this;
+            var _a, _b;
+            if (this.directions && this.directions.viewModel) {
+                (_b = (_a = this.directions.viewModel) === null || _a === void 0 ? void 0 : _a.layer) === null || _b === void 0 ? void 0 : _b.stops.removeAll();
+                this.directions.viewModel.reset();
+                if (this.expand) {
+                    this.expand.forEach(function (expand) {
+                        if ((expand === null || expand === void 0 ? void 0 : expand.id) === "directions-expand") {
+                            _this.view.ui.remove(expand);
+                        }
+                    });
+                }
+            }
+            if (this.config.hideMap) {
+                var printPage = document.getElementById("printPanel");
+                printPage.classList.add("hide");
+                printPage.innerHTML = null;
+            }
+        };
+        DisplayLookupResults.prototype._getQueryLayer = function (layerView) {
+            return layerView.layer;
+        };
+        DisplayLookupResults.prototype._updateDirections = function () {
+            var _a, _b;
+            var actionButton = null;
+            if (this.config.showDirections) {
+                if (this.directions || this.config.useDirectionsApp) {
+                    if (((_b = (_a = this === null || this === void 0 ? void 0 : this.directions) === null || _a === void 0 ? void 0 : _a.viewModel) === null || _b === void 0 ? void 0 : _b.state) === "ready" || this.config.useDirectionsApp) {
+                        actionButton = {
+                            icon: "road-sign",
+                            id: "directions",
+                            name: this.directions && this.directions.label ? this.directions.label : "Directions",
+                            handleClick: this._eventHandler
+                        };
+                    }
+                }
+            }
+            return actionButton;
+        };
+        DisplayLookupResults.prototype._updateProfile = function () {
+            var actionButton = null;
+            if (this.config.showElevationProfile) {
+                actionButton = {
+                    icon: "graph-time-series",
+                    id: "elevationProfile",
+                    name: this.config.appBundle.tools.elevation,
+                    handleClick: this._eventHandler
+                };
+            }
+            return actionButton;
+        };
+        DisplayLookupResults.prototype._updateSingleShare = function () {
+            var actionButton = null;
+            if (this.config.shareSelected) {
+                actionButton = {
+                    icon: "copyToClipboard",
+                    id: "copyLink",
+                    name: this.config.appBundle.copy.label,
+                    tip: this.config.appBundle.copy.tip,
+                    handleClick: this._eventHandler
+                };
+            }
+            return actionButton;
+        };
+        DisplayLookupResults.prototype.clearResults = function () {
+            var _a, _b, _c, _d, _e;
+            this._toggle = false;
+            this.empty = true;
+            this.lookupGraphics.clearGraphics();
+            this.accordion && this.accordion.clear();
+            this._featureResults = [];
+            this.config.hideLayers
+                ? (0, lookupLayerUtils_1.hideLookuplayers)(this.lookupLayers, this.view)
+                : (0, lookupLayerUtils_1.clearLookupLayers)(this.lookupLayers, this._presetEffects, this.view);
+            this._updateScreenshotComponent(true);
+            this._clearDirections();
+            this._clearElevation();
+            this.clearHighlights();
+            this._clearUrlParams();
+            (_a = this === null || this === void 0 ? void 0 : this.notice) === null || _a === void 0 ? void 0 : _a.dismissNotice();
+            this.state = "init";
+            // hide the map button
+            var clearMapButton = document.getElementById("mapSearchButton");
+            if (clearMapButton)
+                clearMapButton === null || clearMapButton === void 0 ? void 0 : clearMapButton.classList.add("hide");
+            if ((_b = this === null || this === void 0 ? void 0 : this.config) === null || _b === void 0 ? void 0 : _b.hideMap) {
+                document.getElementById("noResults").innerHTML = "";
+            }
+            if ((_c = this === null || this === void 0 ? void 0 : this._highlightLayerView) === null || _c === void 0 ? void 0 : _c.featureEffect) {
+                this._highlightLayerView.featureEffect = null;
+                var query = this._highlightLayerView.createQuery() || null;
+                this.applyLayerEffectAndFilter(this._highlightLayerView, query);
+            }
+            if (this.config.showSelectedOnly) {
+                (_e = (_d = this === null || this === void 0 ? void 0 : this.config) === null || _d === void 0 ? void 0 : _d.selectionVisibilityLayers) === null || _e === void 0 ? void 0 : _e.forEach(function (l) {
+                    var layer = l;
+                    layer.visible = true;
+                });
+                this.config.selectionVisibilityLayers = [];
+            }
+        };
+        DisplayLookupResults.prototype._updateScreenshotComponent = function (hideCustom) {
+            var _a;
+            if ((_a = this.config) === null || _a === void 0 ? void 0 : _a.screenshot) {
+                var screenshotExpand = this.view.ui.find("screenshotExpand");
+                if (screenshotExpand === null || screenshotExpand === void 0 ? void 0 : screenshotExpand.content) {
+                    var sw = screenshotExpand.content;
+                    sw.disableCustom = hideCustom;
+                }
+            }
+        };
+        DisplayLookupResults.prototype._clearUrlParams = function () {
+            var url = new URL(window.location.href);
+            if (url && url.searchParams) {
+                //  url.searchParams.delete("center");
+                //  url.searchParams.delete("select");
+                // url.searchParams.delete("level");
+                // url.searchParams.delete("find");
+            }
+            if ((url === null || url === void 0 ? void 0 : url.searchParams) && (url === null || url === void 0 ? void 0 : url.searchParams.toString())) {
+                window.history.replaceState({}, "", "".concat(location.pathname, "?").concat(url === null || url === void 0 ? void 0 : url.searchParams.toString()));
+            }
+            else {
+                window.history.replaceState({}, "", "".concat(location.pathname));
+            }
+        };
+        DisplayLookupResults.prototype.clearHighlights = function () {
+            var _a;
+            this._handles.removeAll();
+            if ((_a = this === null || this === void 0 ? void 0 : this.view) === null || _a === void 0 ? void 0 : _a.popup)
+                this.view.popup.features = null;
+        };
+        DisplayLookupResults.prototype._highlightFeature = function (graphic) {
+            var _this = this;
+            this.clearHighlights();
+            if (!this.config.interactiveResults)
+                return;
+            this.view.whenLayerView(graphic.layer).then(function (layerView) {
+                // highlight feature
+                _this._handles.add(layerView.highlight(graphic));
+            });
+        };
+        DisplayLookupResults.prototype._zoomToFeature = function (graphic, useSearchLayer) {
+            var _this = this;
+            var _a, _b, _c, _d, _e;
+            var zoomGraphic = graphic;
+            if (((_a = this === null || this === void 0 ? void 0 : this.config) === null || _a === void 0 ? void 0 : _a.enableSearchLayer) && useSearchLayer) {
+                // use location
+                zoomGraphic = (this === null || this === void 0 ? void 0 : this.location) || graphic;
+            }
+            var goToProps = (0, lookupLayerUtils_1.createGoToProps)(zoomGraphic, this.config);
+            this.view.goTo(goToProps, { animate: false }).catch(function () { });
+            this._highlightFeature(graphic);
+            if ((_b = this === null || this === void 0 ? void 0 : this.config) === null || _b === void 0 ? void 0 : _b.relatedRecords) {
+                if (((_c = graphic === null || graphic === void 0 ? void 0 : graphic.layer) === null || _c === void 0 ? void 0 : _c.type) !== "feature")
+                    return;
+                var fl_1 = graphic === null || graphic === void 0 ? void 0 : graphic.layer;
+                if (!fl_1)
+                    return;
+                if (((_d = fl_1 === null || fl_1 === void 0 ? void 0 : fl_1.relationships) === null || _d === void 0 ? void 0 : _d.length) === 0)
+                    return;
+                var id = graphic === null || graphic === void 0 ? void 0 : graphic.attributes[fl_1.objectIdField];
+                fl_1 === null || fl_1 === void 0 ? void 0 : fl_1.queryRelatedFeatures({
+                    outFields: ["*"],
+                    relationshipId: (_e = fl_1 === null || fl_1 === void 0 ? void 0 : fl_1.relationships[0]) === null || _e === void 0 ? void 0 : _e.id,
+                    returnGeometry: true,
+                    objectIds: [id]
+                }).then(function (results) {
+                    var _a, _b, _c, _d;
+                    var zoomGraphics = [];
+                    zoomGraphics.push(graphic);
+                    var _loop_1 = function (prop) {
+                        if (((_b = (_a = results[prop]) === null || _a === void 0 ? void 0 : _a.features) === null || _b === void 0 ? void 0 : _b.length) > 0) {
+                            var g_1 = (_c = results[prop]) === null || _c === void 0 ? void 0 : _c.features[0];
+                            zoomGraphics.push(g_1);
+                            var foundLayer = (0, utils_1.getRelatedLayer)(fl_1, (_d = _this === null || _this === void 0 ? void 0 : _this.view) === null || _d === void 0 ? void 0 : _d.map);
+                            g_1.layer = foundLayer;
+                            _this.view.whenLayerView(foundLayer).then(function (layerView) {
+                                var _a, _b;
+                                var where = "".concat(g_1 === null || g_1 === void 0 ? void 0 : g_1.layer.objectIdField, " = ").concat(g_1.attributes[g_1 === null || g_1 === void 0 ? void 0 : g_1.layer.objectIdField]);
+                                if (layerView === null || layerView === void 0 ? void 0 : layerView.featureEffect) {
+                                    layerView.layer.featureEffect = null;
+                                    if (layerView === null || layerView === void 0 ? void 0 : layerView.filter)
+                                        layerView.filter = null;
+                                }
+                                layerView.featureEffect = new FeatureEffect_1.default({
+                                    filter: new FeatureFilter_1.default({ where: where }),
+                                    excludedEffect: "opacity(0)",
+                                    includedEffect: "drop-shadow(0px 0px 1.5px, ".concat(((_a = _this === null || _this === void 0 ? void 0 : _this.config) === null || _a === void 0 ? void 0 : _a.highlightColor) && ((_b = _this === null || _this === void 0 ? void 0 : _this.config) === null || _b === void 0 ? void 0 : _b.enableHighlightColor)
+                                        ? _this.config.highlightColor
+                                        : "cyan", ")")
+                                });
+                                _this._highlightLayerView = layerView;
+                            });
+                        }
+                    };
+                    for (var prop in results) {
+                        _loop_1(prop);
+                    }
+                    // zoom to include any related features
+                    _this.view.goTo(zoomGraphics, { animate: false }).then(function () { });
+                });
+            }
+        };
+        DisplayLookupResults.prototype.destroy = function () {
+            this.clearResults();
+            this.clearHighlights();
+        };
+        DisplayLookupResults.prototype.applyLayerEffectAndFilter = function (layerView, query) {
+            var _a, _b, _c;
+            var geometry = query.geometry, spatialRelationship = query.spatialRelationship, where = query.where;
+            var _d = this.config, presetLayerEffects = _d.presetLayerEffects, applyLayerEffects = _d.applyLayerEffects, displayUnmatchedResults = _d.displayUnmatchedResults;
+            var props = {
+                geometry: geometry,
+                spatialRelationship: spatialRelationship,
+                where: where
+            };
+            // Check for old effect types if new ones haven't been defined
+            var includedEffect, excludedEffect = null;
+            if (!applyLayerEffects) {
+                if (displayUnmatchedResults === "sepia") {
+                    excludedEffect = "sepia(100%)";
+                }
+                else if (displayUnmatchedResults === "gray") {
+                    excludedEffect = "grayscale(100%)";
+                }
+                else if ((_a = presetLayerEffects === null || presetLayerEffects === void 0 ? void 0 : presetLayerEffects.data) === null || _a === void 0 ? void 0 : _a.includedEffect) {
+                    includedEffect = (0, effects_1.getMergedEffect)(presetLayerEffects.data.includedEffect, layerView, "includedEffect");
+                    excludedEffect = (0, effects_1.getMergedEffect)("opacity(0)", layerView, "excludedEffect");
+                }
+            }
+            else if (applyLayerEffects) {
+                // do we have preset effects defined?
+                if ((_b = presetLayerEffects === null || presetLayerEffects === void 0 ? void 0 : presetLayerEffects.data) === null || _b === void 0 ? void 0 : _b.includedEffect) {
+                    includedEffect = (0, effects_1.getMergedEffect)(presetLayerEffects.data.includedEffect, layerView, "includedEffect");
+                }
+                if ((_c = presetLayerEffects === null || presetLayerEffects === void 0 ? void 0 : presetLayerEffects.data) === null || _c === void 0 ? void 0 : _c.excludedEffect) {
+                    excludedEffect = (0, effects_1.getMergedEffect)(presetLayerEffects.data.excludedEffect, layerView, "excludedEffect");
+                }
+            }
+            var filter = new FeatureFilter_1.default(props);
+            var effect = new FeatureEffect_1.default({
+                filter: filter,
+                includedEffect: includedEffect,
+                excludedEffect: excludedEffect
+            });
+            if ((effect === null || effect === void 0 ? void 0 : effect.includedEffect) || (effect === null || effect === void 0 ? void 0 : effect.excludedEffect)) {
+                layerView.featureEffect = effect;
+            }
+            else {
+                layerView.filter = filter;
+            }
+        };
+        DisplayLookupResults.prototype.createTogglePanel = function () {
+            var _a = this.config, theme = _a.theme, hideMap = _a.hideMap;
+            var themeClass = theme === "dark" ? "calcite-mode-dark" : "calcite-mode-light";
+            var count = this._getFeatureCount(this._featureResults);
+            var toggleLinks = this._createToggleLinks();
+            var pdfAction = this.renderPDFAction();
+            var csvAction = this.renderCSVAction();
+            return count || toggleLinks ? ((0, widget_1.tsx)("div", { class: this.classes(CSS.togglePanel) },
+                (0, widget_1.tsx)("div", { id: "countDiv", class: this.classes("total-count", "results") },
+                    (0, widget_1.tsx)("calcite-icon", { class: this.classes(themeClass), scale: "s", textLabel: this.messages.tools.results, icon: "table" }),
+                    this.messages.tools.results,
+                    ":",
+                    count),
+                (0, widget_1.tsx)("calcite-button", { onclick: function () {
+                        document.body.classList.toggle("details-full-height");
+                    }, class: "mobile-expand", kind: "neutral", appearance: "transparent", "icon-start": document.body.classList.contains("details-full-height") ? "caret-down" : "caret-up" }),
+                (0, widget_1.tsx)("div", { class: "right-toggle-actions" },
+                    pdfAction,
+                    csvAction,
+                    toggleLinks))) : null;
+        };
+        DisplayLookupResults.prototype.renderCSVAction = function () {
+            var _this = this;
+            var exportCSV = this.config.exportCSV;
+            return exportCSV ? ((0, widget_1.tsx)("calcite-button", { slot: "dropdown-trigger", class: "pdf-share", appearance: "transparent", kind: "neutral", "icon-start": "file-csv", onclick: function () {
+                    (0, utils_1.exportCSVData)(_this._featureResults);
+                }, scale: "m", title: this.config.bundle.tools.exportCSV })) : null;
+        };
+        DisplayLookupResults.prototype.renderPDFAction = function () {
+            var exportToPDF = this.config.exportToPDF;
+            return exportToPDF ? ((0, widget_1.tsx)("div", { key: "pdf" },
+                (0, widget_1.tsx)(ExportPDF, { portal: this.portal, config: this.config, view: this.view }))) : null;
+        };
+        DisplayLookupResults.prototype._createToggleLinks = function () {
+            var _a;
+            var theme = this.config.theme;
+            var themeClass = theme === "dark" ? "calcite-mode-dark" : "calcite-mode-light";
+            var buttonLabel = this._toggle ? this.messages.tools.collapse : this.messages.tools.open;
+            var buttonIcon = this._toggle ? "contract" : "expand";
+            return ((_a = this === null || this === void 0 ? void 0 : this.accordion) === null || _a === void 0 ? void 0 : _a.showToggle()) ? ((0, widget_1.tsx)("calcite-button", { bind: this, class: this.classes(themeClass, "toggle-items-button"), kind: "neutral", scale: "m", appearance: "transparent", key: buttonLabel, title: buttonLabel, label: buttonLabel, onclick: this._toggleItems },
+                (0, widget_1.tsx)("calcite-icon", { icon: buttonIcon, scale: "s" }))) : null;
+        };
+        DisplayLookupResults.prototype._shorten = function (url) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, (0, request_1.default)("https://arcg.is/prod/shorten", {
+                            query: {
+                                longUrl: url,
+                                f: "json"
+                            }
+                        })
+                            .then(function (response) {
+                            var _a, _b;
+                            return ((_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.url) || null;
+                        })
+                            .catch(function () {
+                            return null;
+                        })];
+                });
+            });
+        };
+        DisplayLookupResults.prototype._toggleItems = function () {
+            var _a;
+            this._toggle = !this._toggle;
+            var elements = document.getElementsByTagName("calcite-accordion-item");
+            for (var i = 0; i < elements.length; i++) {
+                this._toggle
+                    ? (_a = elements[i]) === null || _a === void 0 ? void 0 : _a.setAttribute("expanded", "true")
+                    : elements[i].removeAttribute("expanded");
+            }
+        };
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "accordion", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "location", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "view", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "lookupGraphics", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "config", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "mapPanel", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "empty", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "lookupLayers", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "expand", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "directions", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "searchLayer", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "notice", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "portal", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "state", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "directionsReady", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "elevationReady", void 0);
+        __decorate([
+            (0, decorators_1.property)()
+        ], DisplayLookupResults.prototype, "elevationProfile", void 0);
+        __decorate([
+            (0, decorators_1.property)(),
+            (0, widget_1.messageBundle)("lookup/app/t9n/common")
+        ], DisplayLookupResults.prototype, "messages", void 0);
+        DisplayLookupResults = __decorate([
+            (0, decorators_1.subclass)("app.DisplayLookupResults")
+        ], DisplayLookupResults);
+        return DisplayLookupResults;
+    }(Widget_1.default));
+    exports.default = DisplayLookupResults;
+});

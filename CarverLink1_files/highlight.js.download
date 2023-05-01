@@ -1,0 +1,36 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "esri/Color"], function (require, exports, Color_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.handleHighlightColors = void 0;
+    Color_1 = __importDefault(Color_1);
+    function handleHighlightColors(highlightConfig, view) {
+        if (!view)
+            return;
+        var highlightOptions = view.highlightOptions;
+        var enableHighlightColor = highlightConfig.enableHighlightColor, highlightColor = highlightConfig.highlightColor, enableHighlightHaloColor = highlightConfig.enableHighlightHaloColor, highlightHaloColor = highlightConfig.highlightHaloColor;
+        var color = enableHighlightColor && highlightColor
+            ? highlightColor
+            : highlightOptions.color;
+        var haloColor = enableHighlightHaloColor && highlightHaloColor
+            ? highlightHaloColor
+            : highlightOptions.haloColor;
+        // https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#highlightOptions
+        view.highlightOptions = __assign(__assign({}, highlightOptions), { color: new Color_1.default(color), haloColor: haloColor ? new Color_1.default(haloColor) : null // jsapi default value is `null`, which sets halo to default Cyan color (#00ffff)
+         });
+    }
+    exports.handleHighlightColors = handleHighlightColors;
+});

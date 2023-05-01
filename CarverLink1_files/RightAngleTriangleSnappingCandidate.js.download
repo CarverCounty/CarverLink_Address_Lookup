@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.26/esri/copyright.txt for details.
+//>>built
+define("exports ../../../../chunks/_rollupPluginBabelHelpers ../../../../chunks/vec2 ../../../../chunks/vec3 ../../../../chunks/vec3f64 ../SnappingConstraint ../SnappingDomain ../SnappingPoint ../snappingUtils ./SnappingCandidate ../hints/LineSnappingHint ../hints/RightAngleSnappingHint".split(" "),function(f,g,m,n,p,q,r,t,h,b,k,u){b=function(l){function c({targetPoint:a,point1:d,point2:e,isDraped:v}){a=l.call(this,a,new q.VerticalCylinderConstraint(t.asSnappingPoint(n.lerp(p.create(),d,e,.5)),.5*
+m.distance(d,e)),v,r.SnappingDomain.SELF)||this;a._p1=d;a._p2=e;return a}g._inheritsLoose(c,l);g._createClass(c,[{key:"hints",get:function(){return[new k.LineSnappingHint(h.LineSegmentHintType.REFERENCE,this.targetPoint,this._p1,this.isDraped,this.domain),new k.LineSnappingHint(h.LineSegmentHintType.REFERENCE,this.targetPoint,this._p2,this.isDraped,this.domain),new u.RightAngleSnappingHint(this._p1,this.targetPoint,this._p2,this.isDraped,this.domain)]}}]);return c}(b.SnappingCandidate);f.RightAngleTriangleSnappingCandidate=
+b;Object.defineProperty(f,Symbol.toStringTag,{value:"Module"})});

@@ -1,0 +1,1218 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+define(["require", "exports", "TemplatesCommonLib/structuralFunctionality/telemetry/telemetry", "esri/core/reactiveUtils", "./utilites/themeUtils", "esri/Graphic", "esri/core/Handles", "./utilites/lookupLayerUtils", "./utilites/esriWidgetUtils", "esri/core/watchUtils", "./components/DisplayLookupResults", "./components/Header", "./components/MapPanel", "esri/layers/RouteLayer", "TemplatesCommonLib/baseClasses/support/domHelper", "./ConfigurationSettings", "./components/DetailPanel", "./components/LookupGraphics", "esri/geometry/support/jsonUtils", "./components/FilterPanel", "./components/SearchPanel", "esri/layers/ElevationLayer", "esri/geometry/Point", "./utilites/utils", "TemplatesCommonLib/baseClasses/support/itemUtils", "TemplatesCommonLib/functionality/highlight", "TemplatesCommonLib/structuralFunctionality/t9nUtils", "esri/core/promiseUtils", "esri/core/reactiveUtils"], function (require, exports, telemetry_1, reactiveUtils_1, themeUtils_1, Graphic_1, Handles_1, lookupLayerUtils_1, esriWidgetUtils_1, watchUtils_1, DisplayLookupResults_1, Header_1, MapPanel_1, RouteLayer, domHelper_1, ConfigurationSettings_1, DetailPanel_1, LookupGraphics_1, jsonUtils_1, FilterPanel_1, SearchPanel_1, ElevationLayer_1, Point_1, utils_1, itemUtils_1, highlight_1, t9nUtils_1, promiseUtils_1, reactiveUtils) {
+    "use strict";
+    telemetry_1 = __importDefault(telemetry_1);
+    Graphic_1 = __importDefault(Graphic_1);
+    Handles_1 = __importDefault(Handles_1);
+    DisplayLookupResults_1 = __importDefault(DisplayLookupResults_1);
+    Header_1 = __importDefault(Header_1);
+    MapPanel_1 = __importDefault(MapPanel_1);
+    ConfigurationSettings_1 = __importDefault(ConfigurationSettings_1);
+    DetailPanel_1 = __importDefault(DetailPanel_1);
+    LookupGraphics_1 = __importDefault(LookupGraphics_1);
+    FilterPanel_1 = __importDefault(FilterPanel_1);
+    SearchPanel_1 = __importDefault(SearchPanel_1);
+    ElevationLayer_1 = __importDefault(ElevationLayer_1);
+    Point_1 = __importDefault(Point_1);
+    var CSS = {
+        loading: "configurable-application--loading"
+    };
+    var LocationApp = /** @class */ (function () {
+        function LocationApp() {
+            this._appConfig = null;
+            this.telemetry = null;
+            this.searchWidget = null;
+            this.mapPanel = null;
+            this._detailPanel = null;
+            this._mapButton = null;
+            this._handles = new Handles_1.default();
+            this._defaultViewRotation = 0;
+            this._results = null;
+            this._filterPanel = null;
+            this._searchPanel = null;
+            this.lookupGraphics = null;
+            //----------------------------------
+            //  ApplicationBase
+            //----------------------------------
+            this.base = null;
+            this._telemetry = null;
+            this.page = null;
+        }
+        //--------------------------------------------------------------------------
+        //
+        //  Public Methods
+        //
+        //--------------------------------------------------------------------------
+        LocationApp.prototype.init = function (base) {
+            var _this = this;
+            if (!base) {
+                console.error("ApplicationBase is not defined");
+                return;
+            }
+            (0, promiseUtils_1.eachAlways)([
+                (0, t9nUtils_1.handleT9N)("lookup", "lookup", "lookup/app/t9n/common"),
+                (0, t9nUtils_1.handleT9N)("instant", "instant", "instant/../t9n/common")
+            ]).then(function (results) {
+                var appBundle = results[0], bundle = results[1];
+                base.config.bundle = bundle === null || bundle === void 0 ? void 0 : bundle.value;
+                base.config.appBundle = appBundle === null || appBundle === void 0 ? void 0 : appBundle.value;
+                _this._updateMapVisibility(base.config);
+                _this.base = base;
+                _this._createApp();
+            });
+        };
+        LocationApp.prototype._createApp = function () {
+            var _this = this;
+            var _a, _b, _c, _d, _e, _f, _g, _h;
+            var base = this.base;
+            var config = (0, utils_1.handleDeprecatedConfigProps)(base === null || base === void 0 ? void 0 : base.config);
+            var results = base.results;
+            config.helperServices = __assign({}, base.portal.helperServices);
+            /*Backwards compatibility with modified app settings */
+            var webMapItems = results.webMapItems;
+            // create and insert the shared theme styles
+            this._appConfig = new ConfigurationSettings_1.default(config);
+            (0, themeUtils_1.updateThemeConfig)(this._appConfig);
+            this.createTelemetry();
+            this._handles.add([
+                (0, watchUtils_1.init)(this._appConfig, ["applyCustomTheme", "customCSS", "applySharedTheme", "customTheme", "theme"], function (a, b, c) {
+                    var _a, _b, _c, _d, _e;
+                    var _f = _this._appConfig, customTheme = _f.customTheme, customCSS = _f.customCSS;
+                    if (!customTheme) {
+                        (0, themeUtils_1.handleOldConfig)(_this._appConfig, (_a = _this === null || _this === void 0 ? void 0 : _this.base) === null || _a === void 0 ? void 0 : _a.portal);
+                    }
+                    var sharedThemeProps = (_d = (_c = (_b = _this === null || _this === void 0 ? void 0 : _this.base) === null || _b === void 0 ? void 0 : _b.portal) === null || _c === void 0 ? void 0 : _c.portalProperties) === null || _d === void 0 ? void 0 : _d.sharedTheme;
+                    if ((customTheme === null || customTheme === void 0 ? void 0 : customTheme.applySharedTheme) && !(customTheme === null || customTheme === void 0 ? void 0 : customTheme.logo) && ((_e = sharedThemeProps === null || sharedThemeProps === void 0 ? void 0 : sharedThemeProps.logo) === null || _e === void 0 ? void 0 : _e.small)) {
+                        customTheme.logo = sharedThemeProps.logo.small;
+                    }
+                    _this._cleanUpResults();
+                    _this.handleThemeUpdates();
+                }),
+                (0, watchUtils_1.init)(this._appConfig, ["hideMap"], function () {
+                    _this._updateMapVisibility(_this._appConfig);
+                }),
+                (0, watchUtils_1.init)(this._appConfig, ["coverPage"], function (newValue, oldValue, propertyName) {
+                    _this._createPage();
+                }),
+                (0, watchUtils_1.init)(this._appConfig, "panelSize", function (newValue, oldValue, propertyName) {
+                    // update panel size
+                    var panelSize = _this._appConfig.panelSize;
+                    (0, utils_1.updatePanelSize)(panelSize);
+                })
+            ], "configuration");
+            // Get web map
+            var allItems = webMapItems.map(function (item) {
+                return item;
+            });
+            var validWebMapItems = [];
+            allItems.forEach(function (response) {
+                if (response === null || response === void 0 ? void 0 : response.error) {
+                    return;
+                }
+                validWebMapItems.push(response.value);
+            });
+            var item = validWebMapItems[0];
+            if (!item) {
+                console.error("Could not load an item to display");
+                // show error page
+                document.location.href = "../../shared/unavailable/index.html?appid=".concat((_b = (_a = this.base.config) === null || _a === void 0 ? void 0 : _a.appid) !== null && _b !== void 0 ? _b : null);
+                return;
+            }
+            // Set the title to the app value if it exists
+            if (((_e = (_d = (_c = base === null || base === void 0 ? void 0 : base.results) === null || _c === void 0 ? void 0 : _c.applicationItem) === null || _d === void 0 ? void 0 : _d.value) === null || _e === void 0 ? void 0 : _e.title) && !this._appConfig.title) {
+                this._appConfig.title = (_h = (_g = (_f = base === null || base === void 0 ? void 0 : base.results) === null || _f === void 0 ? void 0 : _f.applicationItem) === null || _g === void 0 ? void 0 : _g.value) === null || _h === void 0 ? void 0 : _h.title;
+            }
+            this._createMap(item);
+        };
+        LocationApp.prototype._createMap = function (item) {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, panelHandle;
+                var _this = this;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = this;
+                            return [4 /*yield*/, new MapPanel_1.default({
+                                    item: item,
+                                    config: this._appConfig,
+                                    base: this.base,
+                                    container: "mapPanel"
+                                })];
+                        case 1:
+                            _a.mapPanel = _b.sent();
+                            panelHandle = this.mapPanel.watch("view", function () {
+                                var _a, _b, _c, _d, _e, _f, _g, _h;
+                                panelHandle.remove();
+                                var title = _this._appConfig.title;
+                                if (!title) {
+                                    title = ((_d = (_c = (_b = (_a = _this === null || _this === void 0 ? void 0 : _this.base) === null || _a === void 0 ? void 0 : _a.results) === null || _b === void 0 ? void 0 : _b.applicationItem) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.title)
+                                        ? (_h = (_g = (_f = (_e = _this === null || _this === void 0 ? void 0 : _this.base) === null || _e === void 0 ? void 0 : _e.results) === null || _f === void 0 ? void 0 : _f.applicationItem) === null || _g === void 0 ? void 0 : _g.value) === null || _h === void 0 ? void 0 : _h.title
+                                        : (0, itemUtils_1.getItemTitle)(item);
+                                }
+                                _this._appConfig.title = title;
+                                (0, domHelper_1.setPageTitle)(title);
+                                _this.view = _this.mapPanel.view;
+                                _this._defaultViewRotation = _this.view.rotation || 0;
+                                // watch properties that determine how results are displayed
+                                _this._handles.add([
+                                    (0, watchUtils_1.init)(_this._appConfig, ["searchUnits", "includeDistance", "interactiveResults", "groupResultsByLayer"], function () {
+                                        if (_this._results) {
+                                            var copyResults = _this._results;
+                                            _this._cleanUpResults();
+                                            _this._displayResults(copyResults);
+                                        }
+                                    }),
+                                    (0, watchUtils_1.init)(_this._appConfig, "extentSelectorConfig, extentSelector", function () {
+                                        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+                                        if (((_a = _this._appConfig) === null || _a === void 0 ? void 0 : _a.extentSelectorConfig) && ((_b = _this._appConfig) === null || _b === void 0 ? void 0 : _b.extentSelector)) {
+                                            var constraints = _this._appConfig.extentSelectorConfig.constraints;
+                                            var geometry = constraints === null || constraints === void 0 ? void 0 : constraints.geometry;
+                                            if (geometry) {
+                                                var extent_1 = (0, jsonUtils_1.fromJSON)(geometry);
+                                                if (extent_1 && ((extent_1 === null || extent_1 === void 0 ? void 0 : extent_1.type) === "extent" || (extent_1 === null || extent_1 === void 0 ? void 0 : extent_1.type) === "polygon")) {
+                                                    constraints.geometry = extent_1;
+                                                    _this.view.goTo(extent_1, { animate: false }).catch(function () { });
+                                                    (_e = (_d = (_c = _this.searchWidget) === null || _c === void 0 ? void 0 : _c.viewModel) === null || _d === void 0 ? void 0 : _d.allSources) === null || _e === void 0 ? void 0 : _e.forEach(function (source) {
+                                                        source.filter = {
+                                                            geometry: extent_1
+                                                        };
+                                                    });
+                                                }
+                                            }
+                                            else {
+                                                constraints.geometry = null;
+                                                (_h = (_g = (_f = _this.searchWidget) === null || _f === void 0 ? void 0 : _f.viewModel) === null || _g === void 0 ? void 0 : _g.allSources) === null || _h === void 0 ? void 0 : _h.forEach(function (source) {
+                                                    source.filter = null;
+                                                });
+                                            }
+                                            constraints.minScale = +constraints.minScale;
+                                            constraints.maxScale = +constraints.maxScale;
+                                            _this.view.constraints = constraints;
+                                            _this._setMapViewRotation();
+                                        }
+                                        else {
+                                            if (_this.view) {
+                                                _this.view.rotation = _this._defaultViewRotation;
+                                                _this.view.constraints.geometry = null;
+                                                _this.view.constraints.minZoom = -1;
+                                                _this.view.constraints.maxZoom = -1;
+                                                _this.view.constraints.minScale = 0;
+                                                _this.view.constraints.maxScale = 0;
+                                            }
+                                            (_j = _this === null || _this === void 0 ? void 0 : _this.mapPanel) === null || _j === void 0 ? void 0 : _j.resetExtent();
+                                        }
+                                    })
+                                ], "configuration");
+                                _this.view.popup.autoOpenEnabled = false;
+                                _this.view.popup.actions = null;
+                                document.body.classList.remove(CSS.loading);
+                                _this._handles.add((0, watchUtils_1.init)(_this._appConfig, "highlightColor,highlightHaloColor,enableHighlightHaloColor,enableHighlightColor", function (newValue, oldValue, propertyName) {
+                                    if (!_this.view)
+                                        return;
+                                    var _a = _this._appConfig, highlightColor = _a.highlightColor, highlightHaloColor = _a.highlightHaloColor, enableHighlightColor = _a.enableHighlightColor, enableHighlightHaloColor = _a.enableHighlightHaloColor;
+                                    var highlightConfig = {
+                                        enableHighlightColor: enableHighlightColor,
+                                        highlightColor: highlightColor,
+                                        enableHighlightHaloColor: enableHighlightHaloColor,
+                                        highlightHaloColor: highlightHaloColor
+                                    };
+                                    (0, highlight_1.handleHighlightColors)(highlightConfig, _this.view);
+                                }));
+                                _this.view.when(function () {
+                                    _this._addWidgets();
+                                    _this._addHeader(item);
+                                });
+                            });
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._addHeader = function (item) {
+            // Add info button
+            var _this = this;
+            var _a;
+            this._detailPanel = new DetailPanel_1.default({
+                config: this._appConfig,
+                view: this.view,
+                mapPanel: this.mapPanel,
+                portal: item === null || item === void 0 ? void 0 : item.portal,
+                container: document.createElement("div")
+            });
+            this._detailPanel.on("location", function () {
+                var _a;
+                if ((_a = _this.searchWidget) === null || _a === void 0 ? void 0 : _a.viewModel)
+                    _this.searchWidget.viewModel.searchNearby();
+            });
+            var headerWidget = new Header_1.default({
+                config: this._appConfig,
+                detailPanel: this._detailPanel,
+                view: this.view,
+                portal: this.base.portal,
+                container: "header"
+            });
+            var wrapper = document.getElementById("panel-wrapper");
+            var panelContainer = (_a = this._detailPanel) === null || _a === void 0 ? void 0 : _a.container;
+            (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this._appConfig) === null || _a === void 0 ? void 0 : _a.infoAsModal; }, function () {
+                if (_this._appConfig.infoAsModal) {
+                    // add to body
+                    document.body.append(panelContainer);
+                }
+                else {
+                    // add to side panel
+                    wrapper === null || wrapper === void 0 ? void 0 : wrapper.append(panelContainer);
+                }
+            }, { initial: true });
+            (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this._appConfig) === null || _a === void 0 ? void 0 : _a.showIntroduction; }, function () {
+                var _a, _b;
+                var showIntroduction = _this._appConfig.showIntroduction;
+                // When showIntroduction is false hide detail panel otherwise open
+                // results are cleared
+                !showIntroduction ? (_a = _this === null || _this === void 0 ? void 0 : _this._detailPanel) === null || _a === void 0 ? void 0 : _a.hidePanel() : (_b = _this === null || _this === void 0 ? void 0 : _this._detailPanel) === null || _b === void 0 ? void 0 : _b.showPanel();
+            }, { initial: true });
+            (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this._appConfig) === null || _a === void 0 ? void 0 : _a.header; }, function () {
+                var _a, _b, _c, _d;
+                var _e = _this._appConfig, header = _e.header, showIntroduction = _e.showIntroduction, infoButtonPosition = _e.infoButtonPosition;
+                var mapButton = _this.view.ui.find("map-info-button");
+                if (header && mapButton) {
+                    // If header is disabled but intro is enabled add intro to the main map
+                    // remove the map button
+                    (_b = (_a = _this === null || _this === void 0 ? void 0 : _this.view) === null || _a === void 0 ? void 0 : _a.ui) === null || _b === void 0 ? void 0 : _b.remove(mapButton);
+                    (_c = _this === null || _this === void 0 ? void 0 : _this._detailPanel) === null || _c === void 0 ? void 0 : _c.hidePanel();
+                }
+                else if (!header && showIntroduction && !mapButton) {
+                    // add the map button to the view
+                    var infoButton = headerWidget === null || headerWidget === void 0 ? void 0 : headerWidget.createInfoButton();
+                    if (!infoButton)
+                        return;
+                    infoButton.id = "map-info-button";
+                    _this.view.ui.add(infoButton, infoButtonPosition);
+                    if (!((_d = _this._appConfig) === null || _d === void 0 ? void 0 : _d.infoAsModal))
+                        _this._detailPanel.showPanel();
+                }
+            }, { initial: true });
+            (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this._appConfig) === null || _a === void 0 ? void 0 : _a.infoButtonPosition; }, function () {
+                var infoButtonPosition = _this._appConfig.infoButtonPosition;
+                var mapButton = _this.view.ui.find("map-info-button");
+                _this.view.ui.move(mapButton, infoButtonPosition);
+            }, { initial: true });
+        };
+        LocationApp.prototype._createPage = function () {
+            var _a;
+            return __awaiter(this, void 0, void 0, function () {
+                var Page, _b, coverPage, coverPageConfig, appContainer, container, props;
+                var _this = this;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, new Promise(function (resolve_1, reject_1) { require(["./components/Page/Page"], resolve_1, reject_1); }).then(__importStar)];
+                        case 1:
+                            Page = _c.sent();
+                            _b = this._appConfig, coverPage = _b.coverPage, coverPageConfig = _b.coverPageConfig;
+                            appContainer = document.getElementById("appMain");
+                            if (coverPage && !this.page) {
+                                container = document.createElement("div");
+                                props = __assign({ portal: this.base.portal, container: container }, coverPageConfig);
+                                this.page = new Page.default(props);
+                                appContainer.classList.add("hide");
+                                // watch for config updates
+                                this._handles.add((0, watchUtils_1.watch)(this._appConfig, "coverPageConfig", function () {
+                                    if (!_this.page)
+                                        return;
+                                    var coverPageConfig = _this._appConfig.coverPageConfig;
+                                    var keys = Object.keys(coverPageConfig);
+                                    keys.forEach(function (key) {
+                                        _this.page.set(key, coverPageConfig[key]);
+                                    });
+                                }), "page");
+                            }
+                            else {
+                                appContainer === null || appContainer === void 0 ? void 0 : appContainer.classList.remove("hide");
+                                this._handles.remove("page");
+                                (_a = this.page) === null || _a === void 0 ? void 0 : _a.destroy();
+                                this.page = null;
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._addWidgets = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    // Add esri widgets to the app (legend, home etc)
+                    (0, esriWidgetUtils_1.addMapComponents)({
+                        view: this.view,
+                        config: this._appConfig,
+                        portal: this.base.portal
+                    });
+                    this._setupFeatureSearch();
+                    this._handles.add([
+                        (0, watchUtils_1.init)(this._appConfig, ["locateWidget", "locateWidgetPosition"], function (newValue, oldValue, propertyName) {
+                            _this.addLocate(_this.view, _this._appConfig, propertyName);
+                        })
+                    ], "configuration");
+                    return [2 /*return*/];
+                });
+            });
+        };
+        LocationApp.prototype.addLocate = function (view, config, propertyName) {
+            return __awaiter(this, void 0, void 0, function () {
+                var locateWidget, locateWidgetPosition, Locate, node, locationWidget;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            locateWidget = config.locateWidget, locateWidgetPosition = config.locateWidgetPosition;
+                            return [4 /*yield*/, new Promise(function (resolve_2, reject_2) { require(["esri/widgets/Locate"], resolve_2, reject_2); }).then(__importStar)];
+                        case 1:
+                            Locate = _a.sent();
+                            node = (0, utils_1.findNode)("esri-locate");
+                            if (!locateWidget) {
+                                if (node)
+                                    view.ui.remove(node);
+                                return [2 /*return*/];
+                            }
+                            if (node && !locateWidget)
+                                view.ui.remove(node);
+                            if (propertyName === "locateWidgetPosition" && node) {
+                                view.ui.move(node, locateWidgetPosition);
+                            }
+                            else if (propertyName === "locateWidget") {
+                                locationWidget = new Locate.default({
+                                    goToLocationEnabled: false,
+                                    view: view,
+                                    popupEnabled: false,
+                                    graphic: null
+                                });
+                                locationWidget.on("locate", function (location) {
+                                    var _a;
+                                    // clear existing then search
+                                    _this._cleanUpResults();
+                                    if ((_a = location === null || location === void 0 ? void 0 : location.position) === null || _a === void 0 ? void 0 : _a.coords) {
+                                        _this._searchByGeometry(new Point_1.default(location.position.coords));
+                                    }
+                                });
+                                view.ui.add(locationWidget, locateWidgetPosition);
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._setupFeatureSearch = function () {
+            var _a;
+            return __awaiter(this, void 0, void 0, function () {
+                var container, lookupProps;
+                var _this = this;
+                return __generator(this, function (_b) {
+                    this._filterPanel = new FilterPanel_1.default({
+                        config: this._appConfig,
+                        view: this.view,
+                        container: document.getElementById("filterPanel")
+                    });
+                    container = document.getElementById("searchPanel");
+                    this._searchPanel = new SearchPanel_1.default({
+                        config: this._appConfig,
+                        view: this.view,
+                        portal: this.base.portal,
+                        filterPanel: this._filterPanel,
+                        container: container
+                    });
+                    (0, watchUtils_1.when)(this._searchPanel, "state", function () {
+                        var _a;
+                        if (((_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.state) !== "ready") {
+                            return;
+                        }
+                        _this.searchWidget = _this._searchPanel.searchWidget;
+                        container === null || container === void 0 ? void 0 : container.addEventListener("click", function () {
+                            var _a;
+                            (_a = _this === null || _this === void 0 ? void 0 : _this._detailPanel) === null || _a === void 0 ? void 0 : _a.hidePanel();
+                        });
+                        _this.searchWidget.on("search-focus", function () {
+                            var _a;
+                            // if users type in input box close info panel
+                            (_a = _this === null || _this === void 0 ? void 0 : _this._detailPanel) === null || _a === void 0 ? void 0 : _a.hidePanel();
+                        });
+                        if (_this === null || _this === void 0 ? void 0 : _this.lookupGraphics) {
+                            _this.lookupGraphics.searchWidget = _this.searchWidget;
+                        }
+                        _this._handles.add((0, watchUtils_1.when)(_this._searchPanel, ["sketchGeometry"], function (value, oldValue, propertyName) {
+                            var _a, _b;
+                            if (value) {
+                                if ((_a = _this === null || _this === void 0 ? void 0 : _this._searchPanel) === null || _a === void 0 ? void 0 : _a.showDrawNotification)
+                                    _this._searchPanel.showDrawNotification = false;
+                                _this._searchFeature = new Graphic_1.default({ geometry: value });
+                                _this._generateSearchResults();
+                                (_b = _this._mapButton) === null || _b === void 0 ? void 0 : _b.classList.remove("hide");
+                            }
+                        }), "configuration");
+                        _this.searchWidget.on("search-clear", function () {
+                            var _a;
+                            _this._cleanUpResults();
+                            _this._removeClearButton();
+                            (_a = _this._mapButton) === null || _a === void 0 ? void 0 : _a.classList.add("hide");
+                            // Remove find url param
+                            _this._updateUrlParam();
+                            _this._searchFeature = null;
+                        });
+                        _this.searchWidget.on("search-complete", function (results) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                // find url param
+                                this._cleanUpResults();
+                                if (results.numResults > 0) {
+                                    // add find url param
+                                    this._handleResults(results);
+                                }
+                                else {
+                                    this === null || this === void 0 ? void 0 : this.lookupResults.addNotice();
+                                }
+                                return [2 /*return*/];
+                            });
+                        }); });
+                        _this.view.on("click", function (e) { return __awaiter(_this, void 0, void 0, function () {
+                            var activeTool;
+                            var _a, _b, _c, _d;
+                            return __generator(this, function (_e) {
+                                activeTool = ((_b = (_a = this === null || this === void 0 ? void 0 : this._searchPanel) === null || _a === void 0 ? void 0 : _a.sketchTool) === null || _b === void 0 ? void 0 : _b.state) === "active" ? true : false;
+                                if (!activeTool) {
+                                    (_d = (_c = this === null || this === void 0 ? void 0 : this.view) === null || _c === void 0 ? void 0 : _c.popup) === null || _d === void 0 ? void 0 : _d.close();
+                                    this._searchByGeometry(e.mapPoint);
+                                }
+                                return [2 /*return*/];
+                            });
+                        }); });
+                        _this._addMapButton();
+                        var _b = _this._appConfig, select = _b.select, level = _b.level, center = _b.center;
+                        if (select && level && center) {
+                            var location_1 = center.split(",");
+                            if ((location_1 === null || location_1 === void 0 ? void 0 : location_1.length) > 1) {
+                                var point = new Point_1.default({
+                                    longitude: location_1[0],
+                                    latitude: location_1[1]
+                                });
+                                _this._searchByGeometry(point);
+                            }
+                        }
+                    });
+                    // get the search widget from the panel
+                    (0, reactiveUtils_1.whenOnce)(function () { var _a; return ((_a = _this._filterPanel) === null || _a === void 0 ? void 0 : _a.filterList) !== undefined; }).then(function () {
+                        var _a, _b, _c, _d, _e;
+                        // Apply filter expressions from URL params
+                        if ((_b = (_a = _this === null || _this === void 0 ? void 0 : _this.base) === null || _a === void 0 ? void 0 : _a.config) === null || _b === void 0 ? void 0 : _b.filter) {
+                            var filters = (_c = _this.base.config.filter) === null || _c === void 0 ? void 0 : _c.split(";").map(function (filter) { return JSON.parse(filter); });
+                            filters === null || filters === void 0 ? void 0 : filters.forEach(function (filter) {
+                                var _a, _b;
+                                var layerExpressions = (_b = (_a = _this._filterPanel) === null || _a === void 0 ? void 0 : _a.filterList) === null || _b === void 0 ? void 0 : _b.layerExpressions;
+                                layerExpressions === null || layerExpressions === void 0 ? void 0 : layerExpressions.forEach(function (layerExpression) {
+                                    var _a;
+                                    if ((filter === null || filter === void 0 ? void 0 : filter.layerId) === layerExpression.id) {
+                                        (_a = layerExpression.expressions) === null || _a === void 0 ? void 0 : _a.forEach(function (expression) {
+                                            var _a, _b;
+                                            if (((_a = expression.id) === null || _a === void 0 ? void 0 : _a.toString()) === ((_b = filter === null || filter === void 0 ? void 0 : filter.expressionId) === null || _b === void 0 ? void 0 : _b.toString())) {
+                                                expression.checked = true;
+                                                if (filter.type === "range") {
+                                                    expression.range = {
+                                                        min: filter.value.min,
+                                                        max: filter.value.max
+                                                    };
+                                                }
+                                                else if (filter.type === "select") {
+                                                    expression.selectedFields = filter.value;
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        _this._handles.add((_d = _this._filterPanel) === null || _d === void 0 ? void 0 : _d.filterList.watch("output", function (output) {
+                            var _a, _b, _c;
+                            var id = output.id;
+                            var expression = _this._filterPanel.addDefaultExpression(output);
+                            var searchGraphic = (_b = (_a = _this === null || _this === void 0 ? void 0 : _this._searchPanel) === null || _a === void 0 ? void 0 : _a.sketchGraphic) === null || _b === void 0 ? void 0 : _b.clone();
+                            _this._cleanUpResults();
+                            _this._updateUrlParam();
+                            var layer = _this.view.map.findLayerById(id);
+                            if (layer) {
+                                layer.definitionExpression = expression;
+                                if (searchGraphic && _this._appConfig.enableSketchTools) {
+                                    var gl = _this === null || _this === void 0 ? void 0 : _this.view.map.findLayerById("sketchLayer");
+                                    if (gl) {
+                                        gl.add(searchGraphic);
+                                        _this._searchFeature = searchGraphic;
+                                    }
+                                }
+                                if (!_this._searchFeature)
+                                    return;
+                                (_c = _this._mapButton) === null || _c === void 0 ? void 0 : _c.classList.remove("hide");
+                                _this._generateSearchResults();
+                            }
+                        }));
+                        (_e = _this._filterPanel) === null || _e === void 0 ? void 0 : _e.filterList.on("filterListReset", function (resetLayerExpressions) {
+                            resetLayerExpressions === null || resetLayerExpressions === void 0 ? void 0 : resetLayerExpressions.forEach(function (layerExpression) {
+                                var _a;
+                                var id = layerExpression.id;
+                                var layer = (_a = _this === null || _this === void 0 ? void 0 : _this.view) === null || _a === void 0 ? void 0 : _a.map.findLayerById(id);
+                                if (layer) {
+                                    // Check for default layer expression
+                                    layer.definitionExpression = _this._filterPanel.findDefaultExpression(layerExpression);
+                                    _this._cleanUpResults();
+                                    _this._generateSearchResults();
+                                    _this._updateUrlParam();
+                                }
+                            });
+                        });
+                    });
+                    this._handles.add([
+                        (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this === null || _this === void 0 ? void 0 : _this._appConfig) === null || _a === void 0 ? void 0 : _a.enableFilter; }, function (value) {
+                            var _a;
+                            (_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.updateFilterProps("enableFilter", value);
+                        }, { initial: true }),
+                        (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this === null || _this === void 0 ? void 0 : _this._appConfig) === null || _a === void 0 ? void 0 : _a.filterConfig; }, function (value) {
+                            var _a;
+                            (_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.updateFilterProps("filterConfig", value);
+                        }, { initial: true }),
+                        (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this === null || _this === void 0 ? void 0 : _this._appConfig) === null || _a === void 0 ? void 0 : _a.expandFilters; }, function (value) {
+                            var _a;
+                            (_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.updateFilterProps("expandFilters", value);
+                        }, { initial: true }),
+                        (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this === null || _this === void 0 ? void 0 : _this._appConfig) === null || _a === void 0 ? void 0 : _a.theme; }, function (value) {
+                            var _a;
+                            (_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.updateFilterProps("expandFilters", value);
+                        }, { initial: true }),
+                        (0, reactiveUtils_1.watch)(function () { var _a; return (_a = _this === null || _this === void 0 ? void 0 : _this._appConfig) === null || _a === void 0 ? void 0 : _a.filter; }, function (value) {
+                            var _a;
+                            (_a = _this._searchPanel) === null || _a === void 0 ? void 0 : _a.updateFilterProps("filter", value);
+                        }, { initial: true })
+                    ], "configuration");
+                    this.lookupGraphics = new LookupGraphics_1.default({
+                        view: this.view,
+                        config: this._appConfig
+                    });
+                    this._handles.add((0, watchUtils_1.init)(this._appConfig, ["mapPinLabelSize", "mapPinSize", "mapPinIcon", "mapPinLabel", "mapPinLabelColor", "mapPinColor", "mapPin"], function (value, oldValue, propertyName) {
+                        _this.lookupGraphics.updateGraphics(propertyName, value);
+                    }), "configuration");
+                    lookupProps = {
+                        lookupGraphics: this.lookupGraphics,
+                        config: this._appConfig,
+                        view: this.view,
+                        mapPanel: this.mapPanel,
+                        portal: this.base.config.portal,
+                        container: "resultsPanel",
+                        hideFeaturesOnLoad: this._appConfig.hideLayers
+                    };
+                    (0, utils_1.handleSearchTypeConfig)(this._appConfig);
+                    ((_a = this._appConfig) === null || _a === void 0 ? void 0 : _a.enableSearchLayer) && this._appConfig.searchLayer
+                        ? (lookupProps.searchLayer = (0, lookupLayerUtils_1.getSearchLayer)(lookupProps))
+                        : null;
+                    this.lookupResults = new DisplayLookupResults_1.default(lookupProps);
+                    this._handles.add([
+                        (0, watchUtils_1.init)(this._appConfig, ["lookupLayers", "hideLayers", "zoneLookupLayers", "searchLayer", "enableSearchLayer"], function (newValue, oldValue, propertyName) { return __awaiter(_this, void 0, void 0, function () {
+                            var _a, lookupLayers, zoneLookupLayers, hideLayers, searchLayer, enableSearchLayer, searchTypeSet, luLayers, parsedLayers_1, updatedLayers, _b;
+                            var _c;
+                            return __generator(this, function (_d) {
+                                switch (_d.label) {
+                                    case 0:
+                                        (0, utils_1.handleSearchTypeConfig)(this._appConfig);
+                                        _a = this._appConfig, lookupLayers = _a.lookupLayers, zoneLookupLayers = _a.zoneLookupLayers, hideLayers = _a.hideLayers, searchLayer = _a.searchLayer, enableSearchLayer = _a.enableSearchLayer, searchTypeSet = _a.searchTypeSet;
+                                        this._cleanUpResults();
+                                        if (!(propertyName === "lookupLayers" ||
+                                            propertyName === "zoneLookupLayers" ||
+                                            propertyName === "enableSearchLayer")) return [3 /*break*/, 2];
+                                        luLayers = enableSearchLayer ? lookupLayers : zoneLookupLayers;
+                                        // if there aren't any zone lookup layers specified fall back to lookup layers
+                                        if (luLayers === null || ((_c = luLayers === null || luLayers === void 0 ? void 0 : luLayers.layers) === null || _c === void 0 ? void 0 : _c.length) === 0) {
+                                            luLayers = lookupLayers;
+                                        }
+                                        parsedLayers_1 = (luLayers === null || luLayers === void 0 ? void 0 : luLayers.layers) ? luLayers.layers : null;
+                                        updatedLayers = [];
+                                        if (!Array.isArray(parsedLayers_1) || !parsedLayers_1.length) {
+                                            updatedLayers = parsedLayers_1 = null;
+                                        }
+                                        else {
+                                            // Remove any dups from LookupLayers
+                                            updatedLayers = parsedLayers_1 === null || parsedLayers_1 === void 0 ? void 0 : parsedLayers_1.filter(function (thing, index) {
+                                                var _thing = JSON.stringify(thing);
+                                                return (index ===
+                                                    parsedLayers_1.findIndex(function (obj) {
+                                                        return JSON.stringify(obj) === _thing;
+                                                    }));
+                                            });
+                                        }
+                                        _b = this.lookupResults;
+                                        return [4 /*yield*/, (0, lookupLayerUtils_1.getLookupLayers)({
+                                                view: this.view,
+                                                lookupLayers: updatedLayers,
+                                                hideFeaturesOnLoad: hideLayers
+                                            })];
+                                    case 1:
+                                        _b.lookupLayers = _d.sent();
+                                        return [3 /*break*/, 3];
+                                    case 2:
+                                        if (propertyName === "searchLayer") {
+                                            if (propertyName === "searchLayer") {
+                                                this.lookupResults.searchLayer =
+                                                    enableSearchLayer && searchLayer
+                                                        ? (0, lookupLayerUtils_1.getSearchLayer)({
+                                                            view: this.view,
+                                                            searchLayer: searchLayer,
+                                                            hideFeaturesOnLoad: hideLayers
+                                                        })
+                                                        : null;
+                                            }
+                                        }
+                                        _d.label = 3;
+                                    case 3:
+                                        this._refreshResults();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }),
+                        (0, watchUtils_1.init)(this._appConfig, "applyLayerEffects,presetLayerEffects", function () {
+                            _this._refreshResults();
+                        })
+                    ], "configuration");
+                    // Wait for view model
+                    this._handles.add([
+                        (0, watchUtils_1.init)(this._appConfig, "showDirections,useDirectionsApp", function () {
+                            var _a;
+                            var _b = _this._appConfig, showDirections = _b.showDirections, useDirectionsApp = _b.useDirectionsApp;
+                            if (showDirections && !((_a = _this.lookupResults) === null || _a === void 0 ? void 0 : _a.directions) && !useDirectionsApp) {
+                                _this._createDirections();
+                                if (_this === null || _this === void 0 ? void 0 : _this._results)
+                                    _this._refreshResults();
+                            }
+                        }),
+                        (0, watchUtils_1.init)(this._appConfig, "shareSelected", function () {
+                            if (_this._appConfig.shareSelected) {
+                                _this._refreshResults();
+                            }
+                        }),
+                        (0, watchUtils_1.init)(this._appConfig, "showElevationProfile", function (value) {
+                            var _a, _b;
+                            if (!value && ((_a = _this === null || _this === void 0 ? void 0 : _this.lookupResults) === null || _a === void 0 ? void 0 : _a.elevationProfile)) {
+                                if ((_b = _this.lookupResults.elevationProfile) === null || _b === void 0 ? void 0 : _b.input) {
+                                    _this.lookupResults.elevationProfile.input = null;
+                                }
+                                _this.lookupResults.elevationProfile = null;
+                            }
+                            else {
+                                _this._createElevationProfile();
+                            }
+                            _this._refreshResults();
+                        })
+                    ], "configuration");
+                    this._cleanUpHandles();
+                    return [2 /*return*/];
+                });
+            });
+        };
+        LocationApp.prototype._refreshResults = function () {
+            if (this._results) {
+                // refresh the results
+                this._displayResults(this._results);
+            }
+        };
+        LocationApp.prototype._createDirections = function () {
+            var _a, _b, _c;
+            return __awaiter(this, void 0, void 0, function () {
+                var portalItem, appProxies, url, Directions, container, routeLayer, directionsProps, directions;
+                var _this = this;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0:
+                            if (this.lookupResults.directions && !this.base.config.useDirectionsApp)
+                                return [2 /*return*/];
+                            portalItem = (_c = (_b = (_a = this.base) === null || _a === void 0 ? void 0 : _a.results) === null || _b === void 0 ? void 0 : _b.applicationItem) === null || _c === void 0 ? void 0 : _c.value;
+                            appProxies = (portalItem === null || portalItem === void 0 ? void 0 : portalItem.applicationProxies) ? portalItem.applicationProxies : null;
+                            appProxies &&
+                                appProxies.forEach(function (proxy) {
+                                    var url = _this.base.config.helperServices.route.url;
+                                    if (proxy.sourceUrl === url) {
+                                        _this.base.config.helperServices.route.url = proxy.proxyUrl;
+                                    }
+                                });
+                            url = this.base.config.helperServices.route.url;
+                            return [4 /*yield*/, new Promise(function (resolve_3, reject_3) { require(["esri/widgets/Directions"], resolve_3, reject_3); }).then(__importStar)];
+                        case 1:
+                            Directions = _d.sent();
+                            container = document.createElement("div");
+                            container.setAttribute("role", "dialog");
+                            routeLayer = new RouteLayer({
+                                url: url
+                            });
+                            this.view.map.add(routeLayer);
+                            directionsProps = {
+                                layer: routeLayer,
+                                container: container
+                            };
+                            directions = new Directions.default(directionsProps);
+                            // add directions to the view's popup
+                            (0, reactiveUtils_1.whenOnce)(function () { return (directions === null || directions === void 0 ? void 0 : directions.viewModel) !== undefined; }).then(function () {
+                                directions.view = _this.view;
+                                directions.viewModel.routeParameters.directionsLengthUnits = _this._appConfig.units;
+                                directions.viewModel.routeParameters.returnDirections = true;
+                                directions.viewModel.load().catch(function (e) {
+                                    if (e && e.message) {
+                                        console.log("Problem loading directions:", e.message);
+                                    }
+                                });
+                            });
+                            this.lookupResults.directions = directions;
+                            reactiveUtils.when(function () { var _a; return ((_a = _this.lookupResults) === null || _a === void 0 ? void 0 : _a.directionsReady) === true; }, function () {
+                                if (_this._results)
+                                    _this._displayResults(_this._results);
+                            }, { once: true });
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._createElevationProfile = function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+            return __awaiter(this, void 0, void 0, function () {
+                var showElevationProfile, ElevationProfile, epWidget, url;
+                return __generator(this, function (_s) {
+                    switch (_s.label) {
+                        case 0:
+                            showElevationProfile = this._appConfig.showElevationProfile;
+                            if (!(!this.lookupResults.elevationProfile && showElevationProfile)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, new Promise(function (resolve_4, reject_4) { require(["esri/widgets/ElevationProfile"], resolve_4, reject_4); }).then(__importStar)];
+                        case 1:
+                            ElevationProfile = _s.sent();
+                            epWidget = new ElevationProfile.default({
+                                view: this.view,
+                                visibleElements: {
+                                    clearButton: false,
+                                    sketchButton: false,
+                                    selectButton: false
+                                }
+                            });
+                            this.lookupResults.elevationProfile = epWidget;
+                            _s.label = 2;
+                        case 2:
+                            if (((_b = (_a = this === null || this === void 0 ? void 0 : this.view) === null || _a === void 0 ? void 0 : _a.map) === null || _b === void 0 ? void 0 : _b.ground) && showElevationProfile) {
+                                if (((_d = (_c = this.view.map.ground) === null || _c === void 0 ? void 0 : _c.layers) === null || _d === void 0 ? void 0 : _d.length) === 0) {
+                                    url = ((_h = (_g = (_f = (_e = this.base) === null || _e === void 0 ? void 0 : _e.config) === null || _f === void 0 ? void 0 : _f.helperServices) === null || _g === void 0 ? void 0 : _g.defaultElevationLayers) === null || _h === void 0 ? void 0 : _h.length) > 0 &&
+                                        ((_m = (_l = (_k = (_j = this.base) === null || _j === void 0 ? void 0 : _j.config) === null || _k === void 0 ? void 0 : _k.helperServices) === null || _l === void 0 ? void 0 : _l.defaultElevationLayers[0]) === null || _m === void 0 ? void 0 : _m.url)
+                                        ? (_r = (_q = (_p = (_o = this.base) === null || _o === void 0 ? void 0 : _o.config) === null || _p === void 0 ? void 0 : _p.helperServices) === null || _q === void 0 ? void 0 : _q.defaultElevationLayers[0]) === null || _r === void 0 ? void 0 : _r.url
+                                        : "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+                                    this.view.map.ground.layers.add(new ElevationLayer_1.default({
+                                        url: url
+                                    }));
+                                }
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._addClearButton = function () {
+            var _a;
+            var container = (_a = this === null || this === void 0 ? void 0 : this.searchWidget) === null || _a === void 0 ? void 0 : _a.container;
+            container.classList.add("hide-search-btn");
+        };
+        LocationApp.prototype._removeClearButton = function () {
+            var container = this.searchWidget.container;
+            container.classList.remove("hide-search-btn");
+        };
+        LocationApp.prototype._handleResults = function (results) {
+            var _this = this;
+            var _a, _b, _c, _d, _e;
+            // Add find url param
+            this._addClearButton();
+            this._displayResults(results);
+            if ((_a = this === null || this === void 0 ? void 0 : this._appConfig) === null || _a === void 0 ? void 0 : _a.showDirections) {
+                // store the point
+                if (((_e = (_d = (_c = (_b = results === null || results === void 0 ? void 0 : results.results[0]) === null || _b === void 0 ? void 0 : _b.results[0]) === null || _c === void 0 ? void 0 : _c.feature) === null || _d === void 0 ? void 0 : _d.geometry) === null || _e === void 0 ? void 0 : _e.type) === "point") {
+                    this._appConfig.directionsStart = results.results[0].results[0].feature;
+                }
+            }
+            var handle = (0, watchUtils_1.watch)(this.lookupResults.accordion, "featureResults", function (r) {
+                _this.searchWidget.blur();
+                handle.remove();
+                if ((r === null || r === void 0 ? void 0 : r.length) > 0) {
+                    setTimeout(function () {
+                        (0, utils_1.removeFocus)();
+                        var elements = document.getElementsByClassName("feature-group-container");
+                        if (elements[0]) {
+                            (0, utils_1.setFieldFocus)(elements[0]);
+                        }
+                    }, 500);
+                }
+                else {
+                    _this.searchWidget.focus();
+                }
+            });
+        };
+        LocationApp.prototype._displayResults = function (results) {
+            var _a;
+            return __awaiter(this, void 0, void 0, function () {
+                var searchProps, feature;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            (_a = this._mapButton) === null || _a === void 0 ? void 0 : _a.classList.remove("hide");
+                            this._results = results;
+                            searchProps = {
+                                searchLayer: this.lookupResults.searchLayer || null,
+                                config: this._appConfig,
+                                view: this.view,
+                                results: results
+                            };
+                            return [4 /*yield*/, (0, lookupLayerUtils_1.getSearchGeometry)(searchProps)];
+                        case 1:
+                            feature = (_b.sent());
+                            if ((feature === null || feature === void 0 ? void 0 : feature.layer) || (feature === null || feature === void 0 ? void 0 : feature.sourceLayer)) {
+                                feature.searchLayer = (feature === null || feature === void 0 ? void 0 : feature.layer) || (feature === null || feature === void 0 ? void 0 : feature.sourceLayer);
+                            }
+                            if (!this._searchFeature) {
+                                this._searchFeature = feature;
+                            }
+                            this._generateSearchResults();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._getSelectedAccordionItem = function (results) {
+            if (this.lookupResults.accordion) {
+                this.lookupResults.accordion.findAccordionItem(results);
+            }
+        };
+        LocationApp.prototype._generateSearchResults = function () {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var location;
+                return __generator(this, function (_c) {
+                    location = this._searchFeature ? this._searchFeature : null;
+                    (_a = this._detailPanel) === null || _a === void 0 ? void 0 : _a.hidePanel();
+                    if (location) {
+                        (_b = this.lookupResults) === null || _b === void 0 ? void 0 : _b.queryFeatures(location);
+                        this._updateUrlParam();
+                    }
+                    else {
+                        // no results
+                        this === null || this === void 0 ? void 0 : this.lookupResults.addNotice();
+                    }
+                    return [2 /*return*/];
+                });
+            });
+        };
+        LocationApp.prototype._cleanUpResults = function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+            // Clear the lookup results displayed in the side panel
+            (_b = (_a = this === null || this === void 0 ? void 0 : this.view) === null || _a === void 0 ? void 0 : _a.popup) === null || _b === void 0 ? void 0 : _b.close();
+            (_c = this === null || this === void 0 ? void 0 : this.lookupResults) === null || _c === void 0 ? void 0 : _c.clearResults();
+            if (this === null || this === void 0 ? void 0 : this._searchFeature) {
+                this._searchFeature = null;
+            }
+            if (((_d = this === null || this === void 0 ? void 0 : this._appConfig) === null || _d === void 0 ? void 0 : _d.directionsStart) && (this === null || this === void 0 ? void 0 : this._appConfig.showDirections)) {
+                this._appConfig.directionsStart = null;
+            }
+            (_e = document === null || document === void 0 ? void 0 : document.body) === null || _e === void 0 ? void 0 : _e.classList.add("no-results");
+            (_f = document === null || document === void 0 ? void 0 : document.body) === null || _f === void 0 ? void 0 : _f.classList.remove("mobile-view-expand");
+            this._results = null;
+            /* if (!this?.mapPanel?.isMobileView && this?.view?.popup) {
+              this.view.popup.autoOpenEnabled = false;
+            }*/
+            if ((_g = this === null || this === void 0 ? void 0 : this._appConfig) === null || _g === void 0 ? void 0 : _g.enableSketchTools)
+                (_h = this._searchPanel) === null || _h === void 0 ? void 0 : _h.clearSketch();
+            if ((_j = this === null || this === void 0 ? void 0 : this.lookupResults) === null || _j === void 0 ? void 0 : _j.notice) {
+                this.lookupResults.notice.dismissNotice();
+            }
+            if (((_k = this._appConfig) === null || _k === void 0 ? void 0 : _k.showSelectedOnly) && ((_l = this._appConfig) === null || _l === void 0 ? void 0 : _l.selectionExpression)) {
+                var layer = this._appConfig.selectionExpression.layer;
+                if (layer)
+                    layer.definitionExpression = "";
+                this._appConfig.selectionExpression = null;
+            }
+        };
+        LocationApp.prototype._updateUrlParam = function () {
+            var _a, _b, _c, _d, _e, _f;
+            if ("URLSearchParams" in window) {
+                var params = new URLSearchParams(document.location.search);
+                var index_1 = 0;
+                (_b = (_a = this === null || this === void 0 ? void 0 : this.searchWidget) === null || _a === void 0 ? void 0 : _a.results) === null || _b === void 0 ? void 0 : _b.some(function (result) {
+                    var _a;
+                    if (((_a = result === null || result === void 0 ? void 0 : result.results) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                        index_1 = result.sourceIndex;
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+                // Create and add filter expressions to the url
+                // Create and add filter expressions to the url
+                var expressions_1 = [];
+                (_e = (_d = (_c = this._filterPanel) === null || _c === void 0 ? void 0 : _c.filterList) === null || _d === void 0 ? void 0 : _d.layerExpressions) === null || _e === void 0 ? void 0 : _e.forEach(function (layerExpr) {
+                    var _a;
+                    (_a = layerExpr === null || layerExpr === void 0 ? void 0 : layerExpr.expressions) === null || _a === void 0 ? void 0 : _a.forEach(function (expression) {
+                        var checked = expression.checked, range = expression.range, selectedFields = expression.selectedFields, type = expression.type;
+                        if (checked) {
+                            var tmpExp = null;
+                            if (type === "number" || type === "range" || type === "date") {
+                                tmpExp = {
+                                    type: "range",
+                                    layerId: layerExpr.id,
+                                    expressionId: expression === null || expression === void 0 ? void 0 : expression.id,
+                                    value: { min: range === null || range === void 0 ? void 0 : range.min, max: range === null || range === void 0 ? void 0 : range.max }
+                                };
+                            }
+                            else if (type === "string" || type === "coded-value") {
+                                tmpExp = {
+                                    type: "select",
+                                    layerId: layerExpr.id,
+                                    expressionId: expression === null || expression === void 0 ? void 0 : expression.id,
+                                    value: selectedFields
+                                };
+                            }
+                            else {
+                                tmpExp = {
+                                    layerId: layerExpr.id,
+                                    expressionId: expression === null || expression === void 0 ? void 0 : expression.id
+                                };
+                            }
+                            if (tmpExp) {
+                                expressions_1.push(JSON.stringify(tmpExp));
+                            }
+                        }
+                    });
+                });
+                // Apply Filter params
+                if ((expressions_1 === null || expressions_1 === void 0 ? void 0 : expressions_1.length) > 0) {
+                    params.set("filter", expressions_1.join(";"));
+                }
+                else {
+                    params.delete("filter");
+                }
+                var searchTerm = ((_f = this === null || this === void 0 ? void 0 : this.searchWidget) === null || _f === void 0 ? void 0 : _f.searchTerm) ? encodeURIComponent(this.searchWidget.searchTerm) : null;
+                if (searchTerm) {
+                    if (index_1 && (index_1 > 0 || index_1 === 0)) {
+                        params.set("findSource", index_1.toString());
+                    }
+                    else {
+                        params.delete("findSource");
+                    }
+                    params.set("find", encodeURIComponent(this.searchWidget.searchTerm));
+                }
+                else {
+                    params.delete("find");
+                    params.delete("findSource");
+                }
+                if (params && params.toString()) {
+                    window.history.replaceState({}, "", "".concat(location.pathname, "?").concat(params));
+                }
+                else {
+                    window.history.replaceState({}, "", "".concat(location.pathname));
+                }
+            }
+        };
+        LocationApp.prototype.handleThemeUpdates = function () {
+            var _a;
+            // Check for a preferred color scheme and then
+            // monitor updates to that color scheme and the
+            // configuration panel updates.
+            var _b = this._appConfig, theme = _b.theme, customCSS = _b.customCSS;
+            if (theme) {
+                var style = document.getElementById("esri-stylesheet");
+                style.href =
+                    style.href.indexOf("light") !== -1 ? style.href.replace(/light/g, theme) : style.href.replace(/dark/g, theme);
+                // add light/dark class
+                document.body.classList.add(theme === "light" ? "calcite-mode-light" : "calcite-mode-dark");
+                document.body.classList.add(theme === "light" ? "light" : "dark");
+                document.body.classList.remove(theme === "light" ? "dark" : "light");
+                document.body.classList.remove(theme === "light" ? "calcite-mode-dark" : "calcite-mode-light");
+            }
+            var sharedTheme = (0, themeUtils_1.createSharedTheme)(this._appConfig, (_a = this === null || this === void 0 ? void 0 : this.base) === null || _a === void 0 ? void 0 : _a.portal);
+            (0, themeUtils_1.handleSharedTheme)(sharedTheme, this._appConfig);
+            (0, themeUtils_1.handleFontStyles)(this._appConfig);
+            if (customCSS) {
+                (0, themeUtils_1.createAndAppendStyles)(customCSS);
+            }
+        };
+        LocationApp.prototype.createTelemetry = function () {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var portal, appName, telemTS;
+                var _this = this;
+                return __generator(this, function (_c) {
+                    portal = this.base.portal;
+                    appName = (_b = (_a = this.base.config) === null || _a === void 0 ? void 0 : _a.telemetry) === null || _b === void 0 ? void 0 : _b.name;
+                    telemTS = new telemetry_1.default({
+                        portal: portal,
+                        config: this._appConfig,
+                        appName: appName
+                    });
+                    (0, reactiveUtils_1.whenOnce)(function () { return (telemTS === null || telemTS === void 0 ? void 0 : telemTS.instance) !== undefined; }).then(function () {
+                        var _a;
+                        if (telemTS === null || telemTS === void 0 ? void 0 : telemTS.instance) {
+                            _this._telemetry = telemTS.instance;
+                            (_a = _this._telemetry) === null || _a === void 0 ? void 0 : _a.logPageView("".concat(window.location.pathname).concat(window.location.search));
+                        }
+                    });
+                    return [2 /*return*/];
+                });
+            });
+        };
+        LocationApp.prototype._searchByGeometry = function (point) {
+            var _a;
+            return __awaiter(this, void 0, void 0, function () {
+                var screenPoint, results_1;
+                var _this = this;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!this.lookupResults.empty) return [3 /*break*/, 1];
+                            this.searchWidget.search(point);
+                            this._searchFeature = new Graphic_1.default({ geometry: point });
+                            return [3 /*break*/, 3];
+                        case 1:
+                            screenPoint = this.view.toScreen(point);
+                            return [4 /*yield*/, this.view.hitTest(screenPoint)];
+                        case 2:
+                            results_1 = _b.sent();
+                            // If we are in mobile view let's wait until we switch out
+                            this._getSelectedAccordionItem(results_1);
+                            if (this.mapPanel.isMobileView) {
+                                (0, reactiveUtils_1.when)(function () { var _a; return ((_a = _this.mapPanel) === null || _a === void 0 ? void 0 : _a.isMobileView) === false; }, function () {
+                                    _this._getSelectedAccordionItem(results_1);
+                                }, { once: true });
+                            }
+                            _b.label = 3;
+                        case 3:
+                            (_a = this._mapButton) === null || _a === void 0 ? void 0 : _a.classList.remove("hide");
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        LocationApp.prototype._addMapButton = function () {
+            var _this = this;
+            // add clear search button to map view
+            if (this._mapButton) {
+                this.view.ui.remove(this._mapButton);
+                this._mapButton = null;
+            }
+            this._mapButton = document.createElement("calcite-button");
+            this._mapButton.id = "mapSearchButton";
+            this._mapButton.classList.add("clear-btn");
+            this._mapButton.innerHTML = this.base.config.appBundle.tools.clearLocation;
+            this._mapButton.classList.add("hide");
+            this._mapButton.addEventListener("click", function () {
+                var _a, _b, _c, _d, _e;
+                if ((_b = (_a = document === null || document === void 0 ? void 0 : document.body) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.contains("mobile-view-expand"))
+                    return;
+                (_d = (_c = _this === null || _this === void 0 ? void 0 : _this._mapButton) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("hide");
+                (_e = _this === null || _this === void 0 ? void 0 : _this.searchWidget) === null || _e === void 0 ? void 0 : _e.clear();
+            });
+            this.view.ui.add(this._mapButton, "manual");
+        };
+        LocationApp.prototype._updateMapVisibility = function (config) {
+            // Hide the map when it is configured to display
+            // without a map option
+            var hide = config.hideMap;
+            var hideMapClass = "no-map";
+            var mapClassList = document.body.classList;
+            hide ? mapClassList.add(hideMapClass) : mapClassList.remove(hideMapClass);
+        };
+        LocationApp.prototype._cleanUpHandles = function () {
+            // Remove configuration handles after load
+            // if the app isn't within the config experience.
+            if (!this._appConfig.withinConfigurationExperience) {
+                this._handles.remove("configuration");
+            }
+        };
+        LocationApp.prototype._setMapViewRotation = function () {
+            var _a, _b, _c, _d, _e;
+            var view = this.view;
+            var mapRotation = (_d = (_c = (_b = (_a = this._appConfig) === null || _a === void 0 ? void 0 : _a.extentSelectorConfig) === null || _b === void 0 ? void 0 : _b.mapRotation) !== null && _c !== void 0 ? _c : this._defaultViewRotation) !== null && _d !== void 0 ? _d : null;
+            if (!((_e = view === null || view === void 0 ? void 0 : view.constraints) === null || _e === void 0 ? void 0 : _e.rotationEnabled)) {
+                // if rotation is disabled
+                view.constraints.rotationEnabled = true; // set rotation to enabled
+                view.rotation = mapRotation; // set rotation value
+                view.constraints.rotationEnabled = false; // set rotation back to disabled
+            }
+            else {
+                if (view)
+                    view.rotation = mapRotation;
+            }
+        };
+        return LocationApp;
+    }());
+    return LocationApp;
+});
