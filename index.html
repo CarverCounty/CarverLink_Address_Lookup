@@ -1,9 +1,11 @@
+<!-- https://community.esri.com/t5/calcite-design-system-questions/populate-combobox-from-a-local-json-array-file/td-p/1161016 -->
+
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>CarverLink Address Look-Up</title>
-
+    <title>CarverLink!!</title>
+	<!-- <script id ="addyList" src="addy.csv"></script> -->
     <script src="https://js.arcgis.com/calcite-components/1.4.2/calcite.esm.js" type="module"></script>
     <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.4.2/calcite.css" />
 
@@ -14,114 +16,40 @@
     html,
     body,
     #viewDiv {
-      padding: 0;
+      padding: 0px;
       margin: 0;
       height: 100%;
       width: 100%;
     }
-
-    body {
-      display: flex;
-    }
-
-    calcite-loader {
-      align-self: center;
-      justify-self: center;
-    }
-
-    #header-title {
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-
-    #info-content {
-      padding: 0.75rem;
-    }
-
-    calcite-rating {
-      margin-top: 0.25rem;
-    }
-
   </style>
+  <body> 
 
-  <body>	
-    <calcite-loader></calcite-loader>
-	<calcite-combobox placeholder="Select a field">
-    <calcite-combobox-item value="Natural Resources" text-label="Natural Resources"></calcite-combobox-item>
-    <calcite-combobox-item value="Agriculture" text-label="Agriculture"></calcite-combobox-item>
-    <calcite-combobox-item value="Forestry" text-label="Forestry"></calcite-combobox-item>
-    <calcite-combobox-item value="Mining" text-label="Mining"></calcite-combobox-item>
-    <calcite-combobox-item value="Business" text-label="Business"></calcite-combobox-item>
-    <calcite-combobox-item value="Education" text-label="Education"></calcite-combobox-item>
-    <calcite-combobox-item value="Utilities" text-label="Utilities"></calcite-combobox-item>
-    <calcite-combobox-item value="Transportation" text-label="Transportation"></calcite-combobox-item>
+
+	<calcite-shell content-behind >
+  <calcite-combobox id="address-select" placeholder="Enter An Address!" selection-mode="single" on>
+    <!-- <calcite-combobox-item value="Natural Resources" text-label="Natural Resources"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Agriculture" text-label="Agriculture"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Forestry" text-label="Forestry"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Mining" text-label="Mining"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Business" text-label="Business"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Education" text-label="Education"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Utilities" text-label="Utilities"></calcite-combobox-item> -->
+    <!-- <calcite-combobox-item value="Transportation" text-label="Transportation"></calcite-combobox-item> -->
 </calcite-combobox>
-
-    <calcite-shell content-behind hidden>
-      <h2 id="header-title" slot="header">
-        <!-- Dynamically populated -->
-      </h2>
-
-
-
-      <calcite-shell-panel slot="panel-start" display-mode="float">
-        <calcite-action-bar slot="action-bar">
-          <calcite-action data-action-id="layers" icon="layers" text="Layers"></calcite-action>
-          <calcite-action data-action-id="basemaps" icon="basemap" text="Basemaps"></calcite-action>
-          <calcite-action data-action-id="legend" icon="legend" text="Legend"></calcite-action>
-          <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bookmarks"></calcite-action>
-          <calcite-action data-action-id="print" icon="print" text="Print"></calcite-action>
-          <calcite-action data-action-id="information" icon="information" text="Information"></calcite-action>
-        </calcite-action-bar>
-
-        <!-- Map-specific panels (each one provides a div for a ArcGIS Maps SDK for JavaScript widget) -->
-        <calcite-panel heading="Layers" height-scale="l" data-panel-id="layers" hidden>
-          <div id="layers-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Basemaps" height-scale="l" data-panel-id="basemaps" hidden>
-          <div id="basemaps-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Legend" height-scale="l" data-panel-id="legend" hidden>
-          <div id="legend-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Bookmarks" height-scale="l" data-panel-id="bookmarks" hidden>
-          <div id="bookmarks-container"></div>
-        </calcite-panel>
-        <calcite-panel heading="Print" height-scale="l" data-panel-id="print" hidden>
-          <div id="print-container"></div>
-        </calcite-panel>
-
-        <!-- Info panel (populates with info from the web map) -->
-        <calcite-panel heading="Details" data-panel-id="information" hidden>
-          <div id="info-content">
-            <img id="item-thumbnail" alt="webmap thumbnail" />
-            <div id="item-description">
-              <!-- Dynamically populated -->
-            </div>
-            <calcite-label layout="inline">
-              <b>Rating:</b>
-              <calcite-rating id="item-rating" read-only>
-                <!-- Dynamically populated -->
-              </calcite-rating>
-            </calcite-label>
-          </div>
-        </calcite-panel>
-      </calcite-shell-panel>
-      <div id="viewDiv"></div>
-    </calcite-shell>
+		<calcite-shell-panel slot="panel-start" display-mode="float">
+		</calcite-shell-panel>
+		<div id="viewDiv"></div>
+	</calcite-shell>
   </body>
   <script>
     require([
       "esri/WebMap",
       "esri/views/MapView",
-      "esri/widgets/Bookmarks",
-      "esri/widgets/BasemapGallery",
-      "esri/widgets/LayerList",
-      "esri/widgets/Legend",
-      "esri/widgets/Print"
-    ], function(WebMap, MapView, Bookmarks, BasemapGallery, LayerList, Legend, Print) {
+	  "esri/config"		  
+    ], function(WebMap, MapView, esriConfig ) {
+		<!-- esriConfig.apiKey = "YOUR_API_KEY"; -->
       const webmapId = new URLSearchParams(window.location.search).get("webmap")
-        ?? "210c5b77056846808c7a5ce93920be81";
+        ?? "8f67432164eb4dcba08eef1d01dbbad7";
 
       const map = new WebMap({
         portalItem: {
@@ -129,7 +57,7 @@
         }
       });
 
-      const view = new MapView({
+	  const view = new MapView({
         map,
         container: "viewDiv",
         padding: {
@@ -137,78 +65,66 @@
         }
       });
 
-      view.ui.move("zoom", "top-left");
+	  view.when().then(function () { 
+		  classSelect = document.getElementById("address-select");
+		  console.log(classSelect);
+		  classSelect.addEventListener("change", generateRenderer);
+		  console.log("AAA6");	  
+	  }); 
+	  function generateRenderer() {              
+          const fieldLabel = classSelect.selectedItems[0].innerText;
+          console.info("change: ", fieldLabel)
+	  }
 
-      const basemaps = new BasemapGallery({
-        view,
-        container: "basemaps-container"
-      });
 
-      const bookmarks = new Bookmarks({
-        view,
-        container: "bookmarks-container"
-      });
-
-      const layerList = new LayerList({
-        view,
-        selectionEnabled: true,
-        container: "layers-container"
-      });
-
-      const legend = new Legend({
-        view,
-        container: "legend-container"
-      });
-
-      const print = new Print({
-        view,
-        container: "print-container"
-      });
-
-      map.when(() => {
-        const { title, description, thumbnailUrl, avgRating } = map.portalItem;
-        document.querySelector("#header-title").textContent = title;
-        document.querySelector("#item-description").innerHTML = description;
-        document.querySelector("#item-thumbnail").src = thumbnailUrl;
-        document.querySelector("#item-rating").value = avgRating;
-
-        let activeWidget;
-
-        const handleActionBarClick = ({ target }) => {
-          if (target.tagName !== "CALCITE-ACTION") {
-            return;
-          }
-
-          if (activeWidget) {
-            document.querySelector(`[data-action-id=${activeWidget}]`).active = false;
-            document.querySelector(`[data-panel-id=${activeWidget}]`).hidden = true;
-          }
-
-          const nextWidget = target.dataset.actionId;
-          if (nextWidget !== activeWidget) {
-            document.querySelector(`[data-action-id=${nextWidget}]`).active = true;
-            document.querySelector(`[data-panel-id=${nextWidget}]`).hidden = false;
-            activeWidget = nextWidget;
-          } else {
-            activeWidget = null;
-          }
-        };
-
-        document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
-
-        let actionBarExpanded = false;
-
-        document.addEventListener("calciteActionBarToggle", event => {
-          actionBarExpanded = !actionBarExpanded;
-          view.padding = {
-            left: actionBarExpanded ? 150 : 45
-          };
-        });
-
-        document.querySelector("calcite-shell").hidden = false;
-        document.querySelector("calcite-loader").hidden = true;
-
-      });
     });
   </script>
+  
+  <script>
+  window.addEventListener('load', () => {
+    const testComboBox = document.getElementById('address-select');     
+    testComboBox.addEventListener("calciteComboboxChange", calciteComboboxChangeEvt => {
+	var theAddress = document.getElementById('address-select').value;
+	console.log(theAddress);
+	if (theAddress == "Mining"){
+		document.getElementById('viewDiv').style.visibility = 'hidden'
+	} else {
+		document.getElementById('viewDiv').style.visibility = 'visible'
+	}
+    });     
+    
+  }, false);
+</script>
+
+  <script>
+    var file = new XMLHttpRequest();	
+	
+	function populateList(inText){
+		const combobox = document.getElementById("address-select");
+		var rows = inText.split(/\n/);
+		for (var rowIndex = 0; rowIndex < rows.length; ++rowIndex){
+			var iRow = rows[rowIndex];
+			const item = document.createElement("calcite-combobox-item");
+			item.value = iRow.split(",")[0];
+			item.textLabel = iRow.split(",")[0];
+			
+			<!-- combobox.appendChild(item); -->
+  
+		}
+	}
+    file.onreadystatechange = function() {console.log("b1");console.log(file.readyState);
+      if (file.readyState === 4) {  console.log("b2");// Makes sure the document is ready to parse
+        if (file.status === 200) { console.log("b3"); // Makes sure it's found the file
+          var text = file.responseText;console.log("b4");
+		  populateList(text);
+        }
+      } else {
+		
+	  }
+    }
+	console.log("A2");
+	file.open("GET", "https://gis.co.carver.mn.us/embedded_apps/carverlink/addy.csv", true);
+	file.send()
+	console.log("A3");
+</script>
 </html>
