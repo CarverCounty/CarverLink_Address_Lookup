@@ -1,130 +1,98 @@
-<!-- https://community.esri.com/t5/calcite-design-system-questions/populate-combobox-from-a-local-json-array-file/td-p/1161016 -->
 
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>CarverLink!!</title>
-	<!-- <script id ="addyList" src="addy.csv"></script> -->
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Connect Up Carver Availability</title>
+    <!-- Load Leaflet from CDN -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dijit/themes/claro/claro.css"media="screen"/>
+<link rel="stylesheet" href="css/custom.css"media="screen"/>
     <script src="https://js.arcgis.com/calcite-components/1.4.2/calcite.esm.js" type="module"></script>
     <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.4.2/calcite.css" />
 
-    <script src="https://js.arcgis.com/4.26/"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <!-- <script src="https://unpkg.com/esri-leaflet-vector@4.0.2/dist/esri-leaflet-vector.js"></script> -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+	  #stateSelect {
+	     padding 15px;
+	     width: 100% !important;
+		 <!-- z-index: 200; -->
+      }
+      #map {
+        position: absolute;
+        top: 30px;
+        bottom: 0	;
+        right: 0;
+        left: 0;
+        font-family: Arial, Helvetica, sans-serif;	
+        font-size: 14px;
+        color: #323232;
+		<!-- visibility: hidden; -->
+      }
+	  #id {
+	  border: 15px;
+        position: absolute;
+        top: 30px;
+        bottom: 0	;
+        right: 0;
+        left: 10px;
+      }
+	  .hide {
+	     visibility: hidden;
+	  }
+	  .show {
+	   visibility: block;
+	  }
+    </style>
   </head>
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0px;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-  <body> 
 
-
-	<calcite-shell content-behind >
-  <calcite-combobox id="address-select" placeholder="Enter An Address!" selection-mode="single" on>
-    <!-- <calcite-combobox-item value="Natural Resources" text-label="Natural Resources"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Agriculture" text-label="Agriculture"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Forestry" text-label="Forestry"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Mining" text-label="Mining"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Business" text-label="Business"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Education" text-label="Education"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Utilities" text-label="Utilities"></calcite-combobox-item> -->
-    <!-- <calcite-combobox-item value="Transportation" text-label="Transportation"></calcite-combobox-item> -->
-</calcite-combobox>
-		<calcite-shell-panel slot="panel-start" display-mode="float">
-		</calcite-shell-panel>
-		<div id="viewDiv"></div>
-	</calcite-shell>
-  </body>
-  <script>
-    require([
-      "esri/WebMap",
-      "esri/views/MapView",
-	  "esri/config"		  
-    ], function(WebMap, MapView, esriConfig ) {
-		<!-- esriConfig.apiKey = "YOUR_API_KEY"; -->
-      const webmapId = new URLSearchParams(window.location.search).get("webmap")
-        ?? "8f67432164eb4dcba08eef1d01dbbad7";
-
-      const map = new WebMap({
-        portalItem: {
-          id: webmapId
-        }
-      });
-
-	  const view = new MapView({
-        map,
-        container: "viewDiv",
-        padding: {
-          left: 49
-        }
-      });
-
-	  view.when().then(function () { 
-		  classSelect = document.getElementById("address-select");
-		  console.log(classSelect);
-		  classSelect.addEventListener("change", generateRenderer);
-		  console.log("AAA6");	  
-	  }); 
-	  function generateRenderer() {              
-          const fieldLabel = classSelect.selectedItems[0].innerText;
-          console.info("change: ", fieldLabel)
-	  }
-
-
-    });
-  </script>
-  
-  <script>
-  window.addEventListener('load', () => {
-    const testComboBox = document.getElementById('address-select');     
-    testComboBox.addEventListener("calciteComboboxChange", calciteComboboxChangeEvt => {
-	var theAddress = document.getElementById('address-select').value;
-	console.log(theAddress);
-	if (theAddress == "Mining"){
-		document.getElementById('viewDiv').style.visibility = 'hidden'
-	} else {
-		document.getElementById('viewDiv').style.visibility = 'visible'
-	}
-    });     
-    
-  }, false);
-</script>
-
-  <script>
-    var file = new XMLHttpRequest();	
+<body  class="claro">
+	<!-- <div id="myDiv" class="tundra" ></div> -->
 	
-	function populateList(inText){
-		const combobox = document.getElementById("address-select");
-		var rows = inText.split(/\n/);
-		for (var rowIndex = 0; rowIndex < rows.length; ++rowIndex){
-			var iRow = rows[rowIndex];
-			const item = document.createElement("calcite-combobox-item");
-			item.value = iRow.split(",")[0];
-			item.textLabel = iRow.split(",")[0];
-			
-			<!-- combobox.appendChild(item); -->
-  
-		}
-	}
-    file.onreadystatechange = function() {console.log("b1");console.log(file.readyState);
-      if (file.readyState === 4) {  console.log("b2");// Makes sure the document is ready to parse
-        if (file.status === 200) { console.log("b3"); // Makes sure it's found the file
-          var text = file.responseText;console.log("b4");
-		  populateList(text);
-        }
-      } else {
-		
-	  }
-    }
-	console.log("A2");
-	file.open("GET", "https://gis.co.carver.mn.us/embedded_apps/carverlink/addy.csv", true);
-	file.send()
-	console.log("A3");
-</script>
+	<input id="stateSelect">
+
+    <div id="map" class="hide"></div>
+
+    <script>
+
+      const apiKey = "AAPKaea27064e50c4ad1a90b2d34e03ba8f5jFvKxjZjOlhObw6kONRLgO7M0KTU5jkMJIlqH4XB8nbaTARSJSlAMM9TJ3DbPzwg";
+
+      const map = L.map("map", {
+        minZoom: 2
+      }).setView([44.8, -93.85], 19); //Latitude, longitude
+
+      L.esri
+        .tiledMapLayer({
+          url: "https://tiles.arcgis.com/tiles/wMZT8kNwa6tOxhKg/arcgis/rest/services/2022_Tiled_Imagery_282/MapServer",
+		  apiKey: apiKey,
+          detectRetina: false,
+          minZoom: 3,
+          maxZoom: 19
+        }).addTo(map);
+
+	<!-- const popup = L.popup() -->
+		<!-- .setLatLng([44.7, -93.2]) -->
+		<!-- .setContent('I am a standalone popup.') -->
+		<!-- .openOn(map); -->
+
+    </script>
+    <calcite-alert icon="map-pin" kind="brand"  label="" id="serviceAlert">
+        <div id= "gg" slot="title"></div>
+        <div id= "messy" slot="message"></div>
+        <!-- <calcite-link slot="link">Take action</calcite-link> -->
+    </calcite-alert>
+	
+
+  </body>
+
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js" type="text/javascript" ></script>
+<script src="js/readAddress.js"></script>

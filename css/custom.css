@@ -1,0 +1,7 @@
+
+.dijitTextBox {
+	border: solid black 1px;
+	#overflow: hidden; 
+	width: 98% !important;	
+	vertical-align: middle;
+}
