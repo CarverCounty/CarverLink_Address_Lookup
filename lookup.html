@@ -47,7 +47,7 @@
 	  }
   </style>
   <body> 
-	<calcite-combobox id="address-select" placeholder="Enter An Address!" selection-mode="single"></calcite-combobox>
+	<calcite-combobox id="address-select" placeholder="Enter your address" selection-mode="single"></calcite-combobox>
 	<div id="map" class="hide"></div>
     <calcite-alert icon="map-pin" kind="brand"  label="" id="serviceAlert">
         <div id= "zoneTitle" slot="title"></div>
@@ -91,13 +91,13 @@
 	function zoomToAddy(inAddy){
 		for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
 			iFeature = queryFeatures[iIndex];
-			thisAddy = iFeature.properties.Street+", "+iFeature.properties.City;
+			thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
 			if (thisAddy == inAddy){
 				console.log(iFeature);
 				console.log("Zoom!");
-			    var theX = iFeature.properties.lon;
-			    var theY = iFeature.properties.lat;
-			    var theZone = iFeature.properties.zone;
+			    var theX = iFeature.properties.x;
+			    var theY = iFeature.properties.y;
+			    var theZone = iFeature.properties.Info;
 			    map.panTo({lng:theX, lat:theY});
 
 			   var carverIcon = L.icon({
@@ -111,7 +111,7 @@
 			   document.getElementById("map").classList.remove('hide');
 			   document.getElementById("map").classList.add('show');
 				document.querySelector("#zoneTitle").innerHTML = thisAddy;
-				document.querySelector("#zoneMessage").innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu non odio euismod lacinia at quis risus. Ac tortor dignissim convallis aenean et tortor at risus. Purus semper eget duis at tellus at urna condimentum. Justo laoreet sit amet cursus sit. Dictum fusce ut placerat orci nulla pellentesque. Volutpat blandit aliquam etiam erat. Amet nisl suscipit adipiscing bibendum est ultricies integer quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Quam quisque id diam vel quam elementum pulvinar. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Euismod lacinia at quis risus. Mattis nunc sed blandit libero volutpat sed cras. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est. Fringilla ut morbi tincidunt augue interdum velit. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Eu volutpat odio facilisis mauris sit.";
+				document.querySelector("#zoneMessage").innerHTML = theZone; //"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu non odio euismod lacinia at quis risus. Ac tortor dignissim convallis aenean et tortor at risus. Purus semper eget duis at tellus at urna condimentum. Justo laoreet sit amet cursus sit. Dictum fusce ut placerat orci nulla pellentesque. Volutpat blandit aliquam etiam erat. Amet nisl suscipit adipiscing bibendum est ultricies integer quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Quam quisque id diam vel quam elementum pulvinar. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Euismod lacinia at quis risus. Mattis nunc sed blandit libero volutpat sed cras. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est. Fringilla ut morbi tincidunt augue interdum velit. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Eu volutpat odio facilisis mauris sit.";
 				document.querySelector("#serviceAlert").setAttribute("open",true)
 				console.log("##################################################");
 				if (typeof(tmpMarker) != "undefined"){
@@ -230,14 +230,14 @@
     function popit(iVal,iOpen=true){
 		var tmpVal = "1";
 
-		var theWhere = "Street like '"+iVal+"%'";console.log(theWhere);
+		var theWhere = "SITEADDRESS like '"+iVal+"%'";console.log(theWhere);
 		var query = L.esri.query({
-		   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/ArcGIS/rest/services/addy_20230622_ago/FeatureServer/0'
+		   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/arcgis/rest/services/CUCI_Addresses_PublicView/FeatureServer/0'
 		});
 
 		query.where(theWhere);
 		query.returnGeometry(false);
-		query.orderBy("Street");
+		query.orderBy("SITEADDRESS");
 		query.limit(25);
 			
 		const combobox = document.getElementById("address-select");
@@ -253,7 +253,7 @@
 			
 			for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
 				iFeature = queryFeatures[iIndex];
-				thisAddy = iFeature.properties.Street+", "+iFeature.properties.City;
+				thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
 				addressList.push({name:thisAddy, id:thisAddy});
 				const item = document.createElement("calcite-combobox-item");
 				item.value = thisAddy;
