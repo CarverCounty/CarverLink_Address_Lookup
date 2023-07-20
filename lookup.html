@@ -81,19 +81,10 @@
   </body>
 
 
-  <script>
-  window.addEventListener('load', () => {
+ <script>
+ window.addEventListener('load', () => {
   
     const addressCombobox = document.getElementById('address-select');
-	
-	addressCombobox.addEventListener("focus", (e) => {
-    });
-	
-	addressCombobox.addEventListener("blur", (e) => {
-    });
-	
-    addressCombobox.addEventListener("calciteComboboxFilterChange1", calciteComboboxChangeEvt => {
-    });
 	
 	function zoomToAddy(inAddy){
 		for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
@@ -135,34 +126,6 @@
 	addressCombobox.addEventListener("calciteComboboxItemChange", calciteComboboxChangeEvt => {
 		zoomToAddy(addressCombobox.value);					
     });	
-	
-	 addressCombobox.addEventListener("calciteComboboxBeforeClose", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteComboboxBeforeOpen", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteComboboxChipClose", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteComboboxChipDismiss", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteLookupChange", calciteComboboxChangeEvt => {
-    });
-	
-	 addressCombobox.addEventListener("calciteComboboxClose", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteComboboxChange", calciteComboboxChangeEvt => {
-    });
-	
-	 addressCombobox.addEventListener("calciteComboboxFilterChange2", calciteComboboxChangeEvt => {
-    });
-
-	 addressCombobox.addEventListener("calciteComboboxOpen", calciteComboboxChangeEvt => {
-    });
-		
 	
 	addressCombobox.addEventListener("keyup",function(e){
 		
@@ -256,7 +219,7 @@
 		});
     }
 
-  }, false);
+}, false);
 </script>
 
 </html>
