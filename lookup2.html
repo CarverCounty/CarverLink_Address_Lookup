@@ -94,9 +94,8 @@
 		dbgMess("blur");
     });
 	
-    addressCombobox.addEventListener("calciteComboboxFilterChange", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxFilterChange !!!");
-		popit(true)
+    addressCombobox.addEventListener("calciteComboboxFilterChange1", calciteComboboxChangeEvt => {
+		dbgMess("calciteComboboxFilterChange1");
     });
 	
 	function zoomToAddy(inAddy){
@@ -131,8 +130,8 @@
 				
 				tmpMarker = L.marker([theY, theX], {icon: carverIcon});
 				tmpMarker.addTo(map);
-				<!-- theString = ""; -->
-				<!-- document.getElementById("address-select").innerHTML = ""; -->
+				theString = "";
+				document.getElementById("address-select").innerHTML = "";
 				const combobox = document.getElementById("address-select");
 				combobox.open = false;
 			}
@@ -172,9 +171,10 @@
 		dbgMess("calciteComboboxChange");
     });
 	
-	 <!-- addressCombobox.addEventListener("calciteComboboxFilterChange", calciteComboboxChangeEvt => { -->
-		<!-- dbgMess("calciteComboboxFilterChange2"); -->
-    <!-- }); -->
+	 addressCombobox.addEventListener("calciteComboboxFilterChange2", calciteComboboxChangeEvt => {
+		dbgMess("calciteComboboxFilterChange2");
+		dbgMess(theKey);
+    });
 
 	 addressCombobox.addEventListener("calciteComboboxOpen", calciteComboboxChangeEvt => {
 		dbgMess("calciteComboboxOpen");
@@ -184,100 +184,100 @@
 	addressCombobox.addEventListener("keyup",function(e){
 		console.log("keyup");
 		
-		<!-- var refreshIt = false; -->
-		<!-- for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){ -->
-			<!-- var iKey = keyArray[iIndex]; -->
+		var refreshIt = false;
+		for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){
+			var iKey = keyArray[iIndex];
 			
-			<!-- if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){ -->
-				<!-- theString+= iKey; -->
-				<!-- dbgMess(theString); -->
-				<!-- refreshIt = true; -->
-			<!-- } -->
+			if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){
+				theString+= iKey;
+				dbgMess(theString);
+				refreshIt = true;
+			}
 			
-			<!-- if (iKey == "Backspace"){ -->
-			  <!-- if (theString.length>1){ -->
-				<!-- theString = theString.substring(0,theString.length-1); -->
-				<!-- refreshIt = true; -->
-			  <!-- } else { -->
-				 <!-- if (theString.length==1){ -->
-					<!-- theString= ""; -->
-					<!-- refreshIt = true; -->
-				 <!-- } -->
-			  <!-- } -->
-			<!-- } -->
+			if (iKey == "Backspace"){
+			  if (theString.length>1){
+				theString = theString.substring(0,theString.length-1);
+				refreshIt = true;
+			  } else {
+				 if (theString.length==1){
+					theString= "";
+					refreshIt = true;
+				 }
+			  }
+			}
 			
-			<!-- if (iKey == "Escape"){ -->
-					<!-- theString= ""; -->
-					<!-- refreshIt = true; -->
-			<!-- } -->
+			if (iKey == "Escape"){
+					theString= "";
+					refreshIt = true;
+			}
 
-			<!-- if (iKey == "Enter"){ -->
-					<!-- theString= ""; -->
-					<!-- zoomToAddy(addressCombobox.value); -->
-					<!-- refreshIt = false; -->
-			<!-- } -->
+			if (iKey == "Enter"){
+					theString= "";
+					zoomToAddy(addressCombobox.value);
+					refreshIt = false;
+			}
 			
-			<!-- if (refreshIt==true){ -->
-			   <!-- popit(theString,true); -->
-			<!-- } -->
-		<!-- } -->
-		<!-- theKey = ""; -->
-		<!-- keyArray = []; -->
+			if (refreshIt==true){
+			   popit(theString,true);
+			}
+		}
+		theKey = "";
+		keyArray = [];
 		
 	});
 	
 	addressCombobox.addEventListener("keydown",function(e){
 		console.log("keydown");
-		<!-- theKey = e.key; -->
-		<!-- keyArray.push(e.key); -->
+		theKey = e.key;
+		keyArray.push(e.key);
 	});
 	
-	<!-- var theString = ""; -->
-	<!-- var theKey = ""; -->
-	<!-- var keyArray = []; -->
+	var theString = "";
+	var theKey = "";
+	var keyArray = [];
     var queryFeatures = "";
 	
-    function popit(iOpen=true){
-		<!-- var theWhere = "SITEADDRESS like '"+iVal+"%'";console.log(theWhere); -->
-		var theFilterString = addressCombobox.shadowRoot.querySelectorAll(".input")[0].value
-		if (theFilterString !=""){
+    function popit(iVal,iOpen=true){
+		var tmpVal = "1";
+
+		var theWhere = "SITEADDRESS like '"+iVal+"%'";console.log(theWhere);
 		
-			theWhere = "SITEADDRESS like '"+theFilterString+"%'";console.log(theWhere);
-			
-			
-			var query = L.esri.query({
-			   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/arcgis/rest/services/CUCI_Addresses_PublicView/FeatureServer/0'
-			});
+		theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%'";console.log(theWhere);
+		
+		
+		var query = L.esri.query({
+		   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/arcgis/rest/services/CUCI_Addresses_PublicView/FeatureServer/0'
+		});
 
-			query.where(theWhere);
-			query.returnGeometry(false);
-			query.orderBy("SITEADDRESS");
-			query.limit(25);
-				
-			const combobox = document.getElementById("address-select");
-			query.run(function (error, featureCollection, response) {
-				if (error) {
-				   console.log(error);
-				   return;
-				}
-				combobox.innerHTML = "";
-				queryFeatures = featureCollection.features;
+		query.where(theWhere);
+		query.returnGeometry(false);
+		query.orderBy("SITEADDRESS");
+		query.limit(25);
+			
+		const combobox = document.getElementById("address-select");
+		query.run(function (error, featureCollection, response) {
+			if (error) {
+			   console.log(error);
+			   return;
+			}
+			combobox.innerHTML = "";
+			queryFeatures = featureCollection.features;
 
-				var addressList = [];
+			var addressList = [];
+			
+			for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
+				iFeature = queryFeatures[iIndex];
+				thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
+				addressList.push({name:thisAddy, id:thisAddy});
+				const item = document.createElement("calcite-combobox-item");
+				item.value = thisAddy;
+				item.textLabel = thisAddy;
+				combobox.appendChild(item);
+			}
+			combobox.open = (iOpen == true);
+			combobox.setFocus();
 				
-				for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
-					iFeature = queryFeatures[iIndex];
-					thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
-					addressList.push({name:thisAddy, id:thisAddy});
-					const item = document.createElement("calcite-combobox-item");
-					item.value = thisAddy;
-					item.textLabel = thisAddy;
-					combobox.appendChild(item);
-				}
-				combobox.open = (iOpen == true);
-				combobox.setFocus();
-			});
-		}
+		});
 }
 	
 	function dbgMess(i){
