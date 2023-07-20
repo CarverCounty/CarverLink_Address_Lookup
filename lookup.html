@@ -128,43 +128,47 @@
 	
 	addressCombobox.addEventListener("keyup",function(e){
 		
-		var refreshIt = false;
-		for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){
-			var iKey = keyArray[iIndex];
+		<!-- var refreshIt = false; -->
+		popit(true);
+		<!-- for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){ -->
+			<!-- var iKey = keyArray[iIndex]; -->
 			
-			if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){
-				refreshIt = true;
-			}
+			<!-- if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){ -->
+				<!-- refreshIt = true; -->
+			<!-- } -->
 			
-			if (iKey == "Escape"){
-					refreshIt = true;
-			}
+			<!-- if (iKey == "Escape"){ -->
+					<!-- refreshIt = true; -->
+			<!-- } -->
 
-			if (iKey == "Enter"){
-					zoomToAddy(addressCombobox.value);
-					refreshIt = false;
-			}
+			<!-- if (iKey == "Enter"){ -->
+					<!-- zoomToAddy(addressCombobox.value); -->
+					<!-- refreshIt = false; -->
+			<!-- } -->
 			
-			if (refreshIt==true){
-			   popit(true);
-			}
-		}
-		keyArray = [];
-		
+			<!-- if (refreshIt==true){ -->
+			   <!-- popit(true); -->
+			<!-- } -->
+		<!-- } -->
+		<!-- keyArray = []; -->
+	
 	});
 	
-	addressCombobox.addEventListener("keydown",function(e){
-		keyArray.push(e.key);
-	});
+	<!-- addressCombobox.addEventListener("keydown",function(e){ -->
+		<!-- keyArray.push(e.key); -->
+	<!-- }); -->
 	
-	var keyArray = [];
+	<!-- var keyArray = []; -->
+	var prevQuery = "This is just a temp place holder";
     var queryFeatures = [];
 	
     function popit(iOpen=true){
-		var tmpVal = "1";
-
 		var theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
 		
+		if (theWhere == prevQuery){console.log("Skipping");
+			return true;
+		}
+		prevQuery = theWhere;
 		var query = L.esri.query({
 		   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/arcgis/rest/services/CUCI_Addresses_20230714_PublicView/FeatureServer/0'
 		});
