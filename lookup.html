@@ -87,15 +87,12 @@
     const addressCombobox = document.getElementById('address-select');
 	
 	addressCombobox.addEventListener("focus", (e) => {
-		dbgMess("focus");
     });
 	
 	addressCombobox.addEventListener("blur", (e) => {
-		dbgMess("blur");
     });
 	
     addressCombobox.addEventListener("calciteComboboxFilterChange1", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxFilterChange1");
     });
 	
 	function zoomToAddy(inAddy){
@@ -139,45 +136,34 @@
 	}
 	
 	addressCombobox.addEventListener("calciteComboboxItemChange", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxItemChange");
 		zoomToAddy(addressCombobox.value);					
     });	
 	
 	 addressCombobox.addEventListener("calciteComboboxBeforeClose", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxBeforeClose");
     });
 
 	 addressCombobox.addEventListener("calciteComboboxBeforeOpen", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxBeforeOpen");
     });
 
 	 addressCombobox.addEventListener("calciteComboboxChipClose", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxChipClose");
     });
 
 	 addressCombobox.addEventListener("calciteComboboxChipDismiss", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxChipDismiss");
     });
 
 	 addressCombobox.addEventListener("calciteLookupChange", calciteComboboxChangeEvt => {
-		dbgMess("calciteLookupChange");
     });
 	
 	 addressCombobox.addEventListener("calciteComboboxClose", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxClose");
     });
 
 	 addressCombobox.addEventListener("calciteComboboxChange", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxChange");
     });
 	
 	 addressCombobox.addEventListener("calciteComboboxFilterChange2", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxFilterChange2");
-		dbgMess(theKey);
     });
 
 	 addressCombobox.addEventListener("calciteComboboxOpen", calciteComboboxChangeEvt => {
-		dbgMess("calciteComboboxOpen");
     });
 		
 	
@@ -190,7 +176,6 @@
 			
 			if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){
 				theString+= iKey;
-				dbgMess(theString);
 				refreshIt = true;
 			}
 			
@@ -242,8 +227,7 @@
 
 		var theWhere = "SITEADDRESS like '"+iVal+"%'";console.log(theWhere);
 		
-		theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' and CUC_TYPE_Current <> 'Retired'";
-		
+		theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
 		console.log(theWhere);
 		
 		
@@ -259,7 +243,7 @@
 		const combobox = document.getElementById("address-select");
 		query.run(function (error, featureCollection, response) {
 			if (error) {
-			   dbgMess(error);
+			   console.log(error);
 			   return;
 			}
 			combobox.innerHTML = "";
@@ -280,11 +264,8 @@
 			combobox.setFocus();
 				
 		});
-}
-	
-	function dbgMess(i){
-		console.log(i);
-	}
+    }
+
   }, false);
 </script>
 
