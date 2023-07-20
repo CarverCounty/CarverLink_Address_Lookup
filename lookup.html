@@ -13,7 +13,7 @@
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 
-<!-- Load Esri Leaflet Vector from CDN -->
+	<!-- Load Esri Leaflet Vector from CDN -->
     <script src="https://unpkg.com/esri-leaflet-vector@4.0.2/dist/esri-leaflet-vector.js" crossorigin=""></script>
 	
   </head>
@@ -127,45 +127,16 @@
     });	
 	
 	addressCombobox.addEventListener("keyup",function(e){
-		
-		<!-- var refreshIt = false; -->
-		popit(true);
-		<!-- for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){ -->
-			<!-- var iKey = keyArray[iIndex]; -->
-			
-			<!-- if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){ -->
-				<!-- refreshIt = true; -->
-			<!-- } -->
-			
-			<!-- if (iKey == "Escape"){ -->
-					<!-- refreshIt = true; -->
-			<!-- } -->
-
-			<!-- if (iKey == "Enter"){ -->
-					<!-- zoomToAddy(addressCombobox.value); -->
-					<!-- refreshIt = false; -->
-			<!-- } -->
-			
-			<!-- if (refreshIt==true){ -->
-			   <!-- popit(true); -->
-			<!-- } -->
-		<!-- } -->
-		<!-- keyArray = []; -->
-	
+		popit();
 	});
 	
-	<!-- addressCombobox.addEventListener("keydown",function(e){ -->
-		<!-- keyArray.push(e.key); -->
-	<!-- }); -->
-	
-	<!-- var keyArray = []; -->
 	var prevQuery = "This is just a temp place holder";
     var queryFeatures = [];
 	
-    function popit(iOpen=true){
+    function popit(){
 		var theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
 		
-		if (theWhere == prevQuery){console.log("Skipping");
+		if (theWhere == prevQuery){
 			return true;
 		}
 		prevQuery = theWhere;
@@ -176,8 +147,8 @@
 		query.where(theWhere);
 		query.returnGeometry(false);
 		query.orderBy("SITEADDRESS");
-		query.limit(25);
-			
+		query.limit(35);
+			console.log("x2");
 		const combobox = document.getElementById("address-select");
 		query.run(function (error, featureCollection, response) {
 			if (error) {
@@ -186,20 +157,53 @@
 			combobox.innerHTML = "";
 			queryFeatures = featureCollection.features;
 
-			var addressList = [];
-			
+			<!-- Make a list of all addresses returned so that we can skip the "Northeast" if there is a "NE" -->
+			var siteList = [];
 			for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
 				iFeature = queryFeatures[iIndex];
-				thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
-				addressList.push({name:thisAddy, id:thisAddy});
-				const item = document.createElement("calcite-combobox-item");
-				item.value = thisAddy;
-				item.textLabel = thisAddy;
-				combobox.appendChild(item);
+				siteList.push(iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE);			
 			}
-			combobox.open = (iOpen == true);
-			combobox.setFocus();
+			
+			var addressList = [];
+			for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
+				iFeature = queryFeatures[iIndex];
 				
+				if (addressList.length < 25){
+					/*** First going to eliminate the North/South/East/West/Northeast/Northwest/SouthEast/SouthWest versions if the abbreivated versions exist in siteList ***/
+					var addIt = true;
+					const prefixList = [["N","North"],["S","South"],["E","East"],["W","West"],["NE","Northeast"],["SE","Southeast"],["NW","Northwest"],["SW","Southwest"]];
+					for (var iPreIndex = 0; iPreIndex < prefixList.length; ++iPreIndex){ /*** Check if Southeast, exists***/
+						if ((iFeature.properties.SITEADDRESS+",").indexOf(prefixList[iPreIndex][1]+",") > -1){
+							var tmpSite = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
+							tmpSite = tmpSite.replace(prefixList[iPreIndex][1]+",",prefixList[iPreIndex][0]+",");
+							
+							if (siteList.indexOf(tmpSite) > -1){
+								addIt = false;
+							}
+						} else {
+							if (iFeature.properties.SITEADDRESS.indexOf(" "+prefixList[iPreIndex][1]+" ") > -1){ /*** Check if " Southeast " exists***/
+								var tmpSite = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
+								tmpSite = tmpSite.replace(" "+prefixList[iPreIndex][1]+" "," "+prefixList[iPreIndex][0]+" ");
+								
+								if (siteList.indexOf(tmpSite) > -1){
+									addIt = false;
+								}
+							}					
+						}
+					}
+					
+					if (addIt == true) {
+						thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
+						addressList.push({name:thisAddy, id:thisAddy});
+						const item = document.createElement("calcite-combobox-item");
+						item.value = thisAddy;
+						item.textLabel = thisAddy;
+						combobox.appendChild(item);
+					}
+				}
+			}
+			combobox.open = true;
+			combobox.setFocus();
 		});
     }
 
