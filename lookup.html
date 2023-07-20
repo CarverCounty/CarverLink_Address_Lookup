@@ -115,7 +115,6 @@
 				
 				tmpMarker = L.marker([theY, theX], {icon: carverIcon});
 				tmpMarker.addTo(map);
-				theString = "";
 				document.getElementById("address-select").innerHTML = "";
 				const combobox = document.getElementById("address-select");
 				combobox.open = false;
@@ -134,35 +133,20 @@
 			var iKey = keyArray[iIndex];
 			
 			if ("abcdefghijklmnopqrstuvwxyz1234567890 ///".includes(iKey.toLowerCase())){
-				theString+= iKey;
 				refreshIt = true;
-			}
-			
-			if (iKey == "Backspace"){
-			  if (theString.length>1){
-				theString = theString.substring(0,theString.length-1);
-				refreshIt = true;
-			  } else {
-				 if (theString.length==1){
-					theString= "";
-					refreshIt = true;
-				 }
-			  }
 			}
 			
 			if (iKey == "Escape"){
-					theString= "";
 					refreshIt = true;
 			}
 
 			if (iKey == "Enter"){
-					theString= "";
 					zoomToAddy(addressCombobox.value);
 					refreshIt = false;
 			}
 			
 			if (refreshIt==true){
-			   popit(theString,true);
+			   popit(true);
 			}
 		}
 		theKey = "";
@@ -175,12 +159,11 @@
 		keyArray.push(e.key);
 	});
 	
-	var theString = "";
 	var theKey = "";
 	var keyArray = [];
     var queryFeatures = "";
 	
-    function popit(iVal,iOpen=true){
+    function popit(iOpen=true){
 		var tmpVal = "1";
 
 		var theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
