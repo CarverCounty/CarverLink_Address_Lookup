@@ -97,11 +97,9 @@
 	
 	function zoomToAddy(inAddy){
 		for (var iIndex = 0; iIndex < queryFeatures.length; ++iIndex){
-			iFeature = queryFeatures[iIndex];console.log(iFeature);
+			iFeature = queryFeatures[iIndex];
 			thisAddy = iFeature.properties.SITEADDRESS+", "+iFeature.properties.USPS_PLACE;
 			if (thisAddy == inAddy){
-				console.log(iFeature);
-				console.log("Zoom!");
 			    var theX = iFeature.properties.x;
 			    var theY = iFeature.properties.y;
 			    var theZone = iFeature.properties.Info;
@@ -120,7 +118,6 @@
 				document.querySelector("#zoneTitle").innerHTML = thisAddy+", MN "+iFeature.properties.Zip;
 				document.querySelector("#zoneMessage").innerHTML = theZone; //"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu non odio euismod lacinia at quis risus. Ac tortor dignissim convallis aenean et tortor at risus. Purus semper eget duis at tellus at urna condimentum. Justo laoreet sit amet cursus sit. Dictum fusce ut placerat orci nulla pellentesque. Volutpat blandit aliquam etiam erat. Amet nisl suscipit adipiscing bibendum est ultricies integer quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Quam quisque id diam vel quam elementum pulvinar. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Euismod lacinia at quis risus. Mattis nunc sed blandit libero volutpat sed cras. Nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est. Fringilla ut morbi tincidunt augue interdum velit. Eleifend donec pretium vulputate sapien nec sagittis aliquam. Eu volutpat odio facilisis mauris sit.";
 				document.querySelector("#serviceAlert").setAttribute("open",true)
-				console.log("##################################################");
 				if (typeof(tmpMarker) != "undefined"){
 					tmpMarker.remove()
 				}
@@ -168,7 +165,6 @@
 		
 	
 	addressCombobox.addEventListener("keyup",function(e){
-		console.log("keyup");
 		
 		var refreshIt = false;
 		for (var iIndex = 0; iIndex < keyArray.length; ++iIndex){
@@ -212,7 +208,6 @@
 	});
 	
 	addressCombobox.addEventListener("keydown",function(e){
-		console.log("keydown");
 		theKey = e.key;
 		keyArray.push(e.key);
 	});
@@ -225,11 +220,7 @@
     function popit(iVal,iOpen=true){
 		var tmpVal = "1";
 
-		var theWhere = "SITEADDRESS like '"+iVal+"%'";console.log(theWhere);
-		
-		theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
-		console.log(theWhere);
-		
+		var theWhere = "SITEADDRESS like '"+addressCombobox.shadowRoot.querySelectorAll(".input")[0].value+"%' AND CUC_TYPE_Current <> 'Retired'";
 		
 		var query = L.esri.query({
 		   url: 'https://services.arcgis.com/wMZT8kNwa6tOxhKg/arcgis/rest/services/CUCI_Addresses_20230714_PublicView/FeatureServer/0'
@@ -243,7 +234,6 @@
 		const combobox = document.getElementById("address-select");
 		query.run(function (error, featureCollection, response) {
 			if (error) {
-			   console.log(error);
 			   return;
 			}
 			combobox.innerHTML = "";
